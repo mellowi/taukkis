@@ -1,0 +1,153 @@
+body {
+	padding-top: 60px;
+}
+
+a.plain:link
+{ color: #333; text-decoration: none }
+a.plain:active
+{ color: #333; text-decoration: none }
+a.plain:visited
+{ color: #333; text-decoration: none }
+a.plain:hover
+{ color: #333; text-decoration: none }
+
+.status-bar {
+    height: 60px;
+}
+
+.about-icon {
+    float: left;
+    margin-right: 12px;
+}
+
+/* REPLAYS */
+.replays ul, ol {
+	padding: 0;
+	margin: 0;
+}
+
+ul.replay_list > li {
+	margin: 5px;
+	overflow: hidden;
+	list-style: none;
+	background-color: #FFFFFF;
+	border-bottom: 1px solid #EEEEEE;
+}
+
+.replay_list .map {
+	float: left;
+	position: relative;
+	z-index: 1;
+	margin: 10px 10px 0 0;
+	width: 60px;
+	height: 60px;
+	border: 1px solid #EEEEEE;
+}
+
+.replay_list .map img {
+	width: 60px;
+	height: 60px;
+}
+
+.replay_list .download {
+	float: right;
+	position: relative;
+	z-index: 1;
+	margin: 10px 10px 0 0;
+	width: 60px;
+	height: 60px;
+	border: 1px solid #EEEEEE;
+}
+
+.replay_list .date {
+	float: left;
+	position: relative;
+	display: block;
+	margin: 10px;
+	width: 60px;
+	height: 60px;
+	border: 1px solid #888885; 
+	-moz-border-radius: 5px; 
+	-webkit-border-radius: 5px;
+	font: 24px/46px "Helvetica Neue", Arial, sans-serif; 
+	text-align: center;
+	letter-spacing: 2px; 
+	text-decoration: none; 
+	color: #666;
+	background: #fcfcfc;
+}
+
+.replay_list .date sup {
+	top: -10px;
+	font-size: 10px; 
+	line-height: 10px; 
+	letter-spacing: normal;
+}
+
+.replay_list .date abbr {
+	display: block; font: 10px Verdana, sans-serif; 
+	letter-spacing: normal; 
+	color: white;
+	-moz-border-radius-topright: 5px; 
+	-webkit-border-top-right-radius: 5px;
+}
+
+.replay_list .date>:first-child {
+	width: 50px; 
+	margin: -1px 0 0 -1px; 
+	padding: 0 5px; 
+	border: 1px solid #111;
+	line-height: 16px; 
+	text-align: left; 
+	text-transform: uppercase;
+	background: #333;
+}
+
+.replay_list .date sup+abbr	{
+	position: absolute; 
+	top: 0; 
+	left: 0; 
+	width: 52px; 
+	padding: 0 3px;
+	border: 1px solid #333; 
+	border-bottom: 1px solid #111;
+	line-height: 14px; 
+	color: #ccc; 
+	text-align: right;
+}
+
+.replay_list .players {
+	float: left;
+	margin: 10px 0;
+	width: 200px;
+}
+
+.replay_list .player {
+	display: block;
+	position: relative;
+	z-index: 1;
+	margin: 2px;
+	height: 26px;
+	line-height: 26px;
+	background-color: #F4F4F4;
+	border-radius: 3px;
+	border: 1px solid #EEEEEE;
+}
+
+.replay_list .player .race {
+	float: left;
+	position: relative;
+	padding: 3px;
+	width: 20px;
+	height: 20px;
+}
+
+.replay_list .link {
+	display: block;
+	position: relative;
+	z-index: 0;
+	height: 83px;
+}
+.hidden {
+	display: none;
+}
