@@ -11,10 +11,7 @@
 
   // optimize
   optimize: "uglify",
-
-  // cs modules not needed after build (all js)
-  stubModules: ['cs'],
-
+  
   // remove cs module names
   onBuildWrite: function(moduleName, path, contents) {
     return contents.replace(/cs\!/g, '');
