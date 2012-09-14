@@ -14,11 +14,4 @@ twitter bootstrap
 
 BUILD TOOL
 ==========
-node.js (req. require.js OPTIMIZER)
-
-
-TODO
-====
-- build the coffee scripts (separate .js files with same filenames)
-- define["cs!"] & require["cs!"] (remove "cs!")
-- remove cs.js and coffee-script from build version
+./build.sh (req node)
