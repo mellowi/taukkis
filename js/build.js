@@ -12,20 +12,19 @@
   // optimize
   optimize: "uglify",
 
-  // are there really needed?
-  paths: {
-    cs: 'libs/cs',
-    'coffee-script': 'libs/coffee-script'
-  },
-
   // cs modules not needed after build (all js)
   stubModules: ['cs'],
+
+  // remove cs module names
+  onBuildWrite: function(moduleName, path, contents) {
+    return contents.replace(/cs\!/g, '');
+  },
 
   // Modules to be optimized:
   modules: [
     { 
       name: "main",
-      exclude: ['coffee-script'] 
+      exclude: ['coffee-script'],
     }
   ]
 })
