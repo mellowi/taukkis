@@ -14,7 +14,12 @@ require.config({
     text: "plugins/text-2.0.0",
 
     // Own libs
-    settings: "settings"
+    settings: "settings",
+
+    // CoffeeScript
+    cs: 'libs/cs',
+    'coffee-script': 'libs/coffee-script'
+  
   },
 
   // Sets the configuration for your third party scripts that are not AMD compatible
@@ -29,5 +34,5 @@ require.config({
 
 // Load the application
 require(['modernizr','jquery','backbone','settings'], function(Modernizr, $, Backbone) {
-  require(['bootstrap', 'routers/router']);
+  require(['bootstrap', 'cs!routers/router']);
 });
