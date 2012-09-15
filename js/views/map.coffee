@@ -2,7 +2,7 @@ define ["cs!models/map", "text!templates/home.html"], (Map, Template) ->
 
   class MapView extends Backbone.View
 
-    el: "#content"
+    el: "#app"
     template: _.template(Template)
     events:
 #      "click #locate": "mapClick"
@@ -20,9 +20,11 @@ define ["cs!models/map", "text!templates/home.html"], (Map, Template) ->
 
     # constructor
     initialize: ->
+      @init()
+
+    init: ->
       @map = new Map()
       @mapInstance = @map.getInstance()
-
 
     # rendering
     render: ->
