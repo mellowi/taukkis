@@ -4,7 +4,7 @@
 rm -rf ../apps4finlands-build
 
 # compile coffee
-for i in `find js -maxdepth 2 -mindepth 1 -type f -name "*.coffee"`; do
+for i in `find js -maxdepth 4 -mindepth 1 -type f -name "*.coffee"`; do
 	file=$i
 	name=${file%.*}
 	coffee --compile $i

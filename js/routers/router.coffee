@@ -10,7 +10,7 @@ class Router extends Backbone.Router
     home: "home"
 
   home: ->
-    require ["cs!views/home"], ->
-      views.home.render()
+    require ["cs!views/map"], ->
+      views.map.render()
 
 return new Router

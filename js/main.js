@@ -18,8 +18,15 @@ require.config({
 
     // CoffeeScript
     cs: 'libs/cs',
-    'coffee-script': 'libs/coffee-script'
+    'coffee-script': 'libs/coffee-script',
   
+    // map
+    openlayer: 'libs/OpenLayers.mobile.debug',
+    googleapi: 'https://maps.google.com/maps/api/js?v=3.2&sensor=false',
+
+    // json & cookies
+    json: 'libs/jquery_cookie',
+    jsoncookie: 'libs/jquery_jsoncookie',
   },
 
   // Sets the configuration for your third party scripts that are not AMD compatible
@@ -33,6 +40,6 @@ require.config({
 });
 
 // Load the application
-require(['modernizr','jquery','backbone','settings'], function(Modernizr, $, Backbone) {
-  require(['bootstrap', 'cs!routers/router']);
+require(['modernizr','jquery','backbone','openlayer','googleapi'], function(Modernizr, $, Backbone) {
+  require(['bootstrap', 'json', 'jsoncookie', 'settings', 'cs!utils', 'cs!routers/router']);
 });
