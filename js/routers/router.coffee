@@ -2,6 +2,8 @@ class Router extends Backbone.Router
 
   initialize: ->
     Backbone.history.start()
+    require ["cs!models/map"], (Map) ->
+      utils.map = new Map()
     require ["cs!views/header"], ->
       views.header.render()
 

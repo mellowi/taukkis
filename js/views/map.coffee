@@ -10,42 +10,28 @@ define ["cs!models/map"], (Map) ->
       "click #down": "moveDown"
       "click #left": "moveLeft"
       "click #right": "moveRight"
-    map: null
-    mapInstance: null
-
-    # constructor
-    initialize: ->
-      @init()
-
-    init: ->
-      @map = new Map()
-      @mapInstance = @map.getInstance()
-
-    # rendering
-    render: ->
-      $(@el).html @template()
-
+    map: utils.map
 
     # event handler
     zoomIn: ->
-      @mapInstance.zoomIn()
+      @map.zoomIn()
 
 
     zoomOut: ->
-      @mapInstance.zoomOut()
+      @map.zoomOut()
 
 
     moveUp: ->
-      @mapInstance.pan(0, -256)
+      @map.pan(0, -256)
 
 
     moveDown: ->
-      @mapInstance.pan(0, 256)
+      @map.pan(0, 256)
 
 
     moveLeft: ->
-      @mapInstance.pan(-256, 0)
+      @map.pan(-256, 0)
 
 
     moveRight: ->
-      @mapInstance.pan(256, 0)
+      @map.pan(256, 0)

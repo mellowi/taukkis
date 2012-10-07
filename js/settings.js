@@ -1,5 +1,7 @@
 var views = {};
 
+var utils = {};
+
 var defaults = {
   "projection": new OpenLayers.Projection("EPSG:900913"),
   "projection2": new OpenLayers.Projection("EPSG:4326"),

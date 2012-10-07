@@ -2,7 +2,6 @@ define [
   "cs!models/geo-locate-control"
 ], (GeoLocateControl) ->
 
-
   class Map extends Backbone.Model
 
     # constructor
@@ -38,11 +37,7 @@ define [
 
       @instance.setCenter(new OpenLayers.LonLat(mapPosition.longitude, mapPosition.latitude), mapPosition.zoom)
       @instance.setBaseLayer(mapQuest)
-
-
-    getInstance: ->
-      @instance
-
+      return @instance
 
     storeMapPosition: (event) ->
       lonlat = event.object.getCenter();
