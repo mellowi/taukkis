@@ -10,7 +10,7 @@ html, body {
   }
 }
 #app {
-  padding-top: 41px;
+  position : relative;
 }
 #map {
   width    : 100%;
