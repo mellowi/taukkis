@@ -1,0 +1,29 @@
+server.document-root = "/path/to/apps4finlands/"
+
+server.bind = "localhost"
+server.port = 8000
+
+index-file.names = ( "index.html" )
+
+server.modules =  (
+   "mod_proxy",
+)
+
+mimetype.assign = (
+  ".html" => "text/html", 
+  ".txt" => "text/plain",
+  ".jpg" => "image/jpeg",
+  ".png" => "image/png",
+  ".js" => "application/javascript",
+  ".css" => "text/css"
+)
+
+# $HTTP["url"] =~ "(^/api/)" {
+proxy.server  = ( "/api/" => (
+  "API" =>
+    ( "host" => "127.0.0.1",
+      "port" => 8022
+    )
+  )
+)
+# }
