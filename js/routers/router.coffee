@@ -17,7 +17,7 @@ class Router extends Backbone.Router
 
   routeMap: ->
     require ["cs!views/route-map"], ->
-      views.routenMap.render()
+      views.routeMap.render()
 
   timeline: ->
     require ["cs!views/timeline"], ->

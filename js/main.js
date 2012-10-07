@@ -9,7 +9,7 @@ require.config({
     jquerymobile: "libs/jquery.mobile-1.1.0.min",
     underscore: "libs/lodash-0.4.2",
     backbone: "libs/backbone-0.9.2",
-    bootstrap: "libs/bootstrap.min",
+    bootstrap: "libs/bootstrap",
 
     // Require.js Plugins
     text: "plugins/text-2.0.0",
@@ -42,5 +42,5 @@ require.config({
 
 // Load the application
 require(['modernizr','jquery','backbone','openlayer','googleapi'], function(Modernizr, $, Backbone) {
-  require(['jquerymobile', 'bootstrap', 'json', 'jsoncookie', 'settings', 'cs!utils', 'cs!routers/router']);
+  require(['bootstrap', 'json', 'jsoncookie', 'settings', 'cs!utils', 'cs!routers/router']);
 });
