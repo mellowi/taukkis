@@ -6,7 +6,7 @@ define ["cs!views/map", "text!templates/route-map.html"], (MapView, Template) ->
 
     # rendering
     render: ->
-      console.log(@map);
+      $("#map").removeClass("hidden");
       $(@el).html @template()
 
   ))

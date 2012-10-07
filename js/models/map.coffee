@@ -26,6 +26,7 @@ define [
             }
           })
           new GeoLocateControl(@instance).getInstance()
+          new OpenLayers.Control.Zoom()
         ]
         layers: [
           mapQuest

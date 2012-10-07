@@ -22,7 +22,7 @@ require.config({
     "coffee-script": "libs/coffee-script",
   
     // map
-    openlayer: "libs/OpenLayers.mobile.debug",
+    openlayer: "libs/OpenLayers.mobile",
     googleapi: "https://maps.google.com/maps/api/js?v=3.2&sensor=false",
 
     // json & cookies

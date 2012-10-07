@@ -7,6 +7,7 @@ define ["text!templates/timeline.html"], (Template) ->
     template: _.template(Template)
 
     render: ->
+      $("#map").addClass("hidden");
       $(@el).html @template()
 
   views.timeline = new Timeline
