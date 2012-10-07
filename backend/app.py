@@ -44,8 +44,8 @@ class POI(object):
 
     @classmethod
     def from_list(cls, lst):
-        lon = lst[0]
-        lat = lst[1]
+        lon = float(lst[0])
+        lat = float(lst[1])
         title = lst[2]
         location = lst[3]
         category = lst[4]
