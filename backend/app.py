@@ -10,7 +10,7 @@ from bottle import route, run, get, request, response
 o8 = codecs.getwriter('utf-8')(sys.stdout)
 e8 = codecs.getwriter('utf-8')(sys.stderr)
 
-@route('/v1/pois.json')
+@route('/api/v1/pois.json')
 def pois_v1():
     global _pois
     categories = request.query.get('categories', None)
@@ -91,7 +91,7 @@ if __name__ == '__main__':
     parser.add_option("--host", dest="host",
                       help="bind to HOST", metavar="HOST", default="localhost")
     parser.add_option("--port", dest="port",
-                      help="bind to PORT", metavar="PORT", type="int", default=8080)
+                      help="bind to PORT", metavar="PORT", type="int", default=8022)
 
     parser.add_option("-p", "--poi-file", dest="poi_file",
                       help="read points of interests from FILE", metavar="FILE", default="../data/curated_sights.csv")
