@@ -4,13 +4,7 @@ html, body {
   height  : 100%;
   width   : 100%;
 }
-@media only screen and (max-width: 600px) {
-  html, body {
-    height  : 117%;
-  }
-}
 #app {
-  position : relative;
 }
 #map {
   width    : 100%;
