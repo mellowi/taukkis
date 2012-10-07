@@ -23,4 +23,8 @@ class Router extends Backbone.Router
     require ["cs!views/timeline-map"], ->
       views.timelineMap.render()
 
+  map: ->
+    require ["cs!views/map"], ->
+      views.map.render()
+
 return new Router
