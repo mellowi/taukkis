@@ -6,25 +6,21 @@ class Router extends Backbone.Router
       views.header.render()
 
   routes:
-    "": "destination",
-    "destination": "destination",
-    "route": "route",
+    "": "destinationMap"
+    "destination": "destinationMap"
+    "route": "routeMap"
     "timeline": "timeline"
 
-  destination: ->
+  destinationMap: ->
     require ["cs!views/destination-map"], ->
       views.destinationMap.render()
 
-  route: ->
-    require ["cs!views/route"], ->
-      views.route.render()
+  routeMap: ->
+    require ["cs!views/route-map"], ->
+      views.routenMap.render()
 
   timeline: ->
-    require ["cs!views/timeline-map"], ->
-      views.timelineMap.render()
-
-  map: ->
-    require ["cs!views/map"], ->
-      views.map.render()
+    require ["cs!views/timeline"], ->
+      views.timeline.render()
 
 return new Router

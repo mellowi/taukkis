@@ -1,14 +1,9 @@
-define ["cs!models/map", "text!templates/home.html"], (Map, Template) ->
+define ["cs!models/map"], (Map) ->
 
-  class MapView extends Backbone.View
+  Backbone.View.extend
 
     el: "#app"
-    template: _.template(Template)
     events:
-#      "click #locate": "mapClick"
-#      "change #lolnasLayer": "lolnasChange"
-#      "change #alkoLayer": "alkoChange"
-#      "change #mapSelect": "mapChange"
       "click #plus": "zoomIn"
       "click #minus": "zoomOut"
       "click #up": "moveUp"
@@ -54,5 +49,3 @@ define ["cs!models/map", "text!templates/home.html"], (Map, Template) ->
 
     moveRight: ->
       @mapInstance.pan(256, 0)
-
-  views.map = new MapView

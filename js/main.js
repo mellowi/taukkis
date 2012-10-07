@@ -27,7 +27,7 @@ require.config({
 
     // json & cookies
     json: "libs/jquery_cookie",
-    jsoncookie: "libs/jquery_jsoncookie",
+    jsoncookie: "libs/jquery_jsoncookie"
   },
 
   // Sets the configuration for your third party scripts that are not AMD compatible
