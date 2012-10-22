@@ -87,6 +87,7 @@ html, body {
 .timeline .list-items {
   padding-top: 88px;
 }
+
 .timeline .list-item {
   display: block;
   height: 76px;
@@ -94,6 +95,10 @@ html, body {
   border-bottom: 2px solid #c1c1c1;
   color: #000000;
   text-decoration: none;
+}
+
+.timeline .list-item.passed {
+  color: #999;
 }
 
 .timeline .list-item .information {
