@@ -31,10 +31,21 @@ html, body {
 }
 
 /* timeline */
+.timeline .header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
 .timeline .list-header {
-  position: relative;
+  position: fixed;
+  top: 50px;
+  width: 100%;
+  z-index: 1;
   height: 38px;
   border-bottom: 2px solid #c1c1c1;
+  background: white;
   clear: both;
 }
 
@@ -68,6 +79,9 @@ html, body {
   float: right;
 }
 
+.timeline .list-items {
+  padding-top: 88px;
+}
 .timeline .list-item {
   display: block;
   height: 76px;

@@ -226,6 +226,11 @@ a:hover {
   width: 940px;
 }
 
+.navbar-fixed-top .navbar-inner,
+.navbar-fixed-bottom .navbar-inner {
+  padding: 5px;
+}
+
 .span12 {
   width: 940px;
 }
