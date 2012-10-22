@@ -12,6 +12,7 @@ class Router extends Backbone.Router
     "destination": "destinationMap"
     "route": "routeMap"
     "timeline": "timeline"
+    "category?id=:id": "category"
 
   destinationMap: ->
     $("body").removeClass().addClass("destination");
@@ -27,5 +28,10 @@ class Router extends Backbone.Router
     $("body").removeClass().addClass("timeline");
     require ["cs!views/timeline"], ->
       views.timeline.render()
+
+  category: (id) ->
+    # TODO: some kind of category list (toggle with this id select)
+    console.log(id);
+    
 
 return new Router
