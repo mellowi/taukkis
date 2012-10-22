@@ -60,7 +60,6 @@
     function drawBoxes(boxes) {
       boxpolys = new Array(boxes.length);
       for (var i = 0; i < boxes.length; i++) {
-        alert(boxes[i]);
         boxpolys[i] = new google.maps.Rectangle({
           bounds: boxes[i],
           fillOpacity: 0,
