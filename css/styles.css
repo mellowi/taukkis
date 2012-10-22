@@ -22,8 +22,17 @@ html, body {
   border-radius : 5px 0 0 0;
 }
 
+.right {
+  float: right;
+}
+
+.hidden {
+  display: none;
+}
+
 /* timeline */
 .timeline .list-header {
+  position: relative;
   height: 38px;
   border-bottom: 2px solid #c1c1c1;
   clear: both;
@@ -31,27 +40,68 @@ html, body {
 
 .timeline .list-header div {
   float: left;
-  width: 10%;
-  margin-left: 10px;
   line-height: 38px;
   font-size: 16px;
   font-weight: bold;
 }
 
 .timeline .list-header div:first-child {
-  width: 40%;
+  margin-left: 10px;
+}
+
+.timeline .list-header .road {
+  position: relative;
+  width: 30px;
+  height: 38px;
+  background: #CCCCCC;
+  border-left: 1px solid #c1c1c1;
+}
+
+.timeline .list-header .time {
+  float: left;
+  width: 100px;
+  text-align: center;
+  border-left: 1px solid #c1c1c1;
 }
 
 .timeline .list-header div:last-child {
   float: right;
-  margin-right: 10px;
 }
 
 .timeline .list-item {
   display: block;
-  width: 10%;
-  margin-left: 10px;
-  line-height: 38px;
-  font-size: 16px;
+  height: 76px;
+  position: relative;
+  border-bottom: 2px solid #c1c1c1;
+  color: #000000;
+  text-decoration: none;
+}
+
+.timeline .list-item .information {
+  float: left;
+  padding: 20px 10px 15px 20px;
+  height: 41px;
+}
+
+.timeline .list-item .title {
+  font-size: 18px;
   font-weight: bold;
+}
+
+.timeline .list-item .time {
+  float: right;
+  width: 100px;
+  text-align: center;
+  line-height: 76px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.timeline .list-item .road {
+  float: left;
+  width: 30px;
+  height: 76px;
+  background: #CCCCCC;
+  border-left: 1px solid #c1c1c1;
+  border-right: 1px solid #c1c1c1;
 }
