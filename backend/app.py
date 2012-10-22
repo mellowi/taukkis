@@ -21,18 +21,48 @@ def pois_v1():
         if len(categories) == 0:
             categories = None
 
+    bounding_box = None
+
+    if request.query.get('bbox', None) is not None:
+        bounding_box = BoundingBox(request.query.get('bbox', None))
+
     result = []
     for poi in _pois:
         if categories is not None and poi.category not in categories:
             continue
         elif categories is not None and poi.category in categories:
-            result.append(poi)
+            if bounding_box is not None and poi.lon > bounding_box.left and poi.lon < bounding_box.right and poi.lat > bounding_box.bottom and poi.lat < bounding_box.top:
+                result.append(poi)
+            elif bounding_box is None:
+                result.append(poi)
         elif categories is None:
-            result.append(poi)
+            if bounding_box is not None and poi.lon > bounding_box.left and poi.lon < bounding_box.right and poi.lat > bounding_box.bottom and poi.lat < bounding_box.top:
+                result.append(poi)
+            elif bounding_box is None:
+                result.append(poi)
 
     response.content_type = 'application/json'
     return json.dumps([poi.to_dict() for poi in result], ensure_ascii=False)
 
+
+class BoundingBox(object):
+    def __init__(self, box):
+        bbox = box.split(",")
+        if len(bbox) != 4:
+            raise ValueError
+        self.bottom = float(bbox[0])
+        self.left = float(bbox[1])
+        self.top = float(bbox[2])
+        self.right = float(bbox[3])
+
+    def __repr__(self):
+        return "<Bounding Box (%s, %s), (%s, %s)>" % (self.left, self.bottom, self.right, self.top)
+
+    def __str__(self):
+        return unicode(self).encode('ASCII', 'backslashreplace')
+
+    def __unicode__(self):
+        return u"({0}, {1}), ({2}, {3})".format(self.left, self.bottom, self.right, self.top)
 
 class POI(object):
     def __init__(self, lon, lat, title, location, category):
@@ -68,7 +98,7 @@ class POI(object):
     def __unicode__(self):
         return u"{0}, {1}".format(self.title, self.location)
 
-    
+
 def read_pois(file):
     result = []
 
@@ -95,7 +125,7 @@ if __name__ == '__main__':
 
     parser.add_option("-p", "--poi-file", dest="poi_file",
                       help="read points of interests from FILE", metavar="FILE", default="../data/curated_sights.csv")
-    
+
     parser.add_option("-d", "--debug",
                       action="store_true", dest="debug", default=False,
                       help="print extra debug output")
