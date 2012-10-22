@@ -3,6 +3,7 @@ html, body {
   padding : 0;
   height  : 100%;
   width   : 100%;
+  min-width: 300px;
 }
 #app {
 }
@@ -22,6 +23,71 @@ html, body {
   border-radius : 5px 0 0 0;
 }
 
+#popup {
+  position: absolute;
+  z-index: 2000;
+  top: 0;
+  left: 0;
+  min-width: 320px;
+  width: 100%;
+  min-height: 100%;
+  display: block;
+  overflow: visible;
+  border: 0;
+}
+
+.route #popup, .destination #popup {
+  min-height: 107%;
+}
+
+#popup .content {
+  min-width: 260px;
+  margin: 20px;
+  padding: 10px;
+  display: block;
+  overflow: visible;
+  background: #FFFFFF;
+}
+
+#popup #close {
+  position: relative;
+  top: -20px;
+  left: 18px;
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+  color: red;
+}
+
+#popup .content .map img {
+  min-width: 240px;
+  width: 90%;
+  height: 100px;
+  margin: 10px 10px; 
+
+}
+
+#popup .content .title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#popup .content .categories ul {
+  margin: 0;
+  list-style: none  
+}
+
+#popup .content .time-left {
+  margin-top: 10px;
+  width: 100px;
+  text-align: center;
+  line-height: 32px;
+  font-size: 18px;
+  font-weight: bold;
+  border: 2px solid #c1c1c1;
+}
+
 .right {
   float: right;
 }
@@ -31,9 +97,6 @@ html, body {
 }
 
 /* timeline */
-.timeline {
-  min-width: 300px;
-}
 
 .timeline .header {
   position: fixed;
