@@ -14,14 +14,17 @@ class Router extends Backbone.Router
     "timeline": "timeline"
 
   destinationMap: ->
+    $("body").removeClass().addClass("destination");
     require ["cs!views/destination-map"], ->
       views.destinationMap.render()
 
   routeMap: ->
+    $("body").removeClass().addClass("route");
     require ["cs!views/route-map"], ->
       views.routeMap.render()
 
   timeline: ->
+    $("body").removeClass().addClass("timeline");
     require ["cs!views/timeline"], ->
       views.timeline.render()
 
