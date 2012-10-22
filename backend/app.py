@@ -24,7 +24,8 @@ def pois_v1():
     bounding_box = None
 
     if request.query.get('bbox', None) is not None:
-        bounding_box = BoundingBox(request.query.get('bbox', None))
+        bbox = request.query.get('bbox', None).replace("(", "").replace(")", "")
+        bounding_box = BoundingBox(bbox)
 
     result = []
     for poi in _pois:
