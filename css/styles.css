@@ -32,7 +32,7 @@ html, body {
 
 /* timeline */
 .timeline {
-  min-width: 200px;
+  min-width: 300px;
 }
 
 .timeline .header {
@@ -45,6 +45,7 @@ html, body {
 .timeline .list-header {
   position: fixed;
   top: 50px;
+  min-width: 300px;
   width: 100%;
   z-index: 1;
   height: 38px;
