@@ -1,6 +1,6 @@
-define ["text!templates/destination-field.html", "cs!models/directions"], (Template) ->
+define ["text!templates/destination_selection.html", "cs!models/directions"], (Template) ->
 
-  class DestinationField extends Backbone.View
+  class DestinationSelection extends Backbone.View
     parent: "#destinationSelection"
     template: _.template(Template)
 
@@ -8,6 +8,7 @@ define ["text!templates/destination-field.html", "cs!models/directions"], (Templ
       # $("#map").addClass("hidden");
       $(@parent).html @template()
       $(@parent).removeClass("hidden");
+      $("#map").addClass("hidden");
       $("#destinationSubmit").click(@route)
 
     route: (destination) ->
@@ -26,9 +27,9 @@ define ["text!templates/destination-field.html", "cs!models/directions"], (Templ
       @directionService.route(request, (result, status) ->
         console.log "in cb"
         if (status == google.maps.DirectionsStatus.OK)
-          
+
           console.log "got ok"
-          
+
           console.log result.routes[0].overview_path
           # directionsRenderer.setDirections(result);
 
@@ -41,4 +42,4 @@ define ["text!templates/destination-field.html", "cs!models/directions"], (Templ
           alert "Directions query failed: " + status
       )
 
-  views.destinationField = new DestinationField
+  views.destinationSelection = new DestinationSelection

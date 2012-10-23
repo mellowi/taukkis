@@ -8,23 +8,17 @@ class Router extends Backbone.Router
       views.header.render()
 
   routes:
-    "": "destinationMap"
-    "destination": "destinationMap"
-    "field": "destinationField"
+    "": "destinationSelection"
+    "destination": "destinationSelection"
     "route": "routeMap"
     "timeline": "timeline"
     "category?id=:id": "category"
     "detail?id=:id": "detail"
 
-  destinationMap: ->
+  destinationSelection: ->
     $("body").removeClass().addClass("destination");
-    require ["cs!views/destination-map"], ->
-      views.destinationMap.render()
-
-  destinationField: ->
-    $("body").removeClass().addClass("destinationField");
-    require ["cs!views/destination-field"], ->
-      views.destinationField.render()
+    require ["cs!views/destination_selection"], ->
+      views.destinationSelection.render()
 
   routeMap: ->
     $("body").removeClass().addClass("route");
@@ -39,9 +33,9 @@ class Router extends Backbone.Router
   category: (id) ->
     # TODO: some kind of category list (toggle with this id select)
     console.log(id);
-    
+
   detail: (id) ->
     require ["cs!views/detail"], ->
       views.detail.render(id)
-    
+
 return new Router
