@@ -11,6 +11,7 @@
 
     var map = null;
     var boxpolys = null;
+    var markers = new Array();
     var directions = null;
     var routeBoxer = null;
     var distance = null; // km
@@ -35,6 +36,7 @@
     function route() {
       // Clear any previous route boxes from the map
       clearBoxes();
+      clearMarkers();
 
       distance = parseFloat(document.getElementById("distance").value);
 
@@ -52,7 +54,7 @@
           // Box around the overview path of the first route
           var path = result.routes[0].overview_path;
           var boxes = routeBoxer.box(path, distance);
-          drawPoints(boxes);
+          drawMarkers(boxes);
           drawBoxes(boxes);
         } else {
           alert("Directions query failed: " + status);
@@ -73,10 +75,10 @@
       }
     })(marker, i));
 
+    markers.push(marker);
   }
 
-    // Draw the array of boxes as polylines on the map
-    function drawPoints(boxes) {
+    function drawMarkers(boxes) {
       for (var i=0; i < boxes.length; i++) {
         $.getJSON("/api/v1/pois.json?bbox="+boxes[i], function(json) {
           if (json.length>0) {
@@ -112,6 +114,14 @@
         }
       }
       boxpolys = null;
+    }
+
+    // Clear markers currently on the map
+    function clearMarkers() {
+      for (var i = 0; i < markers.length; i++ ) {
+        markers[i].setMap(null);
+      }
+      markers = new Array();
     }
   </script>
   <style>
