@@ -1,11 +1,10 @@
-define ["text!templates/destination_selection.html", "cs!models/directions"], (Template) ->
+define ["text!templates/destination_selection.html", "cs!models/route"], (Template) ->
 
   class DestinationSelection extends Backbone.View
     parent: "#destinationSelection"
     template: _.template(Template)
 
     render: ->
-      # $("#map").addClass("hidden");
       $(@parent).html @template()
       $(@parent).removeClass("hidden");
       $("#map").addClass("hidden");
@@ -31,13 +30,10 @@ define ["text!templates/destination_selection.html", "cs!models/directions"], (T
           console.log "got ok"
 
           console.log result.routes[0].overview_path
-          # directionsRenderer.setDirections(result);
 
-          # // Box around the overview path of the first route
-          # var path = result.routes[0].overview_path;
-          # var boxes = routeBoxer.box(path, distance);
-          # drawMarkers(boxes);
-          # drawBoxes(boxes);
+          # TODO: tallenna reitti johonkin ?!
+
+          utils.app.navigate('route', true)
         else
           alert "Directions query failed: " + status
       )

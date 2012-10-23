@@ -38,4 +38,4 @@ class Router extends Backbone.Router
     require ["cs!views/detail"], ->
       views.detail.render(id)
 
-return new Router
+utils.app = new Router
