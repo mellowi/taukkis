@@ -23,7 +23,7 @@ require.config({
   
     // map
     openlayer: "libs/OpenLayers.mobile",
-    googleapi: "https://maps.google.com/maps/api/js?v=3.2&sensor=false",
+    // googleapi: "https://maps.google.com/maps/api/js?v=3.2&sensor=false",
 
     // json & cookies
     json: "libs/jquery_cookie",
@@ -41,6 +41,6 @@ require.config({
 });
 
 // Load the application
-require(['modernizr','jquery','backbone','openlayer','googleapi'], function(Modernizr, $, Backbone) {
+require(['modernizr','jquery','backbone','openlayer'], function(Modernizr, $, Backbone) {
   require(['bootstrap', 'json', 'jsoncookie', 'settings', 'cs!utils', 'cs!routers/router']);
 });

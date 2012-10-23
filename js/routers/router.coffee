@@ -10,6 +10,7 @@ class Router extends Backbone.Router
   routes:
     "": "destinationMap"
     "destination": "destinationMap"
+    "field": "destinationField"
     "route": "routeMap"
     "timeline": "timeline"
     "category?id=:id": "category"
@@ -19,6 +20,11 @@ class Router extends Backbone.Router
     $("body").removeClass().addClass("destination");
     require ["cs!views/destination-map"], ->
       views.destinationMap.render()
+
+  destinationField: ->
+    $("body").removeClass().addClass("destinationField");
+    require ["cs!views/destination-field"], ->
+      views.destinationField.render()
 
   routeMap: ->
     $("body").removeClass().addClass("route");
