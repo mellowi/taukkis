@@ -4,6 +4,7 @@ from __future__ import print_function
 import sys
 import codecs
 import json
+import traceback
 
 from bottle import route, run, get, request, response
 
@@ -108,7 +109,11 @@ def read_pois(file):
             parts = [item.strip() for item in line.replace("\n", "").split(",") if len(item) > 0]
             # print(u', '.join(parts), file=o8)
             if len(parts) < 5 or len(parts) > 7:
-                print(u"! Unknown format, line {0}: {1}".format(linenum, line.replace("\n", ""), file=e8))
+                try:
+                    print(u"! Unknown format, line {0}: {1}".format(linenum, line.replace("\n", ""), file=e8))
+                except UnicodeEncodeError, uee:
+                    traceback.print_exc()
+                    print(uee, file=e8)
             else:
                 result.append(POI.from_list(parts))
 
