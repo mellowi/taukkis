@@ -18,6 +18,16 @@ define [
         model.get "category"
 
 
+    sortByDistance: ->
+      @sortBy (model) ->
+        model.get "distance"
+
+
+    sortByTime: ->
+      @sortBy (model) ->
+        model.get "distance"
+
+
     getById: (id) ->
       @models.filter (model) ->
         return true  if id is model.get("id")
