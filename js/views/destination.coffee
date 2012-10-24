@@ -32,11 +32,12 @@ define ["text!templates/destination.html", "cs!models/route"], (Template, Route)
 
           console.log result
           console.log result.routes[0].overview_path
+
+          # saves route to the local storage - ez model style
           route = new Route(result);
-          console.log route
           route.save();
 
-          # TODO: tallenna reitti johonkin ?!
+          console.log route
 
           utils.app.navigate('route', true)
         else

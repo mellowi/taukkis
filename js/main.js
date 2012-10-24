@@ -42,5 +42,5 @@ require.config({
 
 // Load the application
 require(['modernizr','jquery','backbone','openlayer'], function(Modernizr, $, Backbone) {
-  require(['bootstrap', 'json', 'jsoncookie', 'settings', 'cs!utils', 'cs!routers/router']);
+  require(['bootstrap', 'jquerymobile', 'json', 'jsoncookie', 'settings', 'cs!utils', 'cs!routers/router']);
 });
