@@ -1,16 +1,17 @@
-define ["text!templates/destination_selection.html", "cs!models/route"], (Template) ->
+define ["text!templates/destination.html", "cs!models/route"], (Template, Route) ->
 
-  class DestinationSelection extends Backbone.View
-    parent: "#destinationSelection"
+  class Destination extends Backbone.View
+    el: "#app"
     template: _.template(Template)
+    events:
+      'click #destinationSubmit': "route"
 
     render: ->
-      $(@parent).html @template()
-      $(@parent).removeClass("hidden");
+      $(@el).html @template()
+      $(@el).removeClass("hidden");
       $("#map").addClass("hidden");
-      $("#destinationSubmit").click(@route)
 
-    route: (destination) ->
+    route: (e) ->
       @directionService = new google.maps.DirectionsService()
       destination = $("#destination").val()
       distance = 5.0
@@ -29,7 +30,11 @@ define ["text!templates/destination_selection.html", "cs!models/route"], (Templa
 
           console.log "got ok"
 
+          console.log result
           console.log result.routes[0].overview_path
+          route = new Route(result);
+          console.log route
+          route.save();
 
           # TODO: tallenna reitti johonkin ?!
 
@@ -38,4 +43,4 @@ define ["text!templates/destination_selection.html", "cs!models/route"], (Templa
           alert "Directions query failed: " + status
       )
 
-  views.destinationSelection = new DestinationSelection
+  views.destination = new Destination

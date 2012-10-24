@@ -1,5 +1,16 @@
 define [], () ->
 
   class Route extends Backbone.Model
-    initialize: (googleDirections) ->
-      @googleDirections = googleDirections
+
+    fetch: (options) ->
+      json = localStorage.getItem("route")
+      if(json)
+        data = JSON.parse(json);
+        @set(data);
+
+    save: (attributes, options) ->
+      localStorage.setItem("route", JSON.stringify(@attributes));
+
+
+    destroy: () ->
+      localStorage.removeItem("route");
