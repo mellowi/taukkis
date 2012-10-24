@@ -28,8 +28,8 @@ define ["cs!models/map"], (Map) ->
       content = $("#map")
       viewHeight = $(window).height()
       viewWidth = $(window).width()
-      content.height viewHeight
-      content.width viewWidth
+      content.height viewHeight-60 #60 header
+      content.width viewWidth+20 #20 scroller TODO: check with other devices - chrome tested
 
 
     zoomIn: ->
