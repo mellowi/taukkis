@@ -8,17 +8,17 @@ class Router extends Backbone.Router
       views.header.render()
 
   routes:
-    "": "destinationSelection"
-    "destination": "destinationSelection"
+    "": "destination"
+    "destination": "destination"
     "route": "routeMap"
     "timeline": "timeline"
     "category?id=:id": "category"
     "detail?id=:id": "detail"
 
-  destinationSelection: ->
+  destination: ->
     $("body").removeClass().addClass("destination");
-    require ["cs!views/destination_selection"], ->
-      views.destinationSelection.render()
+    require ["cs!views/destination"], ->
+      views.destination.render()
 
   routeMap: ->
     $("body").removeClass().addClass("route");
