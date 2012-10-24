@@ -19,21 +19,22 @@
 </head>
 <body>
 
-  <div data-role="page" id="route">
-    <div data-role="content">
-      <div class="header"></div>
-      <div id="app">
-        <div id="map"></div>
-      </div>
+  <div data-role="page" id="destination" class="destination">
+    <div data-role="header" class="header"></div>
+    <div data-role="content" id="destination-content"></div>
+  </div>
+  
+  <div data-role="page" id="route" class="route">
+    <div data-role="header" class="header"></div>
+    <div data-role="content" id="route-content">
+      <div id="map"></div>
     </div>
   </div>
 
-<!--
-<div class="header"></div>
-<div id="app"></div>
-<div id="map"></div>
-<div id="popup" class="hidden"></div>
--->
+  <div data-role="page" id="timeline" class="timeline">
+    <div data-role="header" class="header"></div>
+    <div data-role="content" id="timeline-content"></div>
+  </div>
 
 <!-- Add Google Analytics script here -->
 </body>

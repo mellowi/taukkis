@@ -5,7 +5,7 @@ define ["text!templates/header.html"], (Template) ->
     el: ".header"
     template: _.template(Template)
 
-    render: ->
-      $(@el).html @template()
+    render: (e) ->
+      $("#" + e.id + " div[data-role='header']").html @template()
 
   views.header = new Header

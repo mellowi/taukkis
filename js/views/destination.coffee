@@ -1,15 +1,15 @@
-define ["text!templates/destination.html", "cs!models/route"], (Template, Route) ->
+define ["text!templates/destination.html", "cs!models/route", "cs!views/header"], (Template, Route) ->
 
   class Destination extends Backbone.View
-    el: "#app"
+
+    el: "#destination"
     template: _.template(Template)
     events:
       'click #destinationSubmit': "route"
 
     render: ->
-      $(@el).html @template()
-      $(@el).removeClass("hidden");
-      $("#map").addClass("hidden");
+      views.header.render(@el)
+      $("#" + @el.id + " div[data-role='content']").html @template()
 
     route: (e) ->
       @directionService = new google.maps.DirectionsService()

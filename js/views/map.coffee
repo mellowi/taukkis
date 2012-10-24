@@ -2,7 +2,6 @@ define ["cs!models/map"], (Map) ->
 
   Backbone.View.extend
 
-    el: "#app"
     events:
       "click #plus": "zoomIn"
       "click #minus": "zoomOut"
@@ -10,6 +9,7 @@ define ["cs!models/map"], (Map) ->
       "click #down": "moveDown"
       "click #left": "moveLeft"
       "click #right": "moveRight"
+      
     map: utils.map
 
     # event handler

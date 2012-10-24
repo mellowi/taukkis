@@ -1,12 +1,12 @@
-define ["text!templates/timeline.html"], (Template) ->
+define ["text!templates/timeline.html", "cs!views/header"], (Template) ->
 
   class Timeline extends Backbone.View
 
-    el: "#app"
+    el: "#timeline"
     template: _.template(Template)
 
     render: ->
-      $("#map").addClass("hidden");
-      $(@el).html @template()
+      views.header.render(@el)
+      $("#" + @el.id + " div[data-role='content']").html @template()
 
   views.timeline = new Timeline
