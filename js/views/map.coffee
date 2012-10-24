@@ -9,29 +9,48 @@ define ["cs!models/map"], (Map) ->
       "click #down": "moveDown"
       "click #left": "moveLeft"
       "click #right": "moveRight"
-      
-    map: utils.map
+      "orientationchange resize pageshow": "updateMap"
 
-    # event handler
+
+    updateMap: ->
+      @setSize()
+      @setMap()
+
+
+    setMap: -> 
+      if(utils.map == null)
+        utils.map = new Map()
+      else
+        utils.map.instance.updateSize()
+
+
+    setSize: ->
+      content = $("#map")
+      viewHeight = $(window).height()
+      viewWidth = $(window).width()
+      content.height viewHeight
+      content.width viewWidth
+
+
     zoomIn: ->
-      @map.zoomIn()
+      utils.map.zoomIn()
 
 
     zoomOut: ->
-      @map.zoomOut()
+      utils.map.zoomOut()
 
 
     moveUp: ->
-      @map.pan(0, -256)
+      utils.map.pan(0, -256)
 
 
     moveDown: ->
-      @map.pan(0, 256)
+      utils.map.pan(0, 256)
 
 
     moveLeft: ->
-      @map.pan(-256, 0)
+      utils.map.pan(-256, 0)
 
 
     moveRight: ->
-      @map.pan(256, 0)
+      utils.map.pan(256, 0)
