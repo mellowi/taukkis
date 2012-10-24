@@ -6,6 +6,7 @@ define [
 
     # constructor
     initialize: ->
+
       mapQuest = @setLayerMapQuest()
       osmCycle = @setLayerOsmCycle()
       mmlMaastokartat = @setLayerMmlMaastokartat()
@@ -38,6 +39,7 @@ define [
       @instance.setCenter(new OpenLayers.LonLat(mapPosition.longitude, mapPosition.latitude), mapPosition.zoom)
       @instance.setBaseLayer(mapQuest)
       return @instance
+
 
     storeMapPosition: (event) ->
       lonlat = event.object.getCenter();

@@ -1,6 +1,8 @@
 var views = {};
 
-var utils = {};
+var utils = {
+	map: null
+};
 
 var defaults = {
   "rootUrl": "http://localhost:8000/api/api/v1/",

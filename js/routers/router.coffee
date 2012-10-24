@@ -2,6 +2,8 @@ class Router extends Backbone.Router
 
   initialize: ->
     Backbone.history.start()
+
+
   routes:
     "": "destination"
     "destination": "destination"
@@ -9,6 +11,7 @@ class Router extends Backbone.Router
     "timeline": "timeline"
     "category?id=:id": "category"
     "detail?id=:id": "detail"
+
 
   destination: ->
     require ["cs!views/destination"], ->

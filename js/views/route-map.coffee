@@ -6,7 +6,20 @@ define ["cs!models/map", "cs!views/map", "cs!views/header"], (Map, MapView) ->
 
     render: ->
       views.header.render(@el)
-      $("#map").ready ->
-        utils.map = new Map()
 
+      @setMapSize()
+
+      if(utils.map == null)
+        utils.map = new Map()
+      else
+      	utils.map.instance.updateSize()
+
+
+    setMapSize: ->
+      content = $("#map")
+      viewHeight = $(window).height()
+      viewWidth = $(window).width()
+      content.height viewHeight
+      content.width viewWidth
+      
   ))
