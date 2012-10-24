@@ -13,7 +13,7 @@ define ["text!templates/destination.html", "cs!models/route", "cs!views/header"]
 
     route: (e) ->
       @directionService = new google.maps.DirectionsService()
-      destination = $("#destination").val()
+      destination = $("#destination-input").val()
       distance = 5.0
 
       # TODO: use location API
