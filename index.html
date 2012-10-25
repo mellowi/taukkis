@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />        
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="description" content="">
@@ -15,23 +15,28 @@
   <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css">
   <link href="css/styles.css" rel="stylesheet">
 
-  <script type="text/javascript" data-main="js/main.js" src="js/libs/require-2.0.5.js"></script>   
+  <script type="text/javascript" data-main="js/main.js" src="js/libs/require-2.0.5.js"></script>
 </head>
 <body>
 
-  <div data-role="page" id="destination" class="destination">
+  <div data-role="page" data-theme="v" id="destination" class="destination">
     <div data-role="header" class="header"></div>
     <div data-role="content" id="destination-content"></div>
   </div>
-  
-  <div data-role="page" id="route" class="route">
+
+  <div data-role="page" data-theme="v" id="route" class="route">
     <div data-role="header" class="header"></div>
     <div data-role="content" id="route-content">
       <div id="map"></div>
     </div>
   </div>
 
-  <div data-role="page" id="timeline" class="timeline">
+  <div data-role="page" data-theme="v" id="timeline" class="timeline">
+    <div data-role="header" class="header"></div>
+    <div data-role="content" id="timeline-content"></div>
+  </div>
+
+  <div data-role="page" data-theme="v" id="detail" class="detail">
     <div data-role="header" class="header"></div>
     <div data-role="content" id="timeline-content"></div>
   </div>

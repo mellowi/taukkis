@@ -22,7 +22,7 @@ define ["cs!models/map", "cs!views/map", "cs!views/header"], (Map, MapView) ->
       waypoints.push(point)
       waypoints.push(point2)
 
-      routeFeature = OpenLayers.Feature.Vector(new OpenLayers.Geometry.LineString(waypoints), null)#, routeStyle)
+      routeFeature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.LineString(waypoints), null)#, routeStyle)
       @addLayer(routeLayer)
       routeLayer.addFeatures([routeFeature])
 

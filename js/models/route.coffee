@@ -9,6 +9,7 @@ define [], () ->
         data = JSON.parse(json);
         @set(data);
 
+
     save: (attributes, options) ->
       localStorage.setItem(@id, JSON.stringify(@attributes));
 
