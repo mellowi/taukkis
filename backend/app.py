@@ -67,7 +67,8 @@ class BoundingBox(object):
         return u"({0}, {1}), ({2}, {3})".format(self.left, self.bottom, self.right, self.top)
 
 class POI(object):
-    def __init__(self, lon, lat, title, location, category):
+    def __init__(self, id, lon, lat, title, location, category):
+        self.id = id
         self.lon = lon
         self.lat = lat
         self.title = title
@@ -75,30 +76,30 @@ class POI(object):
         self.category = category
 
     @classmethod
-    def from_list(cls, lst):
+    def from_list(cls, id, lst):
         lon = float(lst[0])
         lat = float(lst[1])
         title = lst[2]
         location = lst[3]
         category = lst[4]
-        return POI(lon, lat, title, location, category)
+        return POI(id, lon, lat, title, location, category)
 
     def to_dict(self):
         result = {}
 
-        for attr in ['lon', 'lat', 'title', 'location', 'category']:
+        for attr in ['id', 'lon', 'lat', 'title', 'location', 'category']:
             result[attr] = getattr(self, attr)
 
         return result
 
     def __repr__(self):
-        return "<POI %s %s>" % (self.category, str(self))
+        return "<POI %s %s %s>" % (self.id, self.category, str(self))
 
     def __str__(self):
         return unicode(self).encode('ASCII', 'backslashreplace')
 
     def __unicode__(self):
-        return u"{0}, {1}".format(self.title, self.location)
+        return u"{0}, {1}, {2}".format(self.id, self.title, self.location)
 
 
 def read_pois(file):
@@ -115,7 +116,7 @@ def read_pois(file):
                     traceback.print_exc()
                     print(uee, file=e8)
             else:
-                result.append(POI.from_list(parts))
+                result.append(POI.from_list(linenum, parts))
 
     print(u"# Loaded {0} POIs!".format(len(result)), file=e8)
     return result
