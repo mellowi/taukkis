@@ -41,3 +41,13 @@ defaultStyle = new OpenLayers.Style(
                 )
 
 utils.poiStyleMap = new OpenLayers.StyleMap("default": defaultStyle)
+
+utils.formatTime = (seconds) ->
+  options = options or {}
+  formattedTime = ""
+  minutes = Math.floor((seconds / 60) % 60)
+  hours = Math.floor(seconds / (60 * 60))
+
+  formattedTime += hours + "h "  if hours >= 1
+  formattedTime += minutes + "min" if minutes >= 1
+  return formattedTime
