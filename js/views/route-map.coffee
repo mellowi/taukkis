@@ -12,9 +12,9 @@ define ["cs!models/map", "cs!views/map", "cs!models/route", "cs!views/header"], 
     renderRoute: ->
       waypoints = []
 
-      route = new Route().fetch()
+      utils.route = new Route().fetch()
 
-      for point in route.attributes.routes[0].overview_path
+      for point in utils.route.attributes.routes[0].overview_path
         position = utils.transformLonLat(point.Za, point.Ya)
         waypoints.push(new OpenLayers.Geometry.Point(position.lon, position.lat))
 
