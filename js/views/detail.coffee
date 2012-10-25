@@ -3,9 +3,9 @@ define ["text!templates/detail.html"], (Template) ->
   class Detail extends Backbone.View
 
     el: "#popup"
+    template: _.template(Template)
     events:
       "click #close": "close"
-    template: _.template(Template)
 
     render: ->
       $("#popup").removeClass("hidden");

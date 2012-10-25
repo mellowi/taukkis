@@ -2,7 +2,6 @@ define ["cs!models/map"], (Map) ->
 
   Backbone.View.extend
 
-    el: "#app"
     events:
       "click #plus": "zoomIn"
       "click #minus": "zoomOut"
@@ -10,28 +9,48 @@ define ["cs!models/map"], (Map) ->
       "click #down": "moveDown"
       "click #left": "moveLeft"
       "click #right": "moveRight"
-    map: utils.map
+      "orientationchange resize pageshow": "updateMap"
 
-    # event handler
+
+    updateMap: ->
+      @setSize()
+      @setMap()
+
+
+    setMap: -> 
+      if(utils.map == null)
+        utils.map = new Map()
+      else
+        utils.map.instance.updateSize()
+
+
+    setSize: ->
+      content = $("#map")
+      viewHeight = $(window).height()
+      viewWidth = $(window).width()
+      content.height viewHeight-60 #60 header
+      content.width viewWidth+20 #20 scroller TODO: check with other devices - chrome tested
+
+
     zoomIn: ->
-      @map.zoomIn()
+      utils.map.zoomIn()
 
 
     zoomOut: ->
-      @map.zoomOut()
+      utils.map.zoomOut()
 
 
     moveUp: ->
-      @map.pan(0, -256)
+      utils.map.pan(0, -256)
 
 
     moveDown: ->
-      @map.pan(0, 256)
+      utils.map.pan(0, 256)
 
 
     moveLeft: ->
-      @map.pan(-256, 0)
+      utils.map.pan(-256, 0)
 
 
     moveRight: ->
-      @map.pan(256, 0)
+      utils.map.pan(256, 0)

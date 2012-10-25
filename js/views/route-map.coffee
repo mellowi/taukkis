@@ -1,7 +1,12 @@
-define ["cs!views/map"], (MapView) ->
+define ["cs!models/map", "cs!views/map", "cs!views/header"], (Map, MapView) ->
 
   views.routeMap = new (MapView.extend(
+
+    el: "#route"
+
     render: ->
-      $("#map").removeClass("hidden");
-      $(@el).html()
+      views.header.render(@el)
+
+      @updateMap()
+
   ))
