@@ -19,9 +19,7 @@ define [
 
     route: (e) ->
       @directionService = new google.maps.DirectionsService()
-      routeBoxer = new RouteBoxer()
       destination = $("#destination-input").val()
-      distance = 5.0
 
       # TODO: use location API
       request =
@@ -31,45 +29,41 @@ define [
 
       console.log request
 
-      @directionService.route(request, (result, status) ->
+      @directionService.route(request, (result, status) =>
         if (status == google.maps.DirectionsStatus.OK)
-          console.log result
-          console.log result.routes[0].overview_path
+          #console.log result
+          #console.log result.routes[0].overview_path
 
           # route
           route = new Route(result)
           route.save()
 
           # locations
-          locations = new Locations()
-
-          console.log "locations"
+          @locations(result.routes[0].overview_path)
           console.log locations
-
-          boxes = routeBoxer.box(result.routes[0].overview_path, distance)
-
-
-          for box in boxes
-            $.ajax
-              url: "/api/v1/pois.json?bbox=#{box}"
-              dataType: "json"
-              async: false
-              success: (json) ->
-                if json.length > 0
-                  for poi in json
-                    location = new Location(poi)
-                    locations.add location
-                    console.log locations
-
-
-          console.log "locations"
-          console.log locations
-          locations.save()
-
 
           $.mobile.changePage($("#route"))
         else
           alert "Directions query failed: " + status
       )
+
+    locations: (path) ->
+      distance = 5.0
+      routeBoxer = new RouteBoxer()
+      boxes = routeBoxer.box(path, distance)
+      locations = new Locations()
+
+      for box in boxes
+        $.ajax
+          url: "/api/v1/pois.json?bbox=#{box}"
+          dataType: "json"
+          async: false
+          success: (data) =>
+            if data.length > 0
+              for poi in data
+                location = new Location(poi)
+                locations.add location
+            return
+      locations.save()
 
   views.destination = new Destination
