@@ -6,7 +6,7 @@ define ["cs!models/map", "cs!views/map", "cs!views/header"], (Map, MapView) ->
 
     render: ->
       views.header.render(@el)
-
+      console.log utils.transformLonLat(2,3)
       @updateMap()
 
   ))
