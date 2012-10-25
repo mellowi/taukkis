@@ -26,6 +26,12 @@ define [
     render: ->
       views.header.render(@el)
       console.log(utils.locations)
-      $("#" + @el.id + " div[data-role='content']").html @template()
+      utils.locations.models[2].set("time": 1)
+      locations = new Locations(utils.locations.sortByTime())
+      console.log(locations)
+
+      $("#" + @el.id + " div[data-role='content']").html @template(
+        locations: locations.toJSON()
+      )
 
   views.timeline = new Timeline

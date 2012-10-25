@@ -6,8 +6,6 @@ define [
     id: "locations"
     model: Location
 
-    initialize: () ->
-
 
     fetch: (options) ->
       json = localStorage.getItem(@id)
@@ -41,7 +39,7 @@ define [
 
     sortByTime: ->
       @sortBy (model) ->
-        model.get "distance"
+        model.get "time"
 
 
     getById: (id) ->
