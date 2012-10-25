@@ -17,7 +17,7 @@ define ["cs!models/map"], (Map) ->
       @setMap()
 
 
-    setMap: -> 
+    setMap: ->
       if(utils.map == null)
         utils.map = new Map()
       else
@@ -31,6 +31,9 @@ define ["cs!models/map"], (Map) ->
       content.height viewHeight-60 #60 header
       content.width viewWidth+20 #20 scroller TODO: check with other devices - chrome tested
 
+
+    addLayer: (layer) ->
+      utils.map.instance.addLayer(layer)
 
     zoomIn: ->
       utils.map.zoomIn()
