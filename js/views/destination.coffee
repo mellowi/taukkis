@@ -35,12 +35,12 @@ define [
           #console.log result.routes[0].overview_path
 
           # route
-          route = new Route(result)
-          route.save()
+          utils.route = new Route(result)
+          utils.route.save()
 
           # locations
           @locations(result.routes[0].overview_path)
-          console.log locations
+          console.log utils.locations
 
           $.mobile.changePage($("#route"))
         else
@@ -51,7 +51,7 @@ define [
       distance = 5.0
       routeBoxer = new RouteBoxer()
       boxes = routeBoxer.box(path, distance)
-      locations = new Locations()
+      utils.locations = new Locations()
 
       for box in boxes
         $.ajax
@@ -62,8 +62,8 @@ define [
             if data.length > 0
               for poi in data
                 location = new Location(poi)
-                locations.add location
+                utils.locations.add location
             return
-      locations.save()
+      utils.locations.save()
 
   views.destination = new Destination

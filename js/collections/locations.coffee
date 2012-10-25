@@ -5,7 +5,6 @@ define [
   class Locations extends Backbone.Collection
     id: "locations"
     model: Location
-    distance: 5.0
 
     initialize: () ->
 

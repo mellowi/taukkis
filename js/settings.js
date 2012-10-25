@@ -1,7 +1,9 @@
 var views = {};
 
 var utils = {
-	map: null
+	map: null,
+	route: null,
+	locations: null
 };
 
 var defaults = {
