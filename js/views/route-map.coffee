@@ -11,7 +11,6 @@ define [
 
     el: "#route"
 
-
     initialize: ->
       if(utils.route == null)
         utils.route = new Route().fetch()
@@ -24,6 +23,7 @@ define [
 
       console.log utils.route
       console.log utils.locations
+
 
     render: ->
       views.header.render(@el)

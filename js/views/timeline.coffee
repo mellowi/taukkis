@@ -11,7 +11,6 @@ define [
     el: "#timeline"
     template: _.template(Template)
 
-
     initialize: ->
       if(utils.route == null)
         utils.route = new Route().fetch()
@@ -20,8 +19,9 @@ define [
 
       if(_.isUndefined(utils.route) || _.isUndefined(utils.locations))
         $.mobile.changePage($("#destination"))
-        console.log "Lol"
+        utils.app.navigate("#destination", true, true)
       return
+
 
     render: ->
       views.header.render(@el)

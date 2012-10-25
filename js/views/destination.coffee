@@ -19,8 +19,11 @@ define [
       if(utils.locations == null)
         utils.locations = new Locations().fetch()
 
-      if(utils.route == null || utils.locations == null)
+      if(_.isUndefined(utils.route) || _.isUndefined(utils.locations))
         $.mobile.changePage($("#destination"))
+        utils.app.navigate("#destination", true, true)
+      return
+
 
     render: ->
       views.header.render(@el)
