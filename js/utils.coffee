@@ -8,3 +8,12 @@ utils.routeStyle = () ->
   routeStyle.strokeColor = "blue"
   routeStyle.strokeWidth = 5
   return routeStyle
+
+utils.poiStyleMap = new OpenLayers.StyleMap({
+							"default":new OpenLayers.Style(OpenLayers.Util.applyDefaults({
+              externalGraphic:"/img/taukkis-marker.png"
+              graphicOpacity:1
+              pointRadius: 14
+              }
+              OpenLayers.Feature.Vector.style["default"]))
+              })

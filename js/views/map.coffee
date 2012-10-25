@@ -29,6 +29,9 @@ define ["cs!models/map"], (Map) ->
       unless(utils.routeLayer)
         utils.routeLayer = new OpenLayers.Layer.Vector("Route")
         @addLayer(utils.routeLayer)
+      unless(utils.poiLayer)
+        utils.poiLayer = new OpenLayers.Layer.Vector("POIs", {styleMap: utils.poiStyleMap})
+        @addLayer(utils.poiLayer)
 
 
     showRoute: (routeFeature) ->
@@ -37,6 +40,10 @@ define ["cs!models/map"], (Map) ->
 
     clearRoute: ->
       utils.routeLayer.removeAllFeatures()
+
+
+    addPOIFeatureToMap: (poiFeature) ->
+      utils.poiLayer.addFeatures([poiFeature])
 
 
     setSize: (width, height) ->

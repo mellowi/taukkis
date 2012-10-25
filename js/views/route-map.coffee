@@ -28,7 +28,9 @@ define [
     render: ->
       views.header.render(@el)
       @updateMap()
+      @clearRoute()
       @renderRoute()
+      @renderPois()
 
 
     renderRoute: ->
@@ -40,8 +42,15 @@ define [
 
       routeFeature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.LineString(waypoints), null, utils.routeStyle())
 
-      @clearRoute()
       @showRoute(routeFeature)
 
       @zoomToExtent(routeFeature.geometry.getBounds())
+
+    renderPois: ->
+      pois = new Locations().fetch()
+      pois.each (poi) ->
+        position = utils.transformLonLat(poi.attributes.lon, poi.attributes.lat)
+        poiFeature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(position.lon, position.lat))
+        utils.poiLayer.addFeatures([poiFeature])
+
   ))
