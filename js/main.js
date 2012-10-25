@@ -1,6 +1,6 @@
 // RequireJS Configuration
 require.config({
-  
+
   // 3rd party script alias names (Easier to type "jquery" than "libs/jquery-1.7.2.min")
   paths: {
     // Core Libraries
@@ -20,10 +20,11 @@ require.config({
     // CoffeeScript
     cs: "libs/cs",
     "coffee-script": "libs/coffee-script",
-  
+
     // map
     openlayer: "libs/OpenLayers.mobile",
     // googleapi: "https://maps.google.com/maps/api/js?v=3.2&sensor=false",
+    routeboxer: "libs/RouteBoxer",
 
     // json & cookies
     json: "libs/jquery_cookie",
@@ -37,10 +38,10 @@ require.config({
       exports: "Backbone"  //attaches "Backbone" to the window object
     }
   }
-  
+
 });
 
 // Load the application
 require(['modernizr','jquery','backbone','openlayer'], function(Modernizr, $, Backbone) {
-  require(['bootstrap', 'jquerymobile', 'json', 'jsoncookie', 'settings', 'cs!utils', 'cs!routers/router']);
+  require(['bootstrap', 'jquerymobile', 'json', 'jsoncookie', 'settings', 'cs!utils', 'cs!routers/router', 'routeboxer']);
 });

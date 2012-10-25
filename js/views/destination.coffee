@@ -1,4 +1,4 @@
-define ["text!templates/destination.html", "cs!models/route", "cs!views/header"], (Template, Route) ->
+define ["text!templates/destination.html", "cs!models/route", "cs!models/location", "cs!models/locations", "cs!views/header"], (Template, Route, Location, Locations) ->
 
   class Destination extends Backbone.View
 
@@ -13,6 +13,7 @@ define ["text!templates/destination.html", "cs!models/route", "cs!views/header"]
 
     route: (e) ->
       @directionService = new google.maps.DirectionsService()
+      routeBoxer = new RouteBoxer()
       destination = $("#destination-input").val()
       distance = 5.0
 
@@ -34,10 +35,22 @@ define ["text!templates/destination.html", "cs!models/route", "cs!views/header"]
           console.log result.routes[0].overview_path
 
           # saves route to the local storage - ez model style
-          route = new Route(result);
-          route.save();
+          route = new Route(result)
+          route.save()
 
-          console.log route
+          locations = new Locations()
+
+          boxes = routeBoxer.box(result.routes[0].overview_path, distance)
+
+          for box in boxes
+            $.getJSON("/api/v1/pois.json?bbox=#{box}", (json) ->
+               if json.length > 0
+                for poi in json
+                  console.log("lol")
+                  locations.push(new Location(poi))
+            )
+
+          locations.save()
 
           utils.app.navigate('route', true)
         else
