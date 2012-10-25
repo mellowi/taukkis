@@ -6,5 +6,5 @@ utils.transformLonLat = (lon, lat) ->
 utils.routeStyle = () ->
   routeStyle = OpenLayers.Util.extend({}, OpenLayers.Feature.Vector.style['default'])
   routeStyle.strokeColor = "blue"
-  routeStyle.strokeWidth = 3
+  routeStyle.strokeWidth = 5
   return routeStyle

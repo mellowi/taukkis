@@ -9,7 +9,7 @@ define [
 
       mapQuest = @setLayerMapQuest()
       osmCycle = @setLayerOsmCycle()
-      mmlMaastokartat = @setLayerMmlMaastokartat()
+      mmlTaustakartta = @setLayerMmlTaustakartta()
       bingHybrid = @setLayerBingHybrid()
 
       mapPosition = @loadMapPosition()
@@ -29,10 +29,7 @@ define [
           new OpenLayers.Control.Zoom()
         ]
         layers: [
-          mapQuest
-          osmCycle
-          mmlMaastokartat
-          bingHybrid
+          mmlTaustakartta
         ]
         eventListeners: { "moveend": @storeMapPosition }
 
@@ -56,7 +53,7 @@ define [
       position = $.JSONCookie('position')
       position = {longitude: 2777381.0927341, latitude: 8439319.5947809, zoom: 11} unless position.longitude
       return position
-      
+
 
     setLayerMapQuest: ->
       new OpenLayers.Layer.OSM(
@@ -86,13 +83,13 @@ define [
       )
 
 
-    setLayerMmlMaastokartat: ->
+    setLayerMmlTaustakartta: ->
       new OpenLayers.Layer.XYZ(
-        "Maanmittauslaitos - Maastokartat",
-        "http://tiles.kartat.kapsi.fi/peruskartta/${z}/${x}/${y}.png",
+        "Maanmittauslaitos - Taustakartta",
+        "http://tiles.kartat.kapsi.fi/taustakartta/${z}/${x}/${y}.png",
         {
           sphericalMercator: true,
-          attribution:"<br/>Maastokartat ja ilmakuvat &copy; <a class='attribution' href='http://maanmittauslaitos.fi/'>MML</a>, jakelu <a class='attribution' href='http://kartat.kapsi.fi/'>Kapsi ry</a>",
+          attribution:"<br/>Kartta-aineisto &copy; <a class='attribution' href='http://maanmittauslaitos.fi/'>MML</a>, jakelu <a class='attribution' href='http://kartat.kapsi.fi/'>Kapsi ry</a>",
           transitionEffect: 'resize'
         }
       )
