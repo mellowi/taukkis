@@ -46,6 +46,10 @@ define ["cs!models/map"], (Map) ->
       utils.poiLayer.addFeatures([poiFeature])
 
 
+    clearPOIs: ->
+      utils.poiLayer.removeAllFeatures()
+
+
     setSize: (width, height) ->
       content = $("#map")
       if(!width || !height)

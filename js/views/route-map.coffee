@@ -27,6 +27,7 @@ define [
       views.header.render(@el)
       @updateMap()
       @clearRoute()
+      @clearPOIs()
       @renderRoute()
       @renderPois()
 
