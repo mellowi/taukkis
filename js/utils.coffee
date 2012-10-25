@@ -11,7 +11,7 @@ utils.routeStyle = () ->
 
 utils.poiStyleMap = new OpenLayers.StyleMap({
 							"default":new OpenLayers.Style(OpenLayers.Util.applyDefaults({
-              externalGraphic:"/img/taukkis-marker.png"
+              externalGraphic:"img/taukkis-marker.png"
               graphicOpacity:1
               pointRadius: 14
               }
