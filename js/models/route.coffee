@@ -3,6 +3,8 @@ define [], () ->
   class Route extends Backbone.Model
     id: "route"
 
+    initialize: () ->
+
     fetch: (options) ->
       json = localStorage.getItem(@id)
       if(json)
