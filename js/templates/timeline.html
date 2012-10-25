@@ -9,7 +9,7 @@
 <div class="list-items">
 
 <% $.each(locations, function(i, location) { %>
-	<a href="#detail?id=<%= location.id %>" class="list-item passed">
+	<a href="#detail?id=<%= location.id %>" class="list-item <%= (location.time > 0) ? "" : "passed"%>">
 		<div class="information">
 			<div class="title"><%= location.title %></div>
 			<div class="categories">
@@ -21,6 +21,7 @@
 			<div class="time"><%= location.time %></div>
 		</div>
 	</a>
-<% }); %>
+<% });
+%>
 
 </div>
