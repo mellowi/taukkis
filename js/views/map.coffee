@@ -15,6 +15,7 @@ define ["cs!models/map"], (Map) ->
     updateMap: ->
       @setSize()
       @setMap()
+      @initLayers()
 
 
     setMap: ->
@@ -22,6 +23,20 @@ define ["cs!models/map"], (Map) ->
         utils.map = new Map()
       else
         utils.map.instance.updateSize()
+
+
+    initLayers: ->
+      unless(utils.routeLayer)
+        utils.routeLayer = new OpenLayers.Layer.Vector("Route")
+        @addLayer(utils.routeLayer)
+
+
+    showRoute: (routeFeature) ->
+      utils.routeLayer.addFeatures([routeFeature])
+
+
+    clearRoute: ->
+      utils.routeLayer.removeAllFeatures()
 
 
     setSize: ->
@@ -34,6 +49,11 @@ define ["cs!models/map"], (Map) ->
 
     addLayer: (layer) ->
       utils.map.instance.addLayer(layer)
+
+
+    zoomToExtent: (bounds) ->
+      utils.map.instance.zoomToExtent(bounds)
+
 
     zoomIn: ->
       utils.map.zoomIn()
