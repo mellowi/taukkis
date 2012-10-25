@@ -1,6 +1,7 @@
 define [
   "cs!views/map",
   "text!templates/detail.html",
+  "cs!models/route",
   "cs!models/location",
   "cs!collections/locations",
   "cs!views/header"
@@ -27,8 +28,11 @@ define [
 
     render: (id) ->
       views.header.render(@el)
-      $("#" + @el.id + " div[data-role='content']").html @template()
+      location = new Locations(utils.locations.getById(id)).models[0]
       @updateMap(300, 100)
+      $("#" + @el.id + " div[data-role='content']").html @template(
+        location: location.toJSON()
+      )
 
 
     close: ->
