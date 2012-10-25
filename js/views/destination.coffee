@@ -13,6 +13,15 @@ define [
     events:
       'click #destinationSubmit': "route"
 
+    initialize: ->
+      if(utils.route == null)
+        utils.route = new Route().fetch()
+      if(utils.locations == null)
+        utils.locations = new Locations().fetch()
+
+      if(utils.route == null || utils.locations == null)
+        $.mobile.changePage($("#destination"))
+
     render: ->
       views.header.render(@el)
       $("#" + @el.id + " div[data-role='content']").html @template()
