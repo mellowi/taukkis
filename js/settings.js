@@ -21,5 +21,5 @@ $(document).bind("mobileinit", function() {
     $.mobile.autoInitializePage = true;
     $.mobile.loadingMessage = " ";
     $.mobile.defaultPageTransition = 'none';
-	$.support.cors = true; // enable cross-domain ajax request in IE
+	$.support.cors = true;
 });

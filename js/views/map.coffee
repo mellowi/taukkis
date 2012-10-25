@@ -12,8 +12,8 @@ define ["cs!models/map"], (Map) ->
       "orientationchange resize pageshow": "updateMap"
 
 
-    updateMap: ->
-      @setSize()
+    updateMap: (width, height) ->
+      @setSize(width, height)
       @setMap()
       @initLayers()
 
@@ -39,12 +39,13 @@ define ["cs!models/map"], (Map) ->
       utils.routeLayer.removeAllFeatures()
 
 
-    setSize: ->
+    setSize: (width, height) ->
       content = $("#map")
-      viewHeight = $(window).height()
-      viewWidth = $(window).width()
-      content.height viewHeight-60 #60 header
-      content.width viewWidth+20 #20 scroller TODO: check with other devices - chrome tested
+      if(!width || !height)
+        height = $(window).height()
+        width = $(window).width()
+      content.height height-60 #60 header
+      content.width width+20 #20 scroller TODO: check with other devices - chrome tested
 
 
     addLayer: (layer) ->
