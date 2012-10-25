@@ -1,18 +1,21 @@
-define ["text!templates/detail.html"], (Template) ->
+define ["cs!views/map", "text!templates/detail.html", "cs!views/header"], (MapView, Template) ->
 
-  class Detail extends Backbone.View
+  views.detail = new (MapView.extend(
 
-    el: "#popup"
+    el: "#detail"
     template: _.template(Template)
     events:
       "click #close": "close"
 
-    render: ->
-      $("#popup").removeClass("hidden");
-      $(@el).html @template()
+    template: _.template(Template)
+
+    render: (id) ->
+      views.header.render(@el)
+      $("#" + @el.id + " div[data-role='content']").html @template()
+      @updateMap(300, 100)
 
     close: ->
       $("#popup").addClass("hidden");
 
 
-  views.detail = new Detail
+  ))

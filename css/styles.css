@@ -14,16 +14,29 @@ html, body {
     margin: 0;
 }
 
+.ui-bar-a .ui-link,
+.ui-bar-a .ui-link:visited {
+  color: #999999;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
 #app {
 }
 
-#map {
-  display: block; 
-  position: absolute; 
-  top: > 0px; 
-  left: 0px; 
-  width: 100%; 
-  height: 100%
+.route #map {
+  display: block;
+  position: absolute;
+  top: > 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+.detail #map {
+  margin: 10px 10px;'
+  display: block;
+  width: 300px;
+  height: 100px;
 }
 
 .olControlAttribution {
@@ -37,24 +50,7 @@ html, body {
   border-radius : 5px 0 0 0;
 }
 
-#popup {
-  position: absolute;
-  z-index: 2000;
-  top: 0;
-  left: 0;
-  min-width: 320px;
-  width: 100%;
-  min-height: 100%;
-  display: block;
-  overflow: visible;
-  border: 0;
-}
-
-.route #popup, .destination #popup {
-  min-height: 107%;
-}
-
-#popup .content {
+#detail-content {
   min-width: 260px;
   margin: 20px;
   padding: 10px;
@@ -63,7 +59,7 @@ html, body {
   background: #FFFFFF;
 }
 
-#popup #close {
+#detail #close {
   position: relative;
   top: -20px;
   left: 18px;
@@ -74,25 +70,17 @@ html, body {
   color: red;
 }
 
-#popup .content .map img {
-  min-width: 240px;
-  width: 90%;
-  height: 100px;
-  margin: 10px 10px; 
-
-}
-
-#popup .content .title {
+#detail-content .title {
   font-size: 18px;
   font-weight: bold;
 }
 
-#popup .content .categories ul {
+#detail-content .categories ul {
   margin: 0;
-  list-style: none  
+  list-style: none
 }
 
-#popup .content .time-left {
+#detail-content .time-left {
   margin-top: 10px;
   width: 100px;
   text-align: center;

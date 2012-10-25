@@ -12,24 +12,48 @@ define ["cs!models/map"], (Map) ->
       "orientationchange resize pageshow": "updateMap"
 
 
-    updateMap: ->
-      @setSize()
+    updateMap: (width, height) ->
+      @setSize(width, height)
       @setMap()
+      @initLayers()
 
 
-    setMap: -> 
+    setMap: ->
       if(utils.map == null)
         utils.map = new Map()
       else
         utils.map.instance.updateSize()
 
 
-    setSize: ->
+    initLayers: ->
+      unless(utils.routeLayer)
+        utils.routeLayer = new OpenLayers.Layer.Vector("Route")
+        @addLayer(utils.routeLayer)
+
+
+    showRoute: (routeFeature) ->
+      utils.routeLayer.addFeatures([routeFeature])
+
+
+    clearRoute: ->
+      utils.routeLayer.removeAllFeatures()
+
+
+    setSize: (width, height) ->
       content = $("#map")
-      viewHeight = $(window).height()
-      viewWidth = $(window).width()
-      content.height viewHeight-60 #60 header
-      content.width viewWidth+20 #20 scroller TODO: check with other devices - chrome tested
+      if(!width || !height)
+        height = $(window).height()
+        width = $(window).width()
+      content.height height-60 #60 header
+      content.width width+20 #20 scroller TODO: check with other devices - chrome tested
+
+
+    addLayer: (layer) ->
+      utils.map.instance.addLayer(layer)
+
+
+    zoomToExtent: (bounds) ->
+      utils.map.instance.zoomToExtent(bounds)
 
 
     zoomIn: ->
