@@ -9,11 +9,35 @@ utils.routeStyle = () ->
   routeStyle.strokeWidth = 5
   return routeStyle
 
-utils.poiStyleMap = new OpenLayers.StyleMap({
-							"default":new OpenLayers.Style(OpenLayers.Util.applyDefaults({
-              externalGraphic:"img/taukkis-marker.png"
-              graphicOpacity:1
-              pointRadius: 14
-              }
-              OpenLayers.Feature.Vector.style["default"]))
-              })
+context = {
+  getIconName: (feature) ->
+  	if feature.attributes.type
+  		"#{feature.attributes.type}-marker"
+  	else
+	    "taukkis-marker"
+  getLabel: (feature) ->
+    if feature.layer.map.getZoom() > 12 and feature.attributes.title
+    	feature.attributes.title
+    else
+      ""
+  }
+
+defaultStyle = new OpenLayers.Style(
+                {
+                externalGraphic:"img/${getIconName}.png"
+                graphicOpacity:1
+                pointRadius: 14
+                label: "${getLabel}"
+                labelSelect: "true"
+                # TBCSS'd:
+                labelAlign: 'cb'
+                labelYOffset: 14
+                fontFamily: "Helvetica,Arial,sans-serif"
+                fontColor: "#222222"
+                labelOutlineColor: "white"
+                labelOutlineWidth: 3
+                }
+                {context: context}
+                )
+
+utils.poiStyleMap = new OpenLayers.StyleMap("default": defaultStyle)

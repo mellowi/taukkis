@@ -46,7 +46,7 @@ define ["cs!models/map"], (Map) ->
       utils.poiLayer.addFeatures([poiFeature])
 
 
-    clearPOIs: ->
+    clearPOILayer: ->
       utils.poiLayer.removeAllFeatures()
 
 
