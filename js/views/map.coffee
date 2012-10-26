@@ -31,7 +31,22 @@ define ["cs!models/map"], (Map) ->
         @addLayer(utils.routeLayer)
       unless(utils.poiLayer)
         utils.poiLayer = new OpenLayers.Layer.Vector("POIs", {styleMap: utils.poiStyleMap})
+        selectControl = new OpenLayers.Control.SelectFeature(
+                utils.poiLayer,
+                {
+                  id: 'poi-select-control'
+                  onSelect: @showPOIDetails
+                  #unUnselect: onPopupFeatureUnselect
+                }
+                )
+        utils.map.instance.addControl(selectControl)
+        selectControl.activate()
         @addLayer(utils.poiLayer)
+
+
+    showPOIDetails: (poi) ->
+      poi = poi.attributes
+      alert(poi.title)
 
 
     showRoute: (routeFeature) ->
