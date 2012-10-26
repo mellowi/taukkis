@@ -16,21 +16,11 @@ define [
       "click #close": "close"
     mapElement: "detail-map"
 
-    initialize: ->
-      if(utils.route == null)
-        utils.route = new Route().fetch()
-      if(utils.locations == null)
-        utils.locations = new Locations().fetch()
-
-      if(_.isUndefined(utils.route) || _.isUndefined(utils.locations))
-        $.mobile.changePage($("#destination"))
-        utils.app.navigate("#destination", true, true)
-        utils.route = null
-        utils.locations = null
-      return
-
-
     render: (id) ->
+      if(utils.route == null || utils.locations == null)
+        utils.initFail()
+        return
+
       views.header.render(@el)
 
       @poi = new Locations(utils.locations.getById(id)).models[0].toJSON()

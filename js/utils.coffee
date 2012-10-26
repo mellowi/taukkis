@@ -76,16 +76,29 @@ utils.updateTimer = () ->
     if(prevTimeStr != curTimeStr)
       $(el).html(curTimeStr)
 
+utils.initFail = () ->
+  $.mobile.changePage($("#destination"))
+  utils.app.navigate("#destination", true, true)
+  return
 
 utils.init = () ->
   return  if utils.initialized
   utils.initialized = true
-  # TODO: init single models HERE
-
+  console.log "lol"
   # timer
   utils.updateTimer();
   setInterval (->
     utils.updateTimer()
   ), 5000
+  # init single models
+  define [
+    "cs!models/route",
+    "cs!collections/locations",
+  ], (Route, Locations) ->
+    utils.route = new Route().fetch()
+    utils.locations = new Locations().fetch()
+    if(_.isUndefined(utils.route) || _.isUndefined(utils.locations))
+      utils.route = null
+      utils.locations = null
 
 utils.init()
