@@ -1,11 +1,11 @@
 define [
-  "cs!models/location"
-], (Location) ->
+  "cs!models/location",
+  "cs!models/filter"
+], (Location, Filter) ->
 
   class Locations extends Backbone.Collection
     id: "locations"
     model: Location
-
 
     fetch: (options) ->
       json = localStorage.getItem(@id)
@@ -58,3 +58,9 @@ define [
       @models.filter (model) ->
         return true  if $.inArray(model.get("category"), categories) > -1
         false
+
+
+    filterOutCategories: () ->
+      @models.filter (model) ->
+        return false  if $.inArray(model.get("category"), utils.filter.categoriesOut) > -1
+        true

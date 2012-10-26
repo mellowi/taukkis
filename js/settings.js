@@ -5,6 +5,7 @@ var utils = {
   detailMap: null,
 	route: null,
 	locations: null,
+  filter: null,
   initialized: false
 };
 
