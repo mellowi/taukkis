@@ -22,6 +22,8 @@ define [
       if(_.isUndefined(utils.route) || _.isUndefined(utils.locations))
         $.mobile.changePage($("#destination"))
         utils.app.navigate("#destination", true, true)
+        utils.route = null
+        utils.locations = null
       return
 
 
