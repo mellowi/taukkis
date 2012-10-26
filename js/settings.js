@@ -1,10 +1,10 @@
 var views = {};
 
 var utils = {
-	map: null,
+  map: null,
   detailMap: null,
-	route: null,
-	locations: null,
+  route: null,
+  locations: null,
   filter: null,
   initialized: false
 };
@@ -17,14 +17,14 @@ var defaults = {
 }
 
 $(document).bind("mobileinit", function() {
-	// no JQM routing
-    $.mobile.ajaxEnabled = false;
-    $.mobile.linkBindingEnabled = false;
-    $.mobile.hashListeningEnabled = false;
-    $.mobile.pushStateEnabled = false;
+  // no JQM routing
+  $.mobile.ajaxEnabled = false;
+  $.mobile.linkBindingEnabled = false;
+  $.mobile.hashListeningEnabled = false;
+  $.mobile.pushStateEnabled = false;
 
-    $.mobile.autoInitializePage = true;
-    $.mobile.loadingMessage = " ";
-    $.mobile.defaultPageTransition = 'none';
-	$.support.cors = true;
+  $.mobile.autoInitializePage = true;
+  $.mobile.loadingMessage = " ";
+  $.mobile.defaultPageTransition = 'none';
+  $.support.cors = true;
 });
