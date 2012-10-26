@@ -23,7 +23,7 @@ html, body {
 #app {
 }
 
-.route #map {
+#map {
   display: block;
   position: absolute;
   top: > 0px;
@@ -32,11 +32,11 @@ html, body {
   height: 100%;
 }
 
-.detail #map {
-  margin: 10px 10px;'
+#detail-map {
   display: block;
-  width: 300px;
-  height: 100px;
+  margin: 10px 10px;
+  width: 500px;
+  height: 300px;
 }
 
 .olControlAttribution {

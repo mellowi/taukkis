@@ -10,7 +10,7 @@ define ["cs!models/map"], (Map) ->
       "click #left": "moveLeft"
       "click #right": "moveRight"
       "orientationchange resize pageshow": "updateMap"
-
+    mapElement: "map"
 
     updateMap: (width, height) ->
       @setSize(width, height)
@@ -20,7 +20,7 @@ define ["cs!models/map"], (Map) ->
 
     setMap: ->
       if(utils.map == null)
-        utils.map = new Map()
+        utils.map = new Map(@mapElement)
       else
         utils.map.instance.updateSize()
 
@@ -51,7 +51,7 @@ define ["cs!models/map"], (Map) ->
 
 
     setSize: (width, height) ->
-      content = $("#map")
+      content = $("#"+@mapElement)
       if(!width || !height)
         height = $(window).height()
         width = $(window).width()

@@ -1,11 +1,12 @@
 define [
+  "cs!models/map",
   "cs!views/map",
   "text!templates/detail.html",
   "cs!models/route",
   "cs!models/location",
   "cs!collections/locations",
   "cs!views/header"
-], (MapView, Template, Route, Location, Locations) ->
+], (Map, MapView, Template, Route, Location, Locations) ->
 
   views.detail = new (MapView.extend(
 
@@ -13,6 +14,7 @@ define [
     template: _.template(Template)
     events:
       "click #close": "close"
+    mapElement: "detail-map"
 
     initialize: ->
       if(utils.route == null)
@@ -30,13 +32,32 @@ define [
 
     render: (id) ->
       views.header.render(@el)
-      location = new Locations(utils.locations.getById(id)).models[0]
+
+      @poi = new Locations(utils.locations.getById(id)).models[0].toJSON()
       # TODO: update location time here (everytime when rendered)
-      @updateMap(300, 100)
       $("#" + @el.id + " div[data-role='content']").html @template(
-        location: location.toJSON()
+        location: @poi
       )
 
+      @updateMap(500, 300)
+      @clearRoute()
+      @clearPOILayer()
+      @renderPoi()
+
+
+    setMap: ->
+      utils.detailMap = new Map(@mapElement)
+
+    addLayer: (layer) ->
+      utils.detailMap.instance.addLayer(layer)
+
+    renderPoi: ->
+      position = utils.transformLonLat(@poi.lon, @poi.lat)
+      poiFeature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(position.lon, position.lat))
+      poiFeature.attributes = @poi
+      console.log @poi
+      console.log poiFeature
+      utils.poiLayer.addFeatures([poiFeature])
 
     close: ->
       $("#popup").addClass("hidden");

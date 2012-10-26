@@ -57,7 +57,6 @@ utils.formatTime = (seconds) ->
 
 # <span timer="<time in seconds>"></span>
 utils.updateTimer = () ->
-  console.log "here"
   timeNow = new Date().getTime();
 
   $("[timer]").each (i, el) ->
@@ -81,7 +80,6 @@ utils.updateTimer = () ->
 utils.init = () ->
   return  if utils.initialized
   utils.initialized = true
-  console.log "Init"
   utils.updateTimer();
   setInterval (->
     utils.updateTimer()

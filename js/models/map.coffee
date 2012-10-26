@@ -5,7 +5,9 @@ define [
   class Map extends Backbone.Model
 
     # constructor
-    initialize: ->
+    initialize: (divname) ->
+      @divname = divname
+      console.log @divname
 
       mapQuest = @setLayerMapQuest()
       osmCycle = @setLayerOsmCycle()
@@ -15,7 +17,7 @@ define [
       mapPosition = @loadMapPosition()
 
       @instance = new OpenLayers.Map
-        div: "map"
+        div: @divname
         theme: null
         projection: defaults.projection
         controls: [
@@ -46,11 +48,11 @@ define [
         latitude: lonlat.lat,
         zoom: zoomLevel
       }
-      $.JSONCookie('position', mapPosition, {expires: 30})
+      $.JSONCookie(@divname+'-position', mapPosition, {expires: 30})
 
 
     loadMapPosition: ->
-      position = $.JSONCookie('position')
+      position = $.JSONCookie(@divname+'-position')
       position = {longitude: 2777381.0927341, latitude: 8439319.5947809, zoom: 11} unless position.longitude
       return position
 
