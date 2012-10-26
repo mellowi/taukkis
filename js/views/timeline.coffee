@@ -25,13 +25,14 @@ define [
 
     render: ->
       views.header.render(@el)
-      # TODO: update locations times here
+      # TODO: update locations times here (everytime when rendered)
       # TODO: filter too old locations here
       locations = new Locations(utils.locations.sortByTime())
       $("#" + @el.id + " div[data-role='content']").html @template(
         locations: locations.toJSON()
       )
       # TODO: automaticly scroll the passed locations over..
+      # count how many * height => scroll (if some scroll command works)
       # $(window).scrollTop(300);
 
   views.timeline = new Timeline

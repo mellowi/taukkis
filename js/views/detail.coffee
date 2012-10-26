@@ -29,6 +29,7 @@ define [
     render: (id) ->
       views.header.render(@el)
       location = new Locations(utils.locations.getById(id)).models[0]
+      # TODO: update location time here (everytime when rendered)
       @updateMap(300, 100)
       $("#" + @el.id + " div[data-role='content']").html @template(
         location: location.toJSON()
