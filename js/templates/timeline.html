@@ -9,7 +9,7 @@
 <div class="list-items">
 
 <% $.each(locations, function(i, location) { %>
-	<a href="#detail?id=<%= location.id %>" class="list-item <%= (location.time > 0) ? "" : "passed"%>">
+	<a href="#detail?id=<%= location.id %>" data-id="<%= location.id %>" class="list-item <%= (location.time > 0) ? "" : "passed"%>">
 		<div class="information">
 			<div class="title"><%= location.title %></div>
 			<div class="categories">
@@ -18,7 +18,7 @@
 		</div>
 		<div class="right">
 			<div class="road"></div>
-			<div class="time"><%= utils.formatTime(location.time) %></div>
+			<div class="time" timer="<%= location.time %>"><%= utils.formatTime(location.time) %></div>
 		</div>
 	</a>
 <% });

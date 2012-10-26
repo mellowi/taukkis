@@ -3,11 +3,13 @@ utils.transformLonLat = (lon, lat) ->
   lonLat = lonLat.transform(new OpenLayers.Projection(defaults.projection2), new OpenLayers.Projection(defaults.projection))
   return lonLat
 
+
 utils.routeStyle = () ->
   routeStyle = OpenLayers.Util.extend({}, OpenLayers.Feature.Vector.style['default'])
   routeStyle.strokeColor = "blue"
   routeStyle.strokeWidth = 5
   return routeStyle
+
 
 context = {
   getIconName: (feature) ->
@@ -42,6 +44,7 @@ defaultStyle = new OpenLayers.Style(
 
 utils.poiStyleMap = new OpenLayers.StyleMap("default": defaultStyle)
 
+
 utils.formatTime = (seconds) ->
   options = options or {}
   formattedTime = ""
@@ -51,3 +54,37 @@ utils.formatTime = (seconds) ->
   formattedTime += hours + "h "  if hours >= 1
   formattedTime += minutes + "min" if minutes >= 1
   return formattedTime
+
+# <span timer="<time in seconds>"></span>
+utils.updateTimer = () ->
+  console.log "here"
+  timeNow = new Date().getTime();
+
+  $("[timer]").each (i, el) ->
+    timer = parseInt($(el).attr("timer"));
+    if (timer < 60*60*24*30)
+      timer = timeNow + timer*1000; #microseconds
+      $(el).attr("timer", timer);
+    timerLeft = parseInt(timer - timeNow); # microseconds left
+    if(timerLeft < 0)
+      $(el).removeAttr("timer");
+      if ($(el).is(':visible')) # event only if element visible
+        $(el).trigger("timeEnded")
+
+    # update the shown time
+    prevTimeStr = $(el).html();
+    curTimeStr = utils.formatTime(timerLeft/1000);
+    if(prevTimeStr != curTimeStr)
+      $(el).html(curTimeStr)
+
+
+utils.init = () ->
+  return  if utils.initialized
+  utils.initialized = true
+  console.log "Init"
+  utils.updateTimer();
+  setInterval (->
+    utils.updateTimer()
+  ), 5000
+
+utils.init()

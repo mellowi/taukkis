@@ -1,15 +1,17 @@
-<div id="map"></div>
+<div data-id="<%= location.id %>">
+	<div id="map"></div>
 
-<div class="time-left right"><%= utils.formatTime(location.time) %></div>
+	<div class="time-left right" timer="<%= location.time %>"><%= utils.formatTime(location.time) %></div>
 
-<div class="details">
-	<div class="title"><%= location.title %></div>
-	<div class="categories">
-		<ul>
-			<li><i class="icon-<%= location.category %>"></i> <%= location.category %></li>
-		</ul>
+	<div class="details">
+		<div class="title"><%= location.title %></div>
+		<div class="categories">
+			<ul>
+				<li><i class="icon-<%= location.category %>"></i> <%= location.category %></li>
+			</ul>
+		</div>
 	</div>
-</div>
 
-<div class="comments"></div>
-<div class="stars"</div>
+	<div class="comments"></div>
+	<div class="stars"</div>
+</div>
