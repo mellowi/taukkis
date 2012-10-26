@@ -88,8 +88,4 @@ utils.init = () ->
     utils.updateTimer()
   ), 5000
 
-      if(utils.filter == null)
-        utils.filter = new Filter().fetch()
-
-
 utils.init()
