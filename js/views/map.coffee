@@ -46,7 +46,9 @@ define ["cs!models/map"], (Map) ->
 
     showPOIDetails: (poi) ->
       poi = poi.attributes
-      alert(poi.title)
+      $.mobile.changePage($("#detail"))
+      utils.app.navigate("#detail?id="+poi.id, true)
+      return
 
 
     showRoute: (routeFeature) ->
