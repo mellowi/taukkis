@@ -8,8 +8,9 @@ class Router extends Backbone.Router
     "destination": "destination"
     "route": "routeMap"
     "timeline": "timeline"
-    "category?id=:id": "category"
     "detail?id=:id": "detail"
+    "information": "information"
+    "category?id=:id": "category"
 
   index: ->
     if($.mobile.activePage.attr("id") == "destination")
@@ -38,6 +39,12 @@ class Router extends Backbone.Router
     require ["cs!views/detail"], ->
       views.detail.render(id)
       $.mobile.changePage($("#detail"), {changeHash:false});
+
+
+  information: ->
+    require ["cs!views/information"], ->
+      views.information.render()
+      $.mobile.changePage($("#information"), {changeHash:false});
 
 
 utils.app = new Router

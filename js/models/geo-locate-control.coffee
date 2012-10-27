@@ -23,4 +23,5 @@ define [], ->
           lat: e.position.coords.latitude
           lon: e.position.coords.longitude
         }
+        console.log "Location changed:"
         console.log utils.currentLocation
