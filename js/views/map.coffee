@@ -24,6 +24,8 @@ define ["cs!models/map"], (Map) ->
       if(@mapElement == "map")
         if(utils.map == null)
           utils.map = new Map(@mapElement)
+          #control = utils.map.instance.getControlsBy("id", "locate-control")[0]
+          #control.activate()
         else
           utils.map.instance.updateSize()
       else
@@ -52,7 +54,8 @@ define ["cs!models/map"], (Map) ->
 
     showPOIDetails: (poi) ->
       poi = poi.attributes
-      utils.app.navigate("#detail?id="+poi.id, true)
+      if(!_.isUndefined(poi.id))
+        utils.app.navigate("#detail?id="+poi.id, true)
       return
 
 

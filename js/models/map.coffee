@@ -15,6 +15,7 @@ define [
 
       mapPosition = @loadMapPosition()
 
+      @geolocate = new GeoLocateControl().instance;
       @instance = new OpenLayers.Map
         div: @divname
         theme: null
@@ -26,7 +27,7 @@ define [
               enableKinetic: true
             }
           })
-          new GeoLocateControl(@instance).getInstance()
+          #@geolocate
           new OpenLayers.Control.Zoom()
         ]
         layers: [

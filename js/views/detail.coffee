@@ -17,6 +17,9 @@ define [
     mapElement: "detail-map"
 
     render: (id) ->
+      if(id == "undefined")
+        return
+
       if(utils.route == null || utils.locations == null)
         utils.initFail()
         return
