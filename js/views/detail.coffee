@@ -42,7 +42,7 @@ define [
       poiFeature.attributes = @poi
       console.log @poi
       console.log poiFeature
-      utils.poiLayer.addFeatures([poiFeature])
+      @poiLayer.addFeatures([poiFeature])
       utils.detailMap.instance.setCenter(position, 14)
 
 
