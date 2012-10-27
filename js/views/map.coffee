@@ -30,21 +30,19 @@ define ["cs!models/map"], (Map) ->
         utils.detailMap = new Map(@mapElement)
 
     initLayers: ->
-      unless(@routeLayer)
-        @routeLayer = new OpenLayers.Layer.Vector("Route")
+      @routeLayer = new OpenLayers.Layer.Vector("Route")
       @addLayer(@routeLayer)
-      unless(@poiLayer)
-        @poiLayer = new OpenLayers.Layer.Vector("POIs", {styleMap: utils.poiStyleMap})
-        if(@mapElement == "map")
-          selectControl = new OpenLayers.Control.SelectFeature(
+      @poiLayer = new OpenLayers.Layer.Vector("POIs", {styleMap: utils.poiStyleMap})
+      if(@mapElement == "map")
+        selectControl = new OpenLayers.Control.SelectFeature(
                 @poiLayer,
                 {
                   id: 'poi-select-control'
                   onSelect: @showPOIDetails
                 }
                 )
-          utils.map.instance.addControl(selectControl)
-          selectControl.activate()
+        utils.map.instance.addControl(selectControl)
+        selectControl.activate()
       @addLayer(@poiLayer)
 
 
