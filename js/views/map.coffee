@@ -43,6 +43,8 @@ define ["cs!models/map"], (Map) ->
                 )
         if(@mapElement == "map")
           utils.map.instance.addControl(selectControl)
+        else
+          utils.detailMap.instance.addControl(selectControl)
         selectControl.activate()
         @addLayer(utils.poiLayer)
 
