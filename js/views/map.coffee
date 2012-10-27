@@ -11,6 +11,8 @@ define ["cs!models/map"], (Map) ->
       "click #right": "moveRight"
       "orientationchange resize pageshow": "updateMap"
     mapElement: "map"
+    routeLayer: null
+    poiLayer: null
 
     updateMap: (width, height) ->
       @setSize(width, height)
@@ -28,9 +30,9 @@ define ["cs!models/map"], (Map) ->
         utils.detailMap = new Map(@mapElement)
 
     initLayers: ->
-      unless(utils.routeLayer)
-        utils.routeLayer = new OpenLayers.Layer.Vector("Route")
-        @addLayer(utils.routeLayer)
+      unless(@routeLayer)
+        @routeLayer = new OpenLayers.Layer.Vector("Route")
+        @addLayer(@routeLayer)
       unless(utils.poiLayer)
         utils.poiLayer = new OpenLayers.Layer.Vector("POIs", {styleMap: utils.poiStyleMap})
         selectControl = new OpenLayers.Control.SelectFeature(
@@ -56,11 +58,11 @@ define ["cs!models/map"], (Map) ->
 
 
     showRoute: (routeFeature) ->
-      utils.routeLayer.addFeatures([routeFeature])
+      @routeLayer.addFeatures([routeFeature])
 
 
     clearRoute: ->
-      utils.routeLayer.removeAllFeatures()
+      @routeLayer.removeAllFeatures()
 
 
     addPOIFeatureToMap: (poiFeature) ->
