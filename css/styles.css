@@ -34,7 +34,7 @@ html, body {
 
 #detail-map {
   display: block;
-  margin: 10px 10px;
+  margin: 10px 0;
   width: 500px;
   height: 300px;
 }
@@ -70,7 +70,12 @@ html, body {
   color: red;
 }
 
+#detail-content .details {
+  width: 500px;
+}
+
 #detail-content .title {
+  width: 400px;
   font-size: 18px;
   font-weight: bold;
 }
@@ -233,6 +238,15 @@ html, body {
     width: 440px;
     height: 280px;
   }
+
+  #detail-content .details {
+    width: 440px;
+  }
+
+  #detail-content .title {
+    width: 340px;
+  }
+
 }
 
 @media (min-width: 360px) and (max-width: 479px) {
@@ -241,6 +255,19 @@ html, body {
     margin: 10px 0;
     width: 320px;
     height: 200px;
+  }
+
+  #detail-content .details {
+    width: 320px;
+  }
+
+  #detail-content .title {
+    width: 220px;
+    font-size: 14px;
+  }
+
+  #detail-content .categories ul {
+    font-size: 12px;
   }
 
   .timeline .list-item {
@@ -262,6 +289,19 @@ html, body {
     margin: 5px 0;
     width: 300px;
     height: 190px;
+  }
+
+  #detail-content .details {
+    width: 300px;
+  }
+
+  #detail-content .title {
+    width: 200px;
+    font-size: 12px;
+  }
+
+  #detail-content .categories ul {
+    font-size: 10px;
   }
 
   .timeline .list-item {
