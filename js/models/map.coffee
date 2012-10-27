@@ -6,7 +6,6 @@ define [
 
     # constructor
     initialize: (divname) ->
-      console.log divname
       @divname = divname
 
       mapQuest = @setLayerMapQuest()
