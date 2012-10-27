@@ -87,11 +87,20 @@ define ["cs!models/map"], (Map) ->
 
     setSize: (width, height) ->
       content = $("#"+@mapElement)
-      if(!width || !height)
-        height = $(window).height()
-        width = $(window).width()
-      content.height height-60 #60 header
-      content.width width+20 #20 scroller TODO: check with other devices - chrome tested
+      if(@mapElement == "map")
+        if(!width || !height)
+          height = $(window).height()
+          width = $(window).width()
+        content.height height-60 #60 header
+        content.width width+20 #20 scroller TODO: check with other devices - chrome tested
+      else
+        if(!width || !height)
+          height = $("#"+@mapElement).height()
+          width = $("#"+@mapElement).width()
+        console.log width
+        console.log height
+        content.height height #60 header
+        content.width width #20 scroller TODO: check with other devices - chrome tested
 
 
     addLayer: (layer) ->

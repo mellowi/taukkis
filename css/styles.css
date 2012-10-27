@@ -110,7 +110,7 @@ html, body {
 .timeline .list-header {
   position: fixed;
   top: 50px;
-  min-width: 300px;
+  min-width: 302px;
   width: 100%;
   z-index: 1;
   height: 38px;
@@ -221,7 +221,22 @@ html, body {
   filter: alpha(opacity=80);
 }
 
+@media (min-width: 480px) and (max-width: 639px) {
+
+  #detail-map {
+    margin: 10px 0;
+    width: 440px;
+    height: 280px;
+  }
+}
+
 @media (min-width: 360px) and (max-width: 479px) {
+
+  #detail-map {
+    margin: 10px 0;
+    width: 320px;
+    height: 200px;
+  }
 
   .timeline .list-item {
     font-size: 14px;
@@ -236,6 +251,13 @@ html, body {
 }
 
 @media (max-width: 359px) {
+
+  #detail-map {
+    display: block;
+    margin: 5px 0;
+    width: 300px;
+    height: 190px;
+  }
 
   .timeline .list-item {
     font-size: 12px;

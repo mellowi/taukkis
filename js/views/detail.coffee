@@ -29,7 +29,8 @@ define [
         location: @poi
       )
 
-      @updateMap(500, 300)
+
+      @updateMap()
       @clearRoute()
       @clearPOILayer()
       @renderRoute()
