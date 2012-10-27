@@ -55,9 +55,18 @@ define ["cs!models/map"], (Map) ->
       return
 
 
-    showRoute: (routeFeature) ->
+    renderRoute: (zoomToRoute=false) ->
+      waypoints = []
+      for point in utils.route.attributes.routes[0].overview_path
+        position = utils.transformLonLat(point.Za, point.Ya)
+        waypoints.push(new OpenLayers.Geometry.Point(position.lon, position.lat))
+
+      routeFeature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.LineString(waypoints), null, utils.routeStyle())
+
       utils.routeLayer.addFeatures([routeFeature])
 
+      if(zoomToRoute)
+        @zoomToExtent(routeFeature.geometry.getBounds())
 
     clearRoute: ->
       utils.routeLayer.removeAllFeatures()
