@@ -4,8 +4,6 @@ define ["text!templates/header.html"], (Template) ->
 
     el: ".header"
     template: _.template(Template)
-    events:
-      "tap .category-filter": "categories"
 
     render: (e) ->
       $("#" + e.id + " div[data-role='header']").html @template()
@@ -16,13 +14,5 @@ define ["text!templates/header.html"], (Template) ->
       nav = $(".nav")
       for category in utils.filter.get("categoriesOut")
         nav.find("a[data-category='" + category + "']").addClass("out")
-
-
-    categories: (e) ->
-      el = $(e.target)
-      category = $(el).data("category")
-      utils.filter.addCategoryOut(category);
-      utils.filter.save();
-      el.toggleClass("out");
 
   views.header = new Header

@@ -10,6 +10,8 @@ define [
 
     el: "#timeline"
     template: _.template(Template)
+    events:
+      "tap .category-filter": "categories"
 
     render: ->
       if(utils.route == null || utils.locations == null)
@@ -27,5 +29,9 @@ define [
       # TODO: automaticly scroll the passed locations over..
       # count how many * height => scroll (if some scroll command works)
       # $(window).scrollTop(300);
+
+    categories: (e) ->
+      utils.setCategory(e)
+      @render()
 
   views.timeline = new Timeline

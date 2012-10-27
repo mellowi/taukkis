@@ -30,6 +30,11 @@ define [
           new OpenLayers.Control.Zoom()
         ]
 
+      if(@divname == "destination-map")
+        @controls = [
+          @geolocate
+        ]
+
       @instance = new OpenLayers.Map
         div: @divname
         theme: null

@@ -13,7 +13,7 @@ define [
     el: "#detail"
     template: _.template(Template)
     events:
-      "click #close": "close"
+      "tap .category-filter": "categories"
     mapElement: "detail-map"
 
     render: (id) ->
@@ -33,12 +33,16 @@ define [
         location: @poi
       )
 
-
       @updateMap()
       @clearRoute()
       @clearPOILayer()
       @renderRoute()
       @renderPoi()
+
+
+    categories: (e) ->
+      utils.setCategory(e)
+      @render()
 
 
     renderPoi: ->
@@ -47,10 +51,5 @@ define [
       poiFeature.attributes = @poi
       @poiLayer.addFeatures([poiFeature])
       utils.detailMap.instance.setCenter(position, 14)
-
-
-    close: ->
-      $("#popup").addClass("hidden");
-
 
   ))

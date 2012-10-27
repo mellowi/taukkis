@@ -10,6 +10,8 @@ define ["cs!models/map"], (Map) ->
       "click #left": "moveLeft"
       "click #right": "moveRight"
       "orientationchange resize pageshow": "updateMap"
+      "tap .category-filter": "categories"
+
     mapElement: "map"
     routeLayer: null
     poiLayer: null
@@ -18,6 +20,11 @@ define ["cs!models/map"], (Map) ->
       @setSize(width, height)
       @setMap()
       @initLayers()
+
+
+    categories: (e) ->
+      utils.setCategory(e)
+      @render()
 
 
     setMap: ->

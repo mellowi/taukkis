@@ -45,6 +45,15 @@ defaultStyle = new OpenLayers.Style(
 utils.poiStyleMap = new OpenLayers.StyleMap("default": defaultStyle)
 
 
+utils.setCategory = (e) ->
+      el = $(e.target)
+      category = $(el).data("category")
+      utils.filter.addCategoryOut(category);
+      utils.filter.save();
+      el.toggleClass("out");
+      console.log category
+
+
 utils.formatTime = (seconds) ->
   options = options or {}
   formattedTime = ""
