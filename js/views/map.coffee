@@ -69,7 +69,7 @@ define ["cs!models/map"], (Map) ->
 
       routeFeature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.LineString(waypoints), null, utils.routeStyle())
 
-      utils.routeLayer.addFeatures([routeFeature])
+      @routeLayer.addFeatures([routeFeature])
       if(zoomToRoute)
         @zoomToExtent(routeFeature.geometry.getBounds())
 
