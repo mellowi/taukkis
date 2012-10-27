@@ -32,6 +32,7 @@ define [
       @updateMap(500, 300)
       @clearRoute()
       @clearPOILayer()
+      @renderRoute()
       @renderPoi()
 
 
@@ -42,6 +43,7 @@ define [
       console.log @poi
       console.log poiFeature
       utils.poiLayer.addFeatures([poiFeature])
+      utils.detailMap.instance.setCenter(position, 14)
 
 
     close: ->

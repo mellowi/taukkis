@@ -21,22 +21,9 @@ define [
       @clearRoute()
       @clearPOILayer()
       @addStartAndEndPoints()
-      @renderRoute()
+      @renderRoute(true)
       @renderPois()
 
-
-    renderRoute: ->
-      waypoints = []
-
-      for point in utils.route.attributes.routes[0].overview_path
-        position = utils.transformLonLat(point.Za, point.Ya)
-        waypoints.push(new OpenLayers.Geometry.Point(position.lon, position.lat))
-
-      routeFeature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.LineString(waypoints), null, utils.routeStyle())
-
-      @showRoute(routeFeature)
-
-      @zoomToExtent(routeFeature.geometry.getBounds())
 
     renderPois: ->
       pois = new Locations().fetch()
@@ -45,6 +32,7 @@ define [
         poiFeature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(position.lon, position.lat))
         poiFeature.attributes = poi.attributes
         utils.poiLayer.addFeatures([poiFeature])
+
 
     addStartAndEndPoints: ->
       route = utils.route.attributes.routes[0].overview_path
