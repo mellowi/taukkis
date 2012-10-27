@@ -6,6 +6,7 @@ define [
 
     # constructor
     initialize: (divname) ->
+      console.log divname
       @divname = divname
 
       mapQuest = @setLayerMapQuest()
@@ -27,7 +28,7 @@ define [
               enableKinetic: true
             }
           })
-          #@geolocate
+          @geolocate
           new OpenLayers.Control.Zoom()
         ]
         layers: [

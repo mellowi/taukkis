@@ -1,4 +1,4 @@
-define ["text!templates/header.html", "cs!models/filter"], (Template, Filter) ->
+define ["text!templates/header.html"], (Template) ->
 
   class Header extends Backbone.View
 
@@ -9,15 +9,20 @@ define ["text!templates/header.html", "cs!models/filter"], (Template, Filter) ->
 
     render: (e) ->
       $("#" + e.id + " div[data-role='header']").html @template()
+      @initCategories()
+
+
+    initCategories: ->
+      nav = $(".nav")
+      for category in utils.filter.get("categoriesOut")
+        nav.find("a[data-category='" + category + "']").addClass("out")
+
 
     categories: (e) ->
       el = $(e.target)
       category = $(el).data("category")
-      if(utils.filter == null)
-        utils.filter = new Filter().fetch()
       utils.filter.addCategoryOut(category);
       utils.filter.save();
-
-      console.log utils.filter
+      el.toggleClass("out");
 
   views.header = new Header

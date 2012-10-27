@@ -11,6 +11,10 @@ class Router extends Backbone.Router
     "category?id=:id": "category"
     "detail?id=:id": "detail"
 
+  index: ->
+    if($.mobile.activePage.attr("id") == "destination")
+      @destination()
+
 
   destination: ->
     require ["cs!views/destination"], ->

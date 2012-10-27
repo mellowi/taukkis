@@ -5,8 +5,11 @@ define [], () ->
 
     addCategoryOut: (category) ->
       categoriesOut = @get("categoriesOut")
-      if $.inArray(category, categoriesOut) == -1
+      index = $.inArray(category, categoriesOut)
+      if index == -1
         categoriesOut.push category
+      else
+        categoriesOut.splice(index, 1);
 
 
     fetch: (options) ->

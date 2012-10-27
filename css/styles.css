@@ -98,6 +98,10 @@ html, body {
   display: none;
 }
 
+.nav > li > a.category-filter.out {
+  text-decoration: line-through;
+}
+
 /* timeline */
 
 .timeline .header {

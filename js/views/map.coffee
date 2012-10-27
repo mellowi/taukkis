@@ -24,8 +24,6 @@ define ["cs!models/map"], (Map) ->
       if(@mapElement == "map")
         if(utils.map == null)
           utils.map = new Map(@mapElement)
-          #control = utils.map.instance.getControlsBy("id", "locate-control")[0]
-          #control.activate()
         else
           utils.map.instance.updateSize()
       else

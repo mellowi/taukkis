@@ -83,7 +83,6 @@ utils.initFail = () ->
 utils.init = () ->
   return  if utils.initialized
   utils.initialized = true
-  console.log "lol"
   # timer
   utils.updateTimer();
   setInterval (->
@@ -93,9 +92,11 @@ utils.init = () ->
   define [
     "cs!models/route",
     "cs!collections/locations",
-  ], (Route, Locations) ->
+    "cs!models/filter",
+  ], (Route, Locations, Filter) ->
     utils.route = new Route().fetch()
     utils.locations = new Locations().fetch()
+    utils.filter = new Filter().fetch()
     if(_.isUndefined(utils.route) || _.isUndefined(utils.locations))
       utils.route = null
       utils.locations = null
