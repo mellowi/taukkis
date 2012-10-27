@@ -30,8 +30,12 @@ define ["cs!models/map"], (Map) ->
         utils.detailMap = new Map(@mapElement)
 
     initLayers: ->
+      if(@routeLayer and @mapElement == "map")
+        utils.map.instance.removeLayer(@routeLayer)
       @routeLayer = new OpenLayers.Layer.Vector("Route")
       @addLayer(@routeLayer)
+      if(@poiLayer and @mapElement == "map")
+        utils.map.instance.removeLayer(@poiLayer)
       @poiLayer = new OpenLayers.Layer.Vector("POIs", {styleMap: utils.poiStyleMap})
       if(@mapElement == "map")
         selectControl = new OpenLayers.Control.SelectFeature(
