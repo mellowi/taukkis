@@ -4,7 +4,7 @@ class Router extends Backbone.Router
     Backbone.history.start()
 
   routes:
-    "": "destination"
+    "": "index"
     "destination": "destination"
     "route": "routeMap"
     "timeline": "timeline"
