@@ -8,7 +8,10 @@
 
 <div class="list-items">
 
-<% $.each(locations, function(i, location) { %>
+<% $.each(locations, function(i, location) {
+	location.title = location.title.split("Puh.")[0];
+	location.title = location.title.replace('"', "");
+%>
 	<a href="#detail?id=<%= location.id %>" data-id="<%= location.id %>" class="list-item <%= (location.time > 0) ? "" : "passed"%>">
 		<div class="information">
 			<div class="title"><%= location.title %></div>

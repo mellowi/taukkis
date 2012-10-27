@@ -3,7 +3,7 @@ html, body {
   padding: 0;
   height: 100%;
   width: 100%;
-  min-width: 300px;
+  min-width: 302px;
 }
 
 .ui-content {
@@ -160,6 +160,8 @@ html, body {
   border-bottom: 2px solid #c1c1c1;
   color: #000000;
   text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .timeline .list-item.passed {
@@ -173,18 +175,11 @@ html, body {
   height: 41px;
 }
 
-.timeline .list-item .title {
-  font-size: 18px;
-  font-weight: bold;
-}
-
 .timeline .list-item .time {
   float: right;
   width: 100px;
   text-align: center;
   line-height: 76px;
-  font-size: 18px;
-  font-weight: bold;
 }
 
 .timeline .list-item .road {
@@ -224,4 +219,33 @@ html, body {
   opacity: 0.8;
   opacity:.80;
   filter: alpha(opacity=80);
+}
+
+@media (min-width: 360px) and (max-width: 479px) {
+
+  .timeline .list-item {
+    font-size: 14px;
+  }
+
+  .timeline .list-item .information {
+    padding: 10px 5px 8px 10px;
+    width: 50%;
+    height: 41px;
+  }
+
+}
+
+@media (max-width: 359px) {
+
+  .timeline .list-item {
+    font-size: 12px;
+  }
+
+  .timeline .list-item .information {
+    float: left;
+    padding: 5px 2px 4px 5px;
+    width: 40%;
+    height: 41px;
+  }
+
 }
