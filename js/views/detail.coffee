@@ -35,12 +35,6 @@ define [
       @renderPoi()
 
 
-    setMap: ->
-      utils.detailMap = new Map(@mapElement)
-
-    addLayer: (layer) ->
-      utils.detailMap.instance.addLayer(layer)
-
     renderPoi: ->
       position = utils.transformLonLat(@poi.lon, @poi.lat)
       poiFeature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(position.lon, position.lat))
@@ -48,6 +42,7 @@ define [
       console.log @poi
       console.log poiFeature
       utils.poiLayer.addFeatures([poiFeature])
+
 
     close: ->
       $("#popup").addClass("hidden");

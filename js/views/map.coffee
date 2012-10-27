@@ -19,11 +19,13 @@ define ["cs!models/map"], (Map) ->
 
 
     setMap: ->
-      if(utils.map == null)
-        utils.map = new Map(@mapElement)
+      if(@mapElement == "map")
+        if(utils.map == null)
+          utils.map = new Map(@mapElement)
+        else
+          utils.map.instance.updateSize()
       else
-        utils.map.instance.updateSize()
-
+        utils.detailMap = new Map(@mapElement)
 
     initLayers: ->
       unless(utils.routeLayer)
@@ -39,14 +41,14 @@ define ["cs!models/map"], (Map) ->
                   #unUnselect: onPopupFeatureUnselect
                 }
                 )
-        utils.map.instance.addControl(selectControl)
+        if(@mapElement == "map")
+          utils.map.instance.addControl(selectControl)
         selectControl.activate()
         @addLayer(utils.poiLayer)
 
 
     showPOIDetails: (poi) ->
       poi = poi.attributes
-      $.mobile.changePage($("#detail"))
       utils.app.navigate("#detail?id="+poi.id, true)
       return
 
@@ -77,7 +79,10 @@ define ["cs!models/map"], (Map) ->
 
 
     addLayer: (layer) ->
-      utils.map.instance.addLayer(layer)
+      if(@mapElement == "map")
+        utils.map.instance.addLayer(layer)
+      else
+        utils.detailMap.instance.addLayer(layer)
 
 
     zoomToExtent: (bounds) ->

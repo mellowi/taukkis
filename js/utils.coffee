@@ -77,7 +77,6 @@ utils.updateTimer = () ->
       $(el).html(curTimeStr)
 
 utils.initFail = () ->
-  $.mobile.changePage($("#destination"))
   utils.app.navigate("#destination", true, true)
   return
 
