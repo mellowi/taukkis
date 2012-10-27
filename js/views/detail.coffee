@@ -42,7 +42,6 @@ define [
 
     categories: (e) ->
       utils.setCategory(e)
-      @render()
 
 
     renderPoi: ->

@@ -42,18 +42,19 @@ require.config({
 });
 
 // Load the application
-require(['modernizr','jquery','backbone', 'routeboxer','openlayer'], function(Modernizr, $, Backbone, RouteBoxer) {
-  $(document).bind("mobileinit", function() {
-    // no JQM routing
-    $.mobile.ajaxEnabled = false;
-    $.mobile.linkBindingEnabled = false;
-    $.mobile.hashListeningEnabled = false;
-    $.mobile.pushStateEnabled = false;
+require(['modernizr','jquery','backbone', 'routeboxer','openlayer', 'settings'], function(Modernizr, $, Backbone, RouteBoxer) {
+  require(['bootstrap', 'jquerymobile', 'json', 'jsoncookie', 'cs!utils', 'cs!routers/router'], function() {
+    $(document).bind("mobileinit", function() {
+      // no JQM routing
+      $.mobile.ajaxEnabled = false;
+      $.mobile.linkBindingEnabled = false;
+      $.mobile.hashListeningEnabled = false;
+      $.mobile.pushStateEnabled = false;
 
-    $.mobile.autoInitializePage = true;
-    $.mobile.loadingMessage = " ";
-    $.mobile.defaultPageTransition = 'none';
-    $.support.cors = true;
+      $.mobile.autoInitializePage = true;
+      $.mobile.loadingMessage = " ";
+      $.mobile.defaultPageTransition = 'none';
+      $.support.cors = true;
+    });
   });
-  require(['bootstrap', 'jquerymobile', 'json', 'jsoncookie', 'settings', 'cs!utils', 'cs!routers/router']);
 });

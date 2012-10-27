@@ -20,7 +20,8 @@ html, body {
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
 
-#app {
+#destination-content {
+  margin: 10px;
 }
 
 #map {
@@ -201,8 +202,6 @@ html, body {
   border-right: 1px solid #c1c1c1;
 }
 
-
-// Lightbox-like modal dialog
 #destinationSelection {
   position: absolute;
   top: 25%;
@@ -216,7 +215,6 @@ html, body {
   overflow: auto;
 }
 
-// Lightbox background dimmer; here for reference
 .black_overlay {
   display: none;
   position: absolute;
@@ -229,6 +227,43 @@ html, body {
   opacity: 0.8;
   opacity:.80;
   filter: alpha(opacity=80);
+}
+
+[class^="t-icon-"],
+[class*=" t-icon-"] {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  margin-top: -2px;
+  margin-right: 3px;
+  line-height: 20px;
+  vertical-align: text-top;
+  background-repeat: no-repeat;
+}
+
+.t-icon-gas_station {
+  background-image: url('images/gas_station.png');
+}
+
+.t-icon-cafe {
+  background-image: url('images/cafe.png');
+}
+
+.t-icon-kiosk {
+  background-image: url('images/kiosk.png');
+}
+
+.t-icon-sights {
+  background-image: url('images/sights.png');
+}
+
+.t-icon-fast_food {
+  background-image: url('images/fast_food.png');
+}
+
+.t-icon-restaurant {
+  background-image: url('images/restaurant.png');
 }
 
 @media (min-width: 480px) and (max-width: 639px) {
