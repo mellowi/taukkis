@@ -1,6 +1,7 @@
 var views = {};
 
 var utils = {
+  currentLocation: null,
   map: null,
   detailMap: null,
   route: null,

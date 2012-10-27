@@ -17,3 +17,10 @@ define [], ->
           }
         }
       )
+
+      @instance.events.register "locationupdated", @instance, (e) ->
+        utils.currentLocation = {
+          lat: e.position.coords.latitude
+          lon: e.position.coords.longitude
+        }
+        console.log utils.currentLocation
