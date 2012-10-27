@@ -16,11 +16,10 @@ define [
       mapPosition = @loadMapPosition()
 
       @geolocate = new GeoLocateControl().instance;
-      @instance = new OpenLayers.Map
-        div: @divname
-        theme: null
-        projection: defaults.projection
-        controls: [
+
+      @controls = []
+      if(@divname == "map")
+        @controls = [
           new OpenLayers.Control.Attribution()
           new OpenLayers.Control.TouchNavigation({
             dragPanOptions: {
@@ -30,6 +29,12 @@ define [
           @geolocate
           new OpenLayers.Control.Zoom()
         ]
+
+      @instance = new OpenLayers.Map
+        div: @divname
+        theme: null
+        projection: defaults.projection
+        controls: @controls
         layers: [
           mmlTaustakartta
         ]
