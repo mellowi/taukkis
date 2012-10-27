@@ -19,7 +19,8 @@ define [
       views.header.render(@el)
       # TODO: update locations times here (everytime when rendered)
       # TODO: filter too old locations here
-      locations = new Locations(utils.locations.sortByTime())
+      locations = new Locations(utils.locations.filterOutCategories())
+      locations = new Locations(locations.sortByTime())
       $("#" + @el.id + " div[data-role='content']").html @template(
         locations: locations.toJSON()
       )

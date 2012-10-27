@@ -98,10 +98,8 @@ define ["cs!models/map"], (Map) ->
         if(!width || !height)
           height = $("#"+@mapElement).height()
           width = $("#"+@mapElement).width()
-        console.log width
-        console.log height
-        content.height height #60 header
-        content.width width #20 scroller TODO: check with other devices - chrome tested
+        content.height height
+        content.width width
 
 
     addLayer: (layer) ->

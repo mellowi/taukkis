@@ -28,6 +28,7 @@ define [
 
       @poi = new Locations(utils.locations.getById(id)).models[0].toJSON()
       # TODO: update location time here (everytime when rendered)
+      console.log @poi
       $("#" + @el.id + " div[data-role='content']").html @template(
         location: @poi
       )
@@ -44,8 +45,6 @@ define [
       position = utils.transformLonLat(@poi.lon, @poi.lat)
       poiFeature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(position.lon, position.lat))
       poiFeature.attributes = @poi
-      console.log @poi
-      console.log poiFeature
       @poiLayer.addFeatures([poiFeature])
       utils.detailMap.instance.setCenter(position, 14)
 

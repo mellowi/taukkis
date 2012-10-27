@@ -154,6 +154,7 @@ html, body {
 }
 
 .timeline .list-items {
+  overflow: hidden;
   padding-top: 88px;
 }
 

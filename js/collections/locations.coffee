@@ -61,6 +61,7 @@ define [
 
 
     filterOutCategories: () ->
+      console.log utils.filter.get("categoriesOut")
       @models.filter (model) ->
-        return false  if $.inArray(model.get("category"), utils.filter.categoriesOut) > -1
+        return false  if $.inArray(model.get("category"), utils.filter.get("categoriesOut")) > -1
         true
