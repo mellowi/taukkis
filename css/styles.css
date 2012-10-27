@@ -134,12 +134,15 @@ html, body {
   margin-left: 10px;
 }
 
+.timeline .road {
+  width: 30px;
+  border-left: 1px solid #c1c1c1;
+  background: #000000 url('images/road.png') repeat-y;
+}
+
 .timeline .list-header .road {
   position: relative;
-  width: 30px;
-  height: 38px;
-  background: #CCCCCC;
-  border-left: 1px solid #c1c1c1;
+  height: 40px;
 }
 
 .timeline .list-header .time {
@@ -160,7 +163,7 @@ html, body {
 
 .timeline .list-item {
   display: block;
-  height: 76px;
+  height: 78px;
   position: relative;
   border-bottom: 2px solid #c1c1c1;
   color: #000000;
@@ -184,15 +187,12 @@ html, body {
   float: right;
   width: 100px;
   text-align: center;
-  line-height: 76px;
+  line-height: 78px;
 }
 
 .timeline .list-item .road {
   float: left;
-  width: 30px;
-  height: 76px;
-  background: #CCCCCC;
-  border-left: 1px solid #c1c1c1;
+  height: 80px;
   border-right: 1px solid #c1c1c1;
 }
 
