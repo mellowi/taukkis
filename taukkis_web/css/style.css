@@ -1,11 +1,11 @@
 body {
-  background-image: url('http://www.hiit.fi/u/thusu/taukkis/veba/img/background.jpg');
+  background-image: url('../img/background.jpg');
   background-repeat:no-repeat;
   background-color: #443025;
   background-size: 100%;
 }
 body#video {
-  background-image: url('http://www.hiit.fi/u/thusu/taukkis/veba/img/background-dark.jpg');
+  background-image: url('../img/background-dark.jpg');
   background-repeat:no-repeat;
   background-color: #271b1d;
   background-size: 100%;
@@ -57,7 +57,7 @@ body#video {
   color: #ffffff;
   font-weight: bold;
   font-size: 15px;
-  background: url('http://www.hiit.fi/u/thusu/taukkis/veba/img/downarrow.png') no-repeat;
+  background: url('../img/downarrow.png') no-repeat;
   background-position: bottom center;
   padding-bottom: 36px;
 }
