@@ -1,2 +1,3 @@
 *.pyc
 lighty.conf
+.DS_Store
