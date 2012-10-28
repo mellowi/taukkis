@@ -14,7 +14,7 @@ class Router extends Backbone.Router
     "error?reason=:reason": "error"
 
   index: ->
-    if(_.isUndefined($.mobile) || $.mobile.activePage.attr("id") == "destination")
+    if($.mobile.activePage.attr("id") == "destination")
       @destination()
 
 

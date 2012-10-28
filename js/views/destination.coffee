@@ -1,16 +1,18 @@
 define [
   "text!templates/destination.html",
+  "text!templates/error.html",
   "cs!models/map",
   "cs!models/route",
   "cs!models/location",
   "cs!collections/locations",
   "cs!views/header"
-], (Template, Map, Route, Location, Locations) ->
+], (Template, ErrorTemplate, Map, Route, Location, Locations) ->
 
   class Destination extends Backbone.View
 
     el: "#destination"
     template: _.template(Template)
+    errorTemplate: _.template(ErrorTemplate)
     events:
       'click #destinationSubmit': "route"
     mapElement: "destination-map"
@@ -36,25 +38,19 @@ define [
         destination: destination
         travelMode: google.maps.DirectionsTravelMode.DRIVING
 
-      console.log request
-
       @directionService.route(request, (result, status) =>
         if (status == google.maps.DirectionsStatus.OK)
-          #console.log result
-          #console.log result.routes[0].overview_path
+          $("#message").addClass("hidden");
 
-          # route
           utils.route = new Route(result)
           utils.route.setAverageSpeed()
           utils.route.save()
 
-          # locations
           @locations(result.routes[0].overview_path)
-          console.log utils.locations
 
           $.mobile.changePage($("#route"))
         else
-          alert "Directions query failed: " + status
+          $("#message").html @errorTemplate(reason: "destination")
       )
 
 

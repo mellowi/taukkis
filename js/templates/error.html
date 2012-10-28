@@ -1,9 +1,13 @@
-<div class="title">Virhe</div>
-<div class="body">
-<% if(reason == "location") { %>
-Sijaintiasi ei pystytty määrittelemään. Palvelu tarvitsee sijaintisi toimiakseen.
+<div class="alert alert-block alert-error">
+<% if(reason == "destination") { %>
+	<button type="button" class="close" data-dismiss="alert">×</button>
 <% } %>
-<% if(reason == "500") { %>
-Palvelu on toistaiseksi poissa käytöstä.
+	<h4>Virhe!</h4>
+<% if(reason == "destination") { %>
+	Reittiä ei löydy, yritä uudelleen.
+<% } else if(reason == "location") { %>
+	Sijaintiasi ei pystytty määrittelemään. Palvelu tarvitsee sijaintisi toimiakseen.
+<% } else if(reason == "500") { %>
+	Palvelu on toistaiseksi poissa käytöstä.
 <% } %>
 </div>
