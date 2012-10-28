@@ -11,12 +11,13 @@ define [
 
     el: "#route"
 
-    render: ->
+    render: (type) ->
       if(utils.route == null || utils.locations == null)
         utils.initFail()
         return
 
-      views.header.render(@el)
+      if type != "poi"
+        views.header.render(@el)
       @updateMap()
       @clearRoute()
       @clearPOILayer()

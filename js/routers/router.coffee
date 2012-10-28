@@ -14,14 +14,14 @@ class Router extends Backbone.Router
     "error?reason=:reason": "error"
 
   index: ->
-    if($.mobile.activePage.attr("id") == "destination")
+    if($.mobile.activePage.attr("id") == "empty-page")
       @destination()
 
 
   destination: ->
     require ["cs!views/destination"], ->
       views.destination.render()
-      $.mobile.changePage($("#destination"), {changeHash:false});
+      $.mobile.changePage($("#destination"), {changeHash:true});
 
 
   routeMap: ->

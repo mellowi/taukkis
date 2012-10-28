@@ -37,9 +37,13 @@ a.ui-btn:hover {
   text-decoration: none;
 }
 
+.nav-collapse .nav > li > a, .nav-collapse .dropdown-menu a {
+  color: rgb(184, 184, 184);
+}
+
 .nav > li > a.category-filter.out {
-  opacity:0.5;
-  filter:alpha(opacity=50);
+  opacity:0.3;
+  filter:alpha(opacity=30);
 }
 
 .taukkis-logo {

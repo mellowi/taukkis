@@ -13,12 +13,13 @@ define [
     events:
       "tap .category-filter": "categories"
 
-    render: ->
+    render: (type) ->
       if(utils.route == null || utils.locations == null)
         utils.initFail()
         return
 
-      views.header.render(@el)
+      if type != "poi"
+        views.header.render(@el)
       # TODO: update locations times here (everytime when rendered)
       # TODO: filter too old locations here
       locations = new Locations(utils.locations.filterOutCategories())
@@ -32,6 +33,6 @@ define [
 
     categories: (e) ->
       utils.setCategory(e)
-      @render()
+      @render("poi")
 
   views.timeline = new Timeline

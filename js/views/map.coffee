@@ -23,7 +23,7 @@ define ["cs!models/map"], (Map) ->
 
     categories: (e) ->
       utils.setCategory(e)
-      @render()
+      @render("poi")
 
 
     setMap: ->
