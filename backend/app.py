@@ -175,13 +175,38 @@ def read_leisure_places(file):
                     print(uee, file=e8)
             else:
                 # def __init__(self, id, lon, lat, title, location, category):
-                result.append(POI(make_id(parts[0].strip('"') + parts[1].strip('"')),
-                                  float(parts[5].strip('"')),
-                                  float(parts[4].strip('"')),
-                                  unicode(parts[1].strip('"')) + u", " + unicode(parts[0].strip('"')), "",
-                                  'leisure'))
+                result.append(POIWithCategories(make_id(parts[0].strip('"') + parts[1].strip('"')),
+                                                float(parts[5].strip('"')),
+                                                float(parts[4].strip('"')),
+                                                unicode(parts[1].strip('"')) + u", " + unicode(parts[0].strip('"')), "",
+                                                ['leisure']))
 
     print(u"# Loaded {0} spots de leisure!".format(len(result)), file=e8)
+    return result
+
+def read_rolls(file):
+    # 62.6047211,29.7618465,Joensuu, Rolls Express
+    result = []
+
+    with codecs.open(file, 'r', encoding='utf-8') as f:
+        for linenum, line in enumerate(f):
+            parts = [item.strip() for item in line.replace("\n", "").split(",") if len(item) > 0]
+            # print(u', '.join(parts), file=o8)
+            if len(parts) != 4:
+                try:
+                    print(u"! Unknown format, line {0}: {1}".format(linenum, line.replace("\n", ""), file=e8))
+                except UnicodeEncodeError, uee:
+                    # traceback.print_exc()
+                    print(uee, file=e8)
+            else:
+                # def __init__(self, id, lon, lat, title, location, category):
+                result.append(POIWithCategories(make_id(parts[0].strip('"') + parts[1].strip('"')),
+                                  float(parts[1].strip('"')),
+                                  float(parts[0].strip('"')),
+                                  unicode(parts[3].strip('"')) + u", " + unicode(parts[2].strip('"')), "",
+                                  ['fast_food']))
+
+    print(u"# Loaded {0} spots de Rolls!".format(len(result)), file=e8)
     return result
 
 def read_st1_stations(file):
@@ -216,9 +241,9 @@ def read_st1_stations(file):
 
                 # def __init__(self, id, lon, lat, title, location, category):
                 result.append(POIWithCategories(make_id(parts[0].strip('"') + parts[1].strip('"')),
-                                  float(parts[1].strip('"').strip(" ")),
-                                  float(parts[0].strip('"').strip(" ")),
-                                  name, "", categories))
+                                                float(parts[1].strip('"').strip(" ")),
+                                                float(parts[0].strip('"').strip(" ")),
+                                                name, "", categories))
 
     print(u"# Loaded {0} St1 stations!".format(len(result)), file=e8)
     return result
@@ -385,6 +410,8 @@ if __name__ == '__main__':
                       help="read leisure places from FILE", metavar="FILE", default="../data/kyrsae.csv")
     parser.add_option("--st1-stations-file", dest="st1_stations_file",
                       help="read ST1 stations from FILE", metavar="FILE", default="../data/gps-csv-st1.csv")
+    parser.add_option("--rolls-file", dest="rolls_file",
+                      help="read Rolls from FILE", metavar="FILE", default="../data/rollsit.csv")
 
     parser.add_option("-d", "--debug",
                       action="store_true", dest="debug", default=False,
@@ -411,6 +438,11 @@ if __name__ == '__main__':
 
     try:
         _pois += read_st1_stations(opts.st1_stations_file)
+    except:
+        traceback.print_exc()
+
+    try:
+        _pois += read_rolls(opts.rolls_file)
     except:
         traceback.print_exc()
 
