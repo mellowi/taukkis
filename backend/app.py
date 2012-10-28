@@ -11,58 +11,18 @@ from bottle import route, run, get, request, response
 o8 = codecs.getwriter('utf-8')(sys.stdout)
 e8 = codecs.getwriter('utf-8')(sys.stderr)
 
-@route('/api/v1/pois.json')
-def pois_v1():
-    global _pois
-    categories = request.query.get('categories', None)
-    if categories is not None:
-        categories = categories.split(',')
-    else:
-        categories = request.query.getall('category')
-        if len(categories) == 0:
-            categories = None
-
-    bounding_box = None
-
-    if request.query.get('bbox', None) is not None:
-        bbox = request.query.get('bbox', None).replace("(", "").replace(")", "")
-        bounding_box = BoundingBox(bbox)
-
-    result = []
-    for poi in _pois:
-        if categories is not None and poi.category not in categories:
-            continue
-        elif categories is not None and poi.category in categories:
-            if bounding_box is not None and poi.lon > bounding_box.left and poi.lon < bounding_box.right and poi.lat > bounding_box.bottom and poi.lat < bounding_box.top:
-                result.append(poi)
-            elif bounding_box is None:
-                result.append(poi)
-        elif categories is None:
-            if bounding_box is not None and poi.lon > bounding_box.left and poi.lon < bounding_box.right and poi.lat > bounding_box.bottom and poi.lat < bounding_box.top:
-                result.append(poi)
-            elif bounding_box is None:
-                result.append(poi)
-
-    response.content_type = 'application/json'
-    return json.dumps([poi.to_dict() for poi in result], ensure_ascii=False)
-
-
 class BoundingBox(object):
     def __init__(self, box):
-        bbox = box.split(",")
-        if len(bbox) != 4:
-            raise ValueError
-        self.bottom = float(bbox[0])
-        self.left = float(bbox[1])
-        self.top = float(bbox[2])
-        self.right = float(bbox[3])
+        self.bottom, self.left, self.top, self.right = [float(i) for i in box.split(",")]
+
+    def contains(self, lat, lon):
+        return (lon > self.left and lon < self.right and
+                lat > self.bottom and lat < self.top)
 
     def __repr__(self):
         return "<Bounding Box (%s, %s), (%s, %s)>" % (self.left, self.bottom, self.right, self.top)
-
     def __str__(self):
         return unicode(self).encode('ASCII', 'backslashreplace')
-
     def __unicode__(self):
         return u"({0}, {1}), ({2}, {3})".format(self.left, self.bottom, self.right, self.top)
 
@@ -94,10 +54,8 @@ class POI(object):
 
     def __repr__(self):
         return "<POI %s %s %s>" % (self.id, self.category, str(self))
-
     def __str__(self):
         return unicode(self).encode('ASCII', 'backslashreplace')
-
     def __unicode__(self):
         return u"{0}, {1}, {2}".format(self.id, self.title, self.location)
 
@@ -120,6 +78,44 @@ def read_pois(file):
 
     print(u"# Loaded {0} POIs!".format(len(result)), file=e8)
     return result
+
+
+@route('/api/v1/pois.json')
+def pois_v1():
+    global _pois
+    categories = request.query.get('categories', None)
+    if categories is not None:
+        categories = categories.split(',')
+    else:
+        categories = request.query.getall('category')
+        if len(categories) == 0:
+            categories = None
+
+    bounding_box = None
+
+    if request.query.get('bbox', None) is not None:
+        bbox = request.query.get('bbox', None).replace("(", "").replace(")", "")
+        bounding_box = BoundingBox(bbox)
+
+    result = []
+    for poi in _pois:
+        if categories is not None and poi.category not in categories:
+            continue
+        elif categories is not None and poi.category in categories:
+            if bounding_box and bounding_box.contains(poi.lat, poi.lon):
+                result.append(poi)
+            elif bounding_box is None:
+                result.append(poi)
+        elif categories is None:
+            if bounding_box and bounding_box.contains(poi.lat, poi.lon):
+                result.append(poi)
+            elif bounding_box is None:
+                result.append(poi)
+
+    response.content_type = 'application/json'
+    return json.dumps([poi.to_dict() for poi in result], ensure_ascii=False)
+
+
 
 if __name__ == '__main__':
     from optparse import OptionParser
