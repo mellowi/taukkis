@@ -46,6 +46,7 @@ define [
 
           # route
           utils.route = new Route(result)
+          utils.route.setAverageSpeed()
           utils.route.save()
 
           # locations

@@ -26,9 +26,8 @@ define ["cs!models/route"], (Route) ->
 
 
     calculateTime: ->
-      currentRoute = new Route().fetch()
       lolfactor = 1.15
-      @get("distance")*1000 / currentRoute.get("averageSpeed") * lolfactor
+      @get("distance")*1000 / utils.route.get("averageSpeed") * lolfactor
 
 
     setDistance: (distance) ->
