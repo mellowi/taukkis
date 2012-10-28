@@ -124,7 +124,7 @@ def read_pois(file):
                 try:
                     print(u"! Unknown format, line {0}: {1}".format(linenum, line.replace("\n", ""), file=e8))
                 except UnicodeEncodeError, uee:
-                    traceback.print_exc()
+                    # traceback.print_exc()
                     print(uee, file=e8)
             else:
                 result.append(POI.from_list(linenum, parts))
@@ -146,7 +146,7 @@ def read_swimming_places(file):
                 try:
                     print(u"! Unknown format, line {0}: {1}".format(linenum, line.replace("\n", ""), file=e8))
                 except UnicodeEncodeError, uee:
-                    traceback.print_exc()
+                    # traceback.print_exc()
                     print(uee, file=e8)
             else:
                 p = POIWithCategories(make_id(parts[0].strip('"') + parts[1].strip('"')),
@@ -171,7 +171,7 @@ def read_leisure_places(file):
                 try:
                     print(u"! Unknown format, line {0}: {1}".format(linenum, line.replace("\n", ""), file=e8))
                 except UnicodeEncodeError, uee:
-                    traceback.print_exc()
+                    # traceback.print_exc()
                     print(uee, file=e8)
             else:
                 # def __init__(self, id, lon, lat, title, location, category):
@@ -351,6 +351,7 @@ if __name__ == '__main__':
 
     opts, args = parser.parse_args()
 
+    _pois = []
     try:
         pass
         # _pois = read_pois(opts.poi_file)
@@ -358,17 +359,16 @@ if __name__ == '__main__':
         traceback.print_exc()
 
     try:
-        _pois = []
-        _pois += read_swimming_places(opts.swimming_place_file)
+        _pois = _pois + read_swimming_places(opts.swimming_place_file)
     except:
         traceback.print_exc()
 
     try:
-        _pois += read_leisure_places(opts.leisure_place_file)
+        _pois = _pois + read_leisure_places(opts.leisure_place_file)
     except:
         traceback.print_exc()
 
-    print(u"# {0} spots total!".format(len(_pois)), file=o8)
+    print(u"# {0} spots total!".format(len(_pois)), file=e8)
 
     if 'FONECTA_USER_ID' not in env:
         print("# FONECTA_USER_ID not in environment!", file=e8)
