@@ -15,6 +15,8 @@ done
 node js/r.js -o js/build.js
 
 # remove not needed files
+rm -R -rf ../apps4finlands-build/.git
+rm -rf ../apps4finlands-build/.gitignore
 rm -rf ../apps4finlands-build/build.sh
 rm -rf ../apps4finlands-build/build.txt
 rm -rf ../apps4finlands-build/README.md

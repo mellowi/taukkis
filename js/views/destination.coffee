@@ -14,9 +14,9 @@ define [
     template: _.template(Template)
     errorTemplate: _.template(ErrorTemplate)
     events:
+      "tap .category-filter": "categories"
       'click #destinationSubmit': "route"
     mapElement: "destination-map"
-    map: null
 
     render: ->
       @getLocation()
@@ -24,9 +24,13 @@ define [
       $("#" + @el.id + " div[data-role='content']").html @template()
 
 
+    categories: (e) ->
+      utils.setCategory(e)
+
+
     getLocation: ->
-      if(@map == null)
-        @map = new Map(@mapElement)
+      if(utils.destinationMap == null)
+        utils.destinationMap = new Map(@mapElement)
 
 
     route: (e) ->

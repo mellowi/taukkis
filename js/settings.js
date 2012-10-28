@@ -4,6 +4,7 @@ var utils = {
   currentLocation: null,
   map: null,
   detailMap: null,
+  destinationMap: null,
   route: null,
   locations: null,
   filter: null,
@@ -17,11 +18,11 @@ var defaults = {
   "bingKey": "AjiRFAOxAb5Z01PMW3EwdUrCjDhN88QKPA3OfFmUuheW4ByTUZ9XPySvAv50RUpR"
 }
 
-var fonectaCategories = {
-  "gas_station": "1D0050",
-  "cafe": "1D1480",
-  "kiosk": "1D1490",
-  "sights": "1D1220",
-  "fast_food": "1D1520",
-  "restaurant": "1D1530"
+var categories = {
+  "gas_station": {"fonectaId": "1D0050", "name": "Huoltoasemat" },
+  "cafe": {"id": "1D1480", "name": "Kahvilat" },
+  "kiosk": {"id": "1D1490", "name": "Kioskit" },
+  "sights": {"id": "1D1220", "name": "Nähtävyydet" },
+  "fast_food": {"id": "1D1520", "name": "Pikaruokalat" },
+  "restaurant": {"id": "1D1530", "name": "Ravintolat" },
 }

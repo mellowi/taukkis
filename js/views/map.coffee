@@ -11,7 +11,6 @@ define ["cs!models/map"], (Map) ->
       "click #right": "moveRight"
       "orientationchange resize pageshow": "updateMap"
       "tap .category-filter": "categories"
-
     mapElement: "map"
     routeLayer: null
     poiLayer: null

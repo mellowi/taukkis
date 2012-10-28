@@ -36,8 +36,10 @@ define [], ->
             pointRadius: 8
             })
           ])
+        utils.locations.updateAll()
+        utils.locations.save()
         console.log "Location changed:"
-        console.log utils.currentLocation
+
 
       @instance.events.register "locationfailed", @instance, (e) ->
         utils.app.navigate "#error?reason=location", true, true

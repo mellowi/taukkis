@@ -7,6 +7,11 @@ define [
     id: "locations"
     model: Location
 
+    updateAll: ->
+      for location in @models
+        location.update()
+
+
     fetch: (options) ->
       json = localStorage.getItem(@id)
       if(json)

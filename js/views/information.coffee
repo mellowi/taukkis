@@ -7,9 +7,16 @@ define [
 
     el: "#information"
     template: _.template(Template)
+    events:
+      "tap .category-filter": "categories"
 
     render: ->
       views.header.render(@el)
       $("#" + @el.id + " div[data-role='content']").html @template()
+
+
+    categories: (e) ->
+      utils.setCategory(e)
+
 
   views.information = new Information

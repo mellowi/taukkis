@@ -29,36 +29,13 @@
               </li>
               <li class="divider"></li>
               <li class="nav-header">Kategoriat</li>
+  <% $.each(categories, function(i, category) { %>
               <li>
-                <a href="#" data-category="gas_station" class="category-filter">
-                  <i class="t-icon-gas_station"></i> <span>Huoltoasemat</span>
+                <a href="#" data-category="<%= i %>" class="category-filter">
+                  <i class="t-icon-<%= i %>"></i> <%= category.name %>
                 </a>
               </li>
-              <li>
-                <a href="#" data-category="cafe" class="category-filter">
-                  <i class="t-icon-cafe"></i> Kahvilat
-                </a>
-              </li>
-              <li>
-                <a href="#" data-category="kiosk" class="category-filter">
-                  <i class="t-icon-kiosk"></i> Kioskit
-                </a>
-              </li>
-              <li>
-                <a href="#" data-category="sights" class="category-filter">
-                  <i class="t-icon-sights"></i> Nähtävyydet
-                </a>
-              </li>
-              <li>
-                <a href="#" data-category="fast_food" class="category-filter">
-                  <i class="t-icon-fast_food"></i> Pikaruokalat
-                </a>
-              </li>
-              <li>
-                <a href="#" data-category="restaurant" class="category-filter">
-                  <i class="t-icon-restaurant"></i> Ravintolat
-                </a>
-              </li>
+  <% }); %>
               <li class="divider"></li>
               <li class="nav-header">Muut</li>
               <li>
@@ -66,6 +43,13 @@
                   <i class="icon-edit icon-white"></i> Aloita alusta
                 </a>
               </li>
+<% if(utils.destinationMap != null || utils.map != null) { %>
+              <li>
+                <a href="#" id="locate">
+                  <i class="icon-screenshot icon-white"></i> Paikanna
+                </a>
+              </li>
+<% } %>
               <li>
                 <a href="#information">
                   <i class="icon-info-sign icon-white"></i> Tietoja

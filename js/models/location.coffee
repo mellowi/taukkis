@@ -4,10 +4,12 @@ define ["cs!models/route"], (Route) ->
     id: "location"
 
     initialize: ->
-      if utils.currentLocation
-        @setDistance(@calculateDistance()) # TODO: algorithm to get distance/time to the POI - update the information with interval (5min?)
-      @setTime(@calculateTime()) # seconds or what?
+      @update()
 
+    update: ->
+      if(utils.currentLocation != null)
+        @setDistance(@calculateDistance())
+        @setTime(@calculateTime())
 
     calculateDistance: ->
       R = 6371; # km
