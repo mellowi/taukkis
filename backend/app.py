@@ -35,14 +35,32 @@ class BoundingBox(object):
     def __unicode__(self):
         return u"({0}, {1}), ({2}, {3})".format(self.left, self.bottom, self.right, self.top)
 
-class POI(object):
-    def __init__(self, id, lon, lat, title, location, category):
+
+class POIBase(object):
+    def __init__(self, id, lon, lat, title, location):
         self.id = id
         self.lon = lon
         self.lat = lat
         self.title = title
         self.location = location
+
+    def to_dict(self):
+        raise NotImplemented
+
+    def __repr__(self):
+        return "<%s %s %s>" % (self.__class__.__name__, self.id, str(self))
+    def __str__(self):
+        return unicode(self).encode('ASCII', 'backslashreplace')
+    def __unicode__(self):
+        return u"{0}, {1}, {2}".format(self.id, self.title, self.location)
+
+
+class POI(POIBase):
+    def __init__(self, id, lon, lat, title, location, category):
+        super(POI, self).__init__(id, lon, lat, title, location)
+        assert(isinstance(category, basestring))
         self.category = category
+        self.categories = [category]
 
     @classmethod
     def from_list(cls, id, lst):
@@ -65,21 +83,34 @@ class POI(object):
 
     def to_dict(self):
         result = {}
-
         for attr in ['id', 'lon', 'lat', 'title', 'location', 'category']:
             result[attr] = getattr(self, attr)
-
         return result
 
-    def __repr__(self):
-        return "<POI %s %s %s>" % (self.id, self.category, str(self))
-    def __str__(self):
-        return unicode(self).encode('ASCII', 'backslashreplace')
-    def __unicode__(self):
-        return u"{0}, {1}, {2}".format(self.id, self.title, self.location)
+class POIWithCategories(POIBase):
+    def __init__(self, id, lon, lat, title, location, categories):
+        super(POIWithCategories, self).__init__(id, lon, lat, title, location)
+        assert(not isinstance(category, basestring))
+
+        allowed = set(["gas_station", "cafe", "kiosk", "sights", "fast_food",
+                       "restaurant", "swimming_place"])
+
+        for cat in categories:
+            assert(cat in allowed)
+
+        self.categories = categories
+
+    def to_dict(self):
+        result = {}
+        for attr in ['id', 'lon', 'lat', 'title', 'location', 'categories']:
+            result[attr] = getattr(self, attr)
+        return result
 
 
 def read_pois(file):
+    """
+    Reads curated_sights.csv
+    """
     result = []
 
     with codecs.open(file, 'r', encoding='utf-8') as f:
@@ -96,6 +127,28 @@ def read_pois(file):
                 result.append(POI.from_list(linenum, parts))
 
     print(u"# Loaded {0} POIs!".format(len(result)), file=e8)
+    return result
+
+def read_beaches(file):
+    """
+    Reads rannat.csv
+    """
+    result = []
+
+    # with codecs.open(file, 'r', encoding='utf-8') as f:
+    #     for linenum, line in enumerate(f):
+    #         parts = [item.strip() for item in line.replace("\n", "").split(",") if len(item) > 0]
+    #         # print(u', '.join(parts), file=o8)
+    #         if len(parts) < 5 or len(parts) > 7:
+    #             try:
+    #                 print(u"! Unknown format, line {0}: {1}".format(linenum, line.replace("\n", ""), file=e8))
+    #             except UnicodeEncodeError, uee:
+    #                 traceback.print_exc()
+    #                 print(uee, file=e8)
+    #         else:
+    #             result.append(POI.from_list(linenum, parts))
+
+    print(u"# Loaded {0} beaches!".format(len(result)), file=e8)
     return result
 
 def get_categories(query_dict):
@@ -212,6 +265,33 @@ def pois_v2():
     response.content_type = 'application/json'
     return json.dumps([poi.to_dict() for poi in result], ensure_ascii=False)
 
+@route('/api/v3/pois.json')
+def pois_v3():
+    global _pois2
+    categories = get_categories(request.query)
+    cats_set = set(categories)
+    bounding_box = get_bounding_box(request.query)
+
+    result = []
+    for poi in _pois:
+        poi_cats_set = set(poi.categories)
+
+        if categories is not None and len(poi_cats_set & cats_set) == 0:
+            continue
+        elif categories is not None and len(poi_cats_set & cats_set) > 0:
+            if bounding_box and bounding_box.contains(poi.lat, poi.lon):
+                result.append(poi)
+            elif bounding_box is None:
+                result.append(poi)
+        elif categories is None:
+            if bounding_box and bounding_box.contains(poi.lat, poi.lon):
+                result.append(poi)
+            elif bounding_box is None:
+                result.append(poi)
+
+    response.content_type = 'application/json'
+    return json.dumps([poi.to_dict() for poi in result], ensure_ascii=False)
+
 
 if __name__ == '__main__':
     from optparse import OptionParser
@@ -224,6 +304,8 @@ if __name__ == '__main__':
 
     parser.add_option("-p", "--poi-file", dest="poi_file",
                       help="read points of interests from FILE", metavar="FILE", default="../data/curated_sights.csv")
+    parser.add_option("--beach-file", dest="beach_file",
+                      help="read beaches from FILE", metavar="FILE", default="../data/rannat.csv")
 
     parser.add_option("-d", "--debug",
                       action="store_true", dest="debug", default=False,
@@ -231,7 +313,17 @@ if __name__ == '__main__':
 
     opts, args = parser.parse_args()
 
-    _pois = read_pois(opts.poi_file)
+    try:
+        _pois = read_pois(opts.poi_file)
+    except:
+        traceback.print_exc()
+
+    try:
+        _pois2 = []
+        _pois2 += read_beaches(opts.beach_file)
+    except:
+        traceback.print_exc()
+
     if 'FONECTA_USER_ID' not in env:
         print("# FONECTA_USER_ID not in environment!", file=e8)
     run(host=opts.host, port=opts.port)
