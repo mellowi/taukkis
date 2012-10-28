@@ -55,7 +55,7 @@ class POIBase(object):
     def __str__(self):
         return unicode(self).encode('ASCII', 'backslashreplace')
     def __unicode__(self):
-        return u"{0}, {1}, {2}".format(self.id, self.title, self.location)
+        return u"{0}, {1}, {2} ({3}, {4})".format(self.id, self.title, self.location, self.lat, self.lon)
 
 
 class POI(POIBase):
