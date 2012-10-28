@@ -2,7 +2,7 @@
 	<div>Taukopaikka</div>
 	<div>
 		<div class="road"></div>
-		<div class="time">Matka</div>
+		<div class="time">Aika</div>
 	</div>
 </div>
 
@@ -22,8 +22,8 @@
 		</div>
 		<div class="time-info right">
 			<div class="road"></div>
-			<div class="time"><%= utils.formatDistance(location.distance) %></div>
-			<!--<div class="time" timer="<%= location.time %>"><%= utils.formatTime(location.time) %></div>-->
+			<!--<div class="time"><%= utils.formatDistance(location.distance) %></div>-->
+			<div class="time" timer="<%= location.time %>"><%= utils.formatTime(location.time) %></div>
 		</div>
 	</a>
 <% });

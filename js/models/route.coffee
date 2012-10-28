@@ -18,3 +18,7 @@ define [], () ->
 
     destroy: () ->
       localStorage.removeItem(@id);
+
+
+    averageSpeed: () ->
+      this.attributes.routes[0].legs[0].distance.value / this.attributes.routes[0].legs[0].duration.value
