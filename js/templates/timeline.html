@@ -13,14 +13,14 @@
 	location.title = location.title.replace('"', "");
 %>
 	<a href="#detail?id=<%= location.id %>" data-id="<%= location.id %>" class="list-item <%= (location.time > 0) ? "" : "passed"%>">
-		<div class="information">
-			<div class="title"><%= location.title %></div>
-			<div class="categories">
-				<i class="t-icon-gas_station t-medium-icon"></i>
+		<div class="information left">
+			<div class="categories right">
+				<i class="t-icon-gas_station t-medium-icon"></i><br/>
 				<i class="t-icon-<%= location.category %> t-medium-icon"></i>
 			</div>
+			<div class="title"><%= location.title %></div>
 		</div>
-		<div class="right">
+		<div class="time-info right">
 			<div class="road"></div>
 			<div class="time" timer="<%= location.time %>"><%= utils.formatTime(location.time) %></div>
 		</div>

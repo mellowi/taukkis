@@ -86,6 +86,10 @@ html, body {
   list-style: none
 }
 
+#detail-content .categories li {
+  line-height: 24px;
+}
+
 #detail-content .time-left {
   margin-top: 10px;
   width: 100px;
@@ -94,6 +98,10 @@ html, body {
   font-size: 18px;
   font-weight: bold;
   border: 2px solid #c1c1c1;
+}
+
+.left {
+  float: left;
 }
 
 .right {
@@ -184,9 +192,9 @@ html, body {
 
 .timeline .list-item .information {
   float: left;
-  padding: 20px 10px 15px 20px;
-  width: 65%;
-  height: 41px;
+  overflow: hidden;
+  padding: 12px 0 8px 10px;
+  width: 495px;
 }
 
 .timeline .list-item .time {
@@ -242,17 +250,11 @@ html, body {
   background-repeat: no-repeat;
 }
 
-
 .t-medium-icon {
-  display: inline-block;
   width: 24px;
   height: 24px;
   background-size: 24px 24px;
-  margin-top: -2px;
-  margin-right: 3px;
   line-height: 24px;
-  vertical-align: text-top;
-  background-repeat: no-repeat;
 }
 
 .t-icon-gas_station {
@@ -279,6 +281,14 @@ html, body {
   background-image: url('images/restaurant.png');
 }
 
+@media (min-width: 640) and (max-width: 1023px) {
+
+  .timeline .list-item .information {
+    width: 495px;
+  }
+
+}
+
 @media (min-width: 480px) and (max-width: 639px) {
 
   #detail-map {
@@ -293,6 +303,11 @@ html, body {
 
   #detail-content .title {
     width: 340px;
+  }
+
+  .timeline .list-item .information {
+    padding: 6px 0 6px 10px;
+    width: 335px;
   }
 
 }
@@ -318,6 +333,17 @@ html, body {
     font-size: 12px;
   }
 
+  #detail-content .categories li {
+    line-height: 18px;
+  }
+
+  .t-medium-icon {
+    width: 18px;
+    height: 18px;
+    background-size: 18px 18px;
+    line-height: 18px;
+  }
+
   .timeline .list-item {
     font-size: 14px;
   }
@@ -325,7 +351,6 @@ html, body {
   .timeline .list-item .information {
     padding: 10px 5px 8px 10px;
     width: 50%;
-    height: 41px;
   }
 
 }
@@ -352,6 +377,16 @@ html, body {
     font-size: 10px;
   }
 
+  #detail-content .categories li {
+    line-height: 16px;
+  }
+
+  .t-medium-icon {
+    width: 16px;
+    height: 16px;
+    background-size: 16px 16px;
+    line-height: 16px;
+  }
   .timeline .list-item {
     font-size: 12px;
   }
@@ -359,7 +394,7 @@ html, body {
   .timeline .list-item .information {
     float: left;
     padding: 5px 2px 4px 5px;
-    width: 40%;
+    width: 180px;
     height: 41px;
   }
 
