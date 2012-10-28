@@ -1,0 +1,128 @@
+body {
+  background-image: url('http://www.hiit.fi/u/thusu/taukkis/veba/img/background.jpg');
+  background-repeat:no-repeat;
+  background-color: #443025;
+  background-size: 100%;
+}
+body#video {
+  background-image: url('http://www.hiit.fi/u/thusu/taukkis/veba/img/background-dark.jpg');
+  background-repeat:no-repeat;
+  background-color: #271b1d;
+  background-size: 100%;
+}
+#header {
+  height:35px;
+  color: #ededed;
+  background: #262626;
+  position: relative;
+}
+
+#header-wrapper {
+  margin: 0 auto;
+  width: 70%;
+}
+
+#logo {
+  float: left;
+  height: 73px; 
+  width: 138px; 
+  position: relative; 
+  z-index: 3;
+}
+
+#menu {
+  color: #fcfcfc;
+  float: right;
+  margin-top: 10px;
+  position: relative;
+  z-index: 4;
+}
+
+#menu ul {
+  display: inline;
+}
+
+#menu ul li {
+  list-style: none;
+  display: inline;
+  margin-right: 15px;
+}
+
+#menu ul li a {
+  text-decoration: none;
+  color: #cccccc;
+}
+
+#menu li.selected {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 15px;
+  background: url('http://www.hiit.fi/u/thusu/taukkis/veba/img/downarrow.png') no-repeat;
+  background-position: bottom center;
+  padding-bottom: 36px;
+}
+
+#menu li.taukkis {
+  margin-left: 60px;
+}
+
+#menu li.taukkis a {
+  color: #cccccc;
+  font-weight: bold;
+}
+
+#menu ul li a:hover {
+  color: #fcfcfc;
+}
+
+#content {
+  overflow: auto; 
+  position: absolute;
+  top: 35px;
+  bottom: 0px;
+  width: 100%;
+}
+
+#content-wrapper {
+  margin: 0 auto;
+  width: 70%;
+
+}
+
+#phone {
+  float:left;
+  margin-top:50px;
+}
+
+@media (min-width: 900px)
+{
+
+#intro {
+  float: right;
+  width: 50%;
+  margin-top: 200px;
+  color: #ffffff;
+}
+
+#intro p {
+  font-size: 1.3em;
+  margin: 20px 0px 20px 0px;
+}
+
+}
+
+@media (max-width: 899px)
+{
+
+#intro {
+  width: 90%;
+  margin-top: 60px;
+  font-size: 1.4em;
+  color: #ffffff;
+}
+
+#intro p {
+  margin: 20px 0px 20px 0px;
+}
+
+}
