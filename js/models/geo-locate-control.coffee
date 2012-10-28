@@ -36,8 +36,9 @@ define [], ->
             pointRadius: 8
             })
           ])
-        utils.locations.updateAll()
-        utils.locations.save()
+        if(utils.locations != null)
+          utils.locations.updateAll()
+          utils.locations.save()
         console.log "Location changed:"
 
 
