@@ -210,9 +210,9 @@ def read_st1_stations(file):
                         categories += ["restaurant"]
 
                 if name.lower().find("express") == -1 and name.lower().find("automa") == -1:
-                    name = " ".join(name.split(" ")[:4]) # trolol
-                else:
                     name = " ".join(name.split(" ")[:3]) # trolol
+                else:
+                    name = " ".join(name.split(" ")[:4]) # trolol
 
                 # def __init__(self, id, lon, lat, title, location, category):
                 result.append(POIWithCategories(make_id(parts[0].strip('"') + parts[1].strip('"')),
