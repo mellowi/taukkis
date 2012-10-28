@@ -6,6 +6,7 @@ import codecs
 import json
 import traceback
 import time
+import md5
 
 from os import environ as env
 
@@ -19,6 +20,8 @@ try:
 except ImportError, e:
     print(u"! Cannot import requests! Osuma API will not work!", file=e8)
 
+def make_id(s):
+    return md5.new(s.encode('ascii', 'ignore')).hexdigest()[0:6]
 
 class BoundingBox(object):
     def __init__(self, box):
@@ -88,6 +91,9 @@ class POI(POIBase):
         return result
 
 class POIWithCategories(POIBase):
+    allowed_categories = set(["gas_station", "cafe", "kiosk", "sights", "fast_food",
+                              "restaurant", "swimming_place", "leisure"])
+
     def __init__(self, id, lon, lat, title, location, categories):
         super(POIWithCategories, self).__init__(id, lon, lat, title, location)
         assert(not isinstance(category, basestring))
@@ -129,26 +135,55 @@ def read_pois(file):
     print(u"# Loaded {0} POIs!".format(len(result)), file=e8)
     return result
 
-def read_beaches(file):
+def read_swimming_places(file):
     """
     Reads rannat.csv
     """
     result = []
 
-    # with codecs.open(file, 'r', encoding='utf-8') as f:
-    #     for linenum, line in enumerate(f):
-    #         parts = [item.strip() for item in line.replace("\n", "").split(",") if len(item) > 0]
-    #         # print(u', '.join(parts), file=o8)
-    #         if len(parts) < 5 or len(parts) > 7:
-    #             try:
-    #                 print(u"! Unknown format, line {0}: {1}".format(linenum, line.replace("\n", ""), file=e8))
-    #             except UnicodeEncodeError, uee:
-    #                 traceback.print_exc()
-    #                 print(uee, file=e8)
-    #         else:
-    #             result.append(POI.from_list(linenum, parts))
+    with codecs.open(file, 'r', encoding='iso-8859-15') as f:
+        for linenum, line in enumerate(f):
+            parts = [item.strip() for item in line.replace("\n", "").split(",") if len(item) > 0]
+            # print(u', '.join(parts), file=o8)
+            if len(parts) != 6:
+                try:
+                    print(u"! Unknown format, line {0}: {1}".format(linenum, line.replace("\n", ""), file=e8))
+                except UnicodeEncodeError, uee:
+                    traceback.print_exc()
+                    print(uee, file=e8)
+            else:
+                result.append(POI(make_id(parts[0].strip('"') + parts[1].strip('"')),
+                                  float(parts[5].strip('"')),
+                                  float(parts[4].strip('"')),
+                                  unicode(parts[1].strip('"')), unicode(parts[0].strip('"')),
+                                  'swimming_place'))
 
-    print(u"# Loaded {0} beaches!".format(len(result)), file=e8)
+    print(u"# Loaded {0} swimming places!".format(len(result)), file=e8)
+    return result
+
+def read_leisure_places(file):
+    # "Metsähallitus","Kolmoislammen varaustulipaikka",6689702,3362710,"60.295348334","24.513997556"
+    result = []
+
+    with codecs.open(file, 'r', encoding='iso-8859-15') as f:
+        for linenum, line in enumerate(f):
+            parts = [item.strip() for item in line.replace("\n", "").split(",") if len(item) > 0]
+            # print(u', '.join(parts), file=o8)
+            if len(parts) != 6:
+                try:
+                    print(u"! Unknown format, line {0}: {1}".format(linenum, line.replace("\n", ""), file=e8))
+                except UnicodeEncodeError, uee:
+                    traceback.print_exc()
+                    print(uee, file=e8)
+            else:
+                # def __init__(self, id, lon, lat, title, location, category):
+                result.append(POI(make_id(parts[0].strip('"') + parts[1].strip('"')),
+                                  float(parts[5].strip('"')),
+                                  float(parts[4].strip('"')),
+                                  unicode(parts[1].strip('"')) + u", " + unicode(parts[0].strip('"')), "",
+                                  'leisure'))
+
+    print(u"# Loaded {0} spots de leisure!".format(len(result)), file=e8)
     return result
 
 def get_categories(query_dict):
@@ -267,7 +302,7 @@ def pois_v2():
 
 @route('/api/v3/pois.json')
 def pois_v3():
-    global _pois2
+    global _pois
     categories = get_categories(request.query)
     cats_set = set(categories)
     bounding_box = get_bounding_box(request.query)
@@ -304,8 +339,10 @@ if __name__ == '__main__':
 
     parser.add_option("-p", "--poi-file", dest="poi_file",
                       help="read points of interests from FILE", metavar="FILE", default="../data/curated_sights.csv")
-    parser.add_option("--beach-file", dest="beach_file",
-                      help="read beaches from FILE", metavar="FILE", default="../data/rannat.csv")
+    parser.add_option("--swimming-place-file", dest="swimming_place_file",
+                      help="read swimming places from FILE", metavar="FILE", default="../data/rannat.csv")
+    parser.add_option("--leisure-place-file", dest="leisure_place_file",
+                      help="read leisure places from FILE", metavar="FILE", default="../data/kyrsae.csv")
 
     parser.add_option("-d", "--debug",
                       action="store_true", dest="debug", default=False,
@@ -314,15 +351,23 @@ if __name__ == '__main__':
     opts, args = parser.parse_args()
 
     try:
-        _pois = read_pois(opts.poi_file)
+        pass
+        # _pois = read_pois(opts.poi_file)
     except:
         traceback.print_exc()
 
     try:
-        _pois2 = []
-        _pois2 += read_beaches(opts.beach_file)
+        _pois = []
+        _pois += read_swimming_places(opts.swimming_place_file)
     except:
         traceback.print_exc()
+
+    try:
+        _pois += read_leisure_places(opts.leisure_place_file)
+    except:
+        traceback.print_exc()
+
+    print(u"# {0} spots total!".format(len(_pois)), file=o8)
 
     if 'FONECTA_USER_ID' not in env:
         print("# FONECTA_USER_ID not in environment!", file=e8)
