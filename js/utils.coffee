@@ -64,6 +64,9 @@ utils.formatTime = (seconds) ->
   formattedTime += minutes + "min" if minutes >= 1
   return formattedTime
 
+utils.formatDistance = (distance) ->
+  return "#{Math.round(distance)} km"
+
 # <span timer="<time in seconds>"></span>
 utils.updateTimer = () ->
   timeNow = new Date().getTime();
