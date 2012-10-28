@@ -25,4 +25,5 @@ var categories = {
   "sights": {"id": "1D1220", "name": "Nähtävyydet" },
   "fast_food": {"id": "1D1520", "name": "Pikaruokalat" },
   "restaurant": {"id": "1D1530", "name": "Ravintolat" },
+  "swimming_place": {"id": null, "name": "Uimapaikat" },
 }

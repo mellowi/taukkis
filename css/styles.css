@@ -38,7 +38,8 @@ a.ui-btn:hover {
 }
 
 .nav > li > a.category-filter.out {
-  text-decoration: line-through;
+  opacity:0.5;
+  filter:alpha(opacity=50);
 }
 
 #destination-content, #error-content {
@@ -297,6 +298,11 @@ a.ui-btn:hover {
 .t-icon-restaurant {
   background-image: url('images/restaurant.png');
 }
+
+.t-icon-swimming_place {
+  background-image: url('images/swimming_place.png');
+}
+
 
 @media (min-width: 640) and (max-width: 1023px) {
 
