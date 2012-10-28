@@ -41,9 +41,13 @@ define ["cs!models/map"], (Map) ->
         utils.map.instance.removeLayer(@routeLayer)
       @routeLayer = new OpenLayers.Layer.Vector("Route")
       @addLayer(@routeLayer)
+
       if(@poiLayer and @mapElement == "map")
         utils.map.instance.removeLayer(@poiLayer)
       @poiLayer = new OpenLayers.Layer.Vector("POIs", {styleMap: utils.poiStyleMap})
+
+      @addLayer(@poiLayer)
+
       if(@mapElement == "map")
         selectControl = new OpenLayers.Control.SelectFeature(
                 @poiLayer,
@@ -54,7 +58,8 @@ define ["cs!models/map"], (Map) ->
                 )
         utils.map.instance.addControl(selectControl)
         selectControl.activate()
-      @addLayer(@poiLayer)
+
+      @addLayer(utils.geoLocateLayer)
 
 
     showPOIDetails: (poi) ->
