@@ -5,8 +5,13 @@ import sys
 import codecs
 import json
 import traceback
+import time
+
+from os import environ as env
 
 from bottle import route, run, get, request, response
+
+import requests
 
 o8 = codecs.getwriter('utf-8')(sys.stdout)
 e8 = codecs.getwriter('utf-8')(sys.stderr)
@@ -43,6 +48,16 @@ class POI(object):
         location = lst[3]
         category = lst[4]
         return POI(id, lon, lat, title, location, category)
+
+    @classmethod
+    def from_OSUMA_dict(cls, d, category):
+        return POI(d['companyId'],
+                   d['coordinate']['longitude'], d['coordinate']['latitude'],
+                   d['name'],
+                   "%s %s, %s" % (d['address']['street'],
+                                  d['address']['streetNumber'],
+                               d['address']['street']),
+                   category)
 
     def to_dict(self):
         result = {}
@@ -125,6 +140,74 @@ def pois_v1():
     return json.dumps([poi.to_dict() for poi in result], ensure_ascii=False)
 
 
+def make_osuma_url(minLat, minLon, maxLat, maxLon, lobCode=None):
+    if lobCode:
+        return "http://developer.fonecta.net/osuma/resource/search/osuma/companies/boundingbox" + \
+            "?lobCode=%s" % lobCode + \
+            "&minLatitude=%(minLat)4f&minLongitude=%(minLon)4f" % {'minLat': minLat, 'minLon': minLon} + \
+            "&maxLatitude=%(maxLat)4f&maxLongitude=%(maxLon)4f" % {'maxLat': maxLat, 'maxLon': maxLon}
+    else:
+        return "http://developer.fonecta.net/osuma/resource/search/osuma/companies/boundingbox" + \
+            "?minLatitude=%(minLat)4f&minLongitude=%(minLon)4f" % {'minLat': minLat, 'minLon': minLon} + \
+            "&maxLatitude=%(maxLat)4f&maxLongitude=%(maxLon)4f" % {'maxLat': maxLat, 'maxLon': maxLon}
+
+def make_osuma_request(url):
+    if 'FONECTA_USER_ID' in env:
+        return requests.get(url, headers=
+                            { 'X-FONECTA-USER-ID': env['FONECTA_USER_ID'] })
+    return requests.get(url)
+
+
+@route('/api/v2/pois.json')
+def pois_v2():
+    categories = get_categories(request.query)
+    bbox = get_bounding_box(request.query)
+
+    category_map = {
+        'gas_station': '1D0050', # (Huoltoasema)
+        'cafe': '1D1480', # (Kahvila)
+        'kiosk': '1D1490', # (Kioski)
+        'sights': '1D1220', # (Nähtävyydet)
+        'fast_food': '1D1520', # (Pikaruoka)
+        'restaurant': '1D1530' # (Ravintola)
+        }
+    lob_map = {}
+    for k, v in category_map.iteritems():
+        lob_map[v] = k
+
+    if categories is None:
+        categories = category_map.keys()
+    else:
+        for category in categories:
+            if category not in category_map:
+                abort(400, "Unknown category: %s not in (%s)" %
+                      (category, ', '.join(categories_map.keys())))
+
+    results = []
+
+    for lobCode in [category_map[cat] for cat in categories]:
+        url = make_osuma_url(bbox.bottom, bbox.left, bbox.top, bbox.right, lobCode=lobCode)
+        started = time.clock()
+        r = make_osuma_request(url)
+        if r.status_code == 200:
+            results.append((url, r.text))
+        else:
+            print(r.status_code + " " + r.text, file=e8)
+        ended = time.clock()
+        print("# Request {0} took {1}".format(url, ended-started))
+
+    result = []
+    for url, res_text in results:
+        res_dict = json.loads(res_text)
+        res = res_dict['results']
+
+        for item in res:
+            # print(json.dumps(item, indent=2, ensure_ascii=False), file=o8)
+            result.append(POI.from_OSUMA_dict(item, lob_map[item['mainLineOfBusinessCode']]))
+
+    response.content_type = 'application/json'
+    return json.dumps([poi.to_dict() for poi in result], ensure_ascii=False)
+
 
 if __name__ == '__main__':
     from optparse import OptionParser
@@ -145,4 +228,6 @@ if __name__ == '__main__':
     opts, args = parser.parse_args()
 
     _pois = read_pois(opts.poi_file)
+    if 'FONECTA_USER_ID' not in env:
+        print("# FONECTA_USER_ID not in environment!", file=e8)
     run(host=opts.host, port=opts.port)
