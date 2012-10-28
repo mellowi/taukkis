@@ -25,3 +25,9 @@ define [], ->
         }
         console.log "Location changed:"
         console.log utils.currentLocation
+
+      @instance.events.register "locationfailed", @instance, (e) ->
+        utils.app.navigate "#error?reason=location", true, true
+
+      @instance.events.register "locationuncapable", @instance, (e) ->
+        utils.app.navigate "#error?reason=location", true, true

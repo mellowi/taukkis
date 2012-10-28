@@ -95,6 +95,16 @@ utils.initFail = () ->
 utils.init = () ->
   return  if utils.initialized
   utils.initialized = true
+  # ajax error handling
+  $.ajaxSetup statusCode:
+    500: ->
+      utils.app.navigate "#error?reason=500", true, true
+    501: ->
+      utils.app.navigate "#error?reason=500", true, true
+    502: ->
+      utils.app.navigate "#error?reason=500", true, true
+    503: ->
+      utils.app.navigate "#error?reason=500", true, true
   # timer
   utils.updateTimer();
   setInterval (->

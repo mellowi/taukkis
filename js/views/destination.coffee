@@ -31,7 +31,6 @@ define [
       @directionService = new google.maps.DirectionsService()
       destination = $("#destination-input").val()
 
-
       request =
         origin: new google.maps.LatLng(utils.currentLocation.lat, utils.currentLocation.lon) # TODO: Make this LatLng work with request ..?!?!
         destination: destination

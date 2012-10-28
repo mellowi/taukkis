@@ -11,6 +11,7 @@ class Router extends Backbone.Router
     "detail?id=:id": "detail"
     "information": "information"
     "category?id=:id": "category"
+    "error?reason=:reason": "error"
 
   index: ->
     if(_.isUndefined($.mobile) || $.mobile.activePage.attr("id") == "destination")
@@ -45,6 +46,12 @@ class Router extends Backbone.Router
     require ["cs!views/information"], ->
       views.information.render()
       $.mobile.changePage($("#information"), {changeHash:false});
+
+
+  error: (reason) ->
+    require ["cs!views/error"], ->
+      views.error.render(reason)
+      $.mobile.changePage($("#error"), {changeHash:false});
 
 
 utils.app = new Router

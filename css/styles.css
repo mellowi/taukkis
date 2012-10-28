@@ -6,6 +6,18 @@ html, body {
   min-width: 302px;
 }
 
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.hidden {
+  display: none;
+}
+
 .ui-content {
     padding: 0;
 }
@@ -25,7 +37,11 @@ a.ui-btn:hover {
   text-decoration: none;
 }
 
-#destination-content {
+.nav > li > a.category-filter.out {
+  text-decoration: line-through;
+}
+
+#destination-content, #error-content {
   margin: 10px;
 }
 
@@ -111,20 +127,11 @@ a.ui-btn:hover {
   border: 2px solid #c1c1c1;
 }
 
-.left {
-  float: left;
-}
-
-.right {
-  float: right;
-}
-
-.hidden {
-  display: none;
-}
-
-.nav > li > a.category-filter.out {
-  text-decoration: line-through;
+.error .title {
+  width: 500px;
+  font-size: 18px;
+  font-weight: bold;
+  color: red;
 }
 
 /* timeline */
