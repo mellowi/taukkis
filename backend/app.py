@@ -79,23 +79,32 @@ def read_pois(file):
     print(u"# Loaded {0} POIs!".format(len(result)), file=e8)
     return result
 
+def get_categories(query_dict):
+    """
+    Returns a list of categories as strings.
+    """
+    categories = query_dict.get('categories', None)
+    if categories is not None:
+        categories = categories.split(',')
+    else:
+        categories = query_dict.getall('category')
+        if len(categories) == 0:
+            categories = None
+
+    return categories
+
+def get_bounding_box(query_dict):
+    bounding_box = None
+    if query_dict.get('bbox', None) is not None:
+        bbox = query_dict.get('bbox', None).replace("(", "").replace(")", "")
+        bounding_box = BoundingBox(bbox)
+    return bounding_box
 
 @route('/api/v1/pois.json')
 def pois_v1():
     global _pois
-    categories = request.query.get('categories', None)
-    if categories is not None:
-        categories = categories.split(',')
-    else:
-        categories = request.query.getall('category')
-        if len(categories) == 0:
-            categories = None
-
-    bounding_box = None
-
-    if request.query.get('bbox', None) is not None:
-        bbox = request.query.get('bbox', None).replace("(", "").replace(")", "")
-        bounding_box = BoundingBox(bbox)
+    categories = get_categories(request.query)
+    bounding_box = get_bounding_box(request.query)
 
     result = []
     for poi in _pois:
