@@ -82,4 +82,29 @@ define [
       utils.locations.save()
       $.ajaxSetup({global: true});
 
+    fonectaLocations: (path) ->
+      distance = 5.0
+      routeBoxer = new RouteBoxer()
+      boxes = routeBoxer.box(path, distance)
+      utils.locations = new Locations()
+      for box in boxes
+        $.ajax
+          url: "http://developer.fonecta.net/osuma/resource/search/osuma/companies/boundingbox"
+          data:
+            minLatitude: box.ca.b
+            maxLatitude: box.ca.f
+            minLongitude: box.ea.b
+            maxLongitude: box.ea.f
+          dataType: "json"
+          async: false
+          global: false
+          success: (data) =>
+            if data.length > 0
+              for poi in data
+                location = new Location(poi)
+                utils.locations.add location
+            return
+      utils.locations.save()
+      $.ajaxSetup({global: true});
+
   views.destination = new Destination
