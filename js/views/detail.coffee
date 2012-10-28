@@ -14,6 +14,7 @@ define [
     template: _.template(Template)
     events:
       "tap .category-filter": "categories"
+      "tap .star-rate": "starRate"
     mapElement: "detail-map"
 
     render: (id) ->
@@ -32,6 +33,7 @@ define [
         return;
 
       @poi = @pois[0].toJSON()
+      @poi.rating = 3*25 # DEBUG: calculate the stars (3 = @poi.rating)
       $("#" + @el.id + " div[data-role='content']").html @template(
         location: @poi
       )
@@ -43,8 +45,26 @@ define [
       @renderPoi()
 
 
+
     categories: (e) ->
       utils.setCategory(e)
+
+
+    starRate: (e) ->
+      el = $(e.target)
+      stars = $(el).data("stars")
+      # send to back end
+      #  $.ajax
+      #  url: "/api/v3/poi"
+      #  type: "POST"
+      #  dataType: "json"
+      #  data:
+      #    stars: stars
+      #  success: (data) =>
+      #    @poi.rating = rating
+      @poi.rating = stars #DEBUG
+      $('#current-rating').width(@poi.rating*25); # update the stars
+      $('.star-rating li a').addClass("hidden"); # always if voted - put this
 
 
     renderPoi: ->

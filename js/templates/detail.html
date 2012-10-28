@@ -2,7 +2,7 @@
 	<div id="detail-map"></div>
 
 	<div class="details">
-		<div class="time-left right" timer="<%= location.time %>"><%= utils.formatTime(location.time) %></div>
+		<div class="time-left right"><%= utils.formatTime(location.time) %></div>
 		<!--<div class="time-left right"><%= utils.formatDistance(location.distance) %></div>-->
 
 		<div class="title"><%= location.title %></div>
@@ -18,6 +18,16 @@ $.each(location.categories, function(j, category) { %>
 		</div>
 	</div>
 
+<!--
+	<ul class='star-rating'>
+		<li class='current-rating' id='current-rating' style="width: <%= location.rating %>px"></li>
+		<li><a href="#" data-stars="1" title='1/5' class='star-rate one-star'>1</a></li>
+		<li><a href="#" data-stars="2" title='2/5' class='star-rate two-stars'>2</a></li>
+		<li><a href="#" data-stars="3" title='3/5' class='star-rate three-stars'>3</a></li>
+		<li><a href="#" data-stars="4" title='4/5' class='star-rate four-stars'>4</a></li>
+		<li><a href="#" data-stars="5" title='5/5' class='star-rate five-stars'>5</a></li>
+	</ul>
+-->
 	<div class="comments"></div>
-	<div class="stars"</div>
+
 </div>

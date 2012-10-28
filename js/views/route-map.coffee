@@ -10,6 +10,7 @@ define [
   views.routeMap = new (MapView.extend(
 
     el: "#route"
+    rendered: false
 
     render: (type) ->
       if(utils.route == null || utils.locations == null)
@@ -18,11 +19,16 @@ define [
 
       if type != "poi"
         views.header.render(@el)
+
       @updateMap()
       @clearRoute()
       @clearPOILayer()
       @addStartAndEndPoints()
-      @renderRoute(true)
+      if(@rendered)
+        @renderRoute(false)
+      else
+        @rendered = true;
+        @renderRoute(true)
       @renderPois()
 
 

@@ -59,7 +59,6 @@ utils.getCategory = (category) ->
   return categorySettings[category];
 
 
-
 utils.formatTime = (seconds) ->
   options = options or {}
   formattedTime = ""
