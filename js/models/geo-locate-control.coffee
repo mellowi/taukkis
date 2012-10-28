@@ -39,7 +39,6 @@ define [], ->
         if(utils.locations != null)
           utils.locations.updateAll()
           utils.locations.save()
-        console.log "Location changed:"
 
 
       @instance.events.register "locationfailed", @instance, (e) ->

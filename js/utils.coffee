@@ -51,7 +51,6 @@ utils.setCategory = (e) ->
       utils.filter.addCategoryOut(category);
       utils.filter.save();
       el.toggleClass("out");
-      console.log category
 
 
 utils.formatTime = (seconds) ->
@@ -107,10 +106,8 @@ utils.init = () ->
       utils.app.navigate "#error?reason=500", true, true
   # ajax loader
   $(document).ajaxStart(->
-    console.log "start ajax"
     $.mobile.showPageLoadingMsg();
   ).ajaxStop ->
-    console.log "stop ajax"
     $.mobile.hidePageLoadingMsg();
   # timer
   utils.updateTimer();
