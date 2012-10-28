@@ -216,8 +216,8 @@ def read_st1_stations(file):
 
                 # def __init__(self, id, lon, lat, title, location, category):
                 result.append(POIWithCategories(make_id(parts[0].strip('"') + parts[1].strip('"')),
-                                  float(parts[0].strip('"').strip(" ")),
                                   float(parts[1].strip('"').strip(" ")),
+                                  float(parts[0].strip('"').strip(" ")),
                                   name, "", categories))
 
     print(u"# Loaded {0} St1 stations!".format(len(result)), file=e8)
