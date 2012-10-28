@@ -20,38 +20,38 @@ class Router extends Backbone.Router
 
   destination: ->
     require ["cs!views/destination"], ->
+      $.mobile.changePage($("#destination"), {changeHash:false});
       views.destination.render()
-      $.mobile.changePage($("#destination"), {changeHash:true});
 
 
   routeMap: ->
     require ["cs!views/route-map"], ->
-      views.routeMap.render()
       $.mobile.changePage($("#route"), {changeHash:false});
+      views.routeMap.render()
 
 
   timeline: ->
     require ["cs!views/timeline"], ->
-      views.timeline.render()
       $.mobile.changePage($("#timeline"), {changeHash:false});
+      views.timeline.render()
 
 
   detail: (id) ->
     require ["cs!views/detail"], ->
-      views.detail.render(id)
       $.mobile.changePage($("#detail"), {changeHash:false});
+      views.detail.render(id)
 
 
   information: ->
     require ["cs!views/information"], ->
-      views.information.render()
       $.mobile.changePage($("#information"), {changeHash:false});
+      views.information.render()
 
 
   error: (reason) ->
     require ["cs!views/error"], ->
-      views.error.render(reason)
       $.mobile.changePage($("#error"), {changeHash:false});
+      views.error.render(reason)
 
 
 utils.app = new Router
