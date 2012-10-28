@@ -50,6 +50,7 @@ define [
     getById: (id) ->
       @models.filter (model) ->
         return true  if parseInt(id) is model.get("id")
+        return true  if id is model.get("id")
         false
 
 

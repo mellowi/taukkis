@@ -28,7 +28,6 @@ define [
 
       @pois = new Locations(utils.locations.getById(id)).models
       if(@pois.length != 1)
-        $.mobile.changePage($("#error"))
         utils.app.navigate "#error?reason=poi", true, true
         return;
 
