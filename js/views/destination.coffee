@@ -34,6 +34,7 @@ define [
 
 
     route: (e) ->
+      $.mobile.showPageLoadingMsg();
       @directionService = new google.maps.DirectionsService()
       destination = $("#destination-input").val()
 
@@ -52,8 +53,10 @@ define [
 
           @locations(result.routes[0].overview_path)
 
+          $.mobile.hidePageLoadingMsg();
           $.mobile.changePage($("#route"))
         else
+          $.mobile.hidePageLoadingMsg();
           $("#message").html @errorTemplate(reason: "destination")
       )
 
@@ -69,6 +72,7 @@ define [
           url: "/api/v1/pois.json?bbox=#{box}"
           dataType: "json"
           async: false
+          global: false
           success: (data) =>
             if data.length > 0
               for poi in data
@@ -76,5 +80,6 @@ define [
                 utils.locations.add location
             return
       utils.locations.save()
+      $.ajaxSetup({global: true});
 
   views.destination = new Destination

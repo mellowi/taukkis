@@ -105,6 +105,13 @@ utils.init = () ->
       utils.app.navigate "#error?reason=500", true, true
     503: ->
       utils.app.navigate "#error?reason=500", true, true
+  # ajax loader
+  $(document).ajaxStart(->
+    console.log "start ajax"
+    $.mobile.showPageLoadingMsg();
+  ).ajaxStop ->
+    console.log "stop ajax"
+    $.mobile.hidePageLoadingMsg();
   # timer
   utils.updateTimer();
   setInterval (->
