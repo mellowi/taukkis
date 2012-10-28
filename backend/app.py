@@ -98,11 +98,8 @@ class POIWithCategories(POIBase):
         super(POIWithCategories, self).__init__(id, lon, lat, title, location)
         assert(not isinstance(category, basestring))
 
-        allowed = set(["gas_station", "cafe", "kiosk", "sights", "fast_food",
-                       "restaurant", "swimming_place"])
-
         for cat in categories:
-            assert(cat in allowed)
+            assert(cat in self.__class__.allowed_categories)
 
         self.categories = categories
 
