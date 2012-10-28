@@ -96,7 +96,7 @@ class POIWithCategories(POIBase):
 
     def __init__(self, id, lon, lat, title, location, categories):
         super(POIWithCategories, self).__init__(id, lon, lat, title, location)
-        assert(not isinstance(category, basestring))
+        assert(not isinstance(categories, basestring))
 
         for cat in categories:
             assert(cat in self.__class__.allowed_categories)
@@ -138,7 +138,7 @@ def read_swimming_places(file):
     """
     result = []
 
-    with codecs.open(file, 'r', encoding='iso-8859-15') as f:
+    with codecs.open(file, 'r', encoding='iso-8859-1') as f:
         for linenum, line in enumerate(f):
             parts = [item.strip() for item in line.replace("\n", "").split(",") if len(item) > 0]
             # print(u', '.join(parts), file=o8)
@@ -149,11 +149,12 @@ def read_swimming_places(file):
                     traceback.print_exc()
                     print(uee, file=e8)
             else:
-                result.append(POI(make_id(parts[0].strip('"') + parts[1].strip('"')),
-                                  float(parts[5].strip('"')),
-                                  float(parts[4].strip('"')),
-                                  unicode(parts[1].strip('"')), unicode(parts[0].strip('"')),
-                                  'swimming_place'))
+                p = POIWithCategories(make_id(parts[0].strip('"') + parts[1].strip('"')),
+                                      float(parts[5].strip('"')),
+                                      float(parts[4].strip('"')),
+                                      unicode(parts[1].strip('"')), unicode(parts[0].strip('"')),
+                                      ['swimming_place'])
+                result.append(p)
 
     print(u"# Loaded {0} swimming places!".format(len(result)), file=e8)
     return result
@@ -162,7 +163,7 @@ def read_leisure_places(file):
     # "Metsähallitus","Kolmoislammen varaustulipaikka",6689702,3362710,"60.295348334","24.513997556"
     result = []
 
-    with codecs.open(file, 'r', encoding='iso-8859-15') as f:
+    with codecs.open(file, 'r', encoding='iso-8859-1') as f:
         for linenum, line in enumerate(f):
             parts = [item.strip() for item in line.replace("\n", "").split(",") if len(item) > 0]
             # print(u', '.join(parts), file=o8)
@@ -301,7 +302,10 @@ def pois_v2():
 def pois_v3():
     global _pois
     categories = get_categories(request.query)
-    cats_set = set(categories)
+    if categories:
+        cats_set = set(categories)
+    else:
+        cats_set = set(POIWithCategories.allowed_categories)
     bounding_box = get_bounding_box(request.query)
 
     result = []
