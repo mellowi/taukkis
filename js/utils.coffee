@@ -53,6 +53,13 @@ utils.setCategory = (e) ->
       el.toggleClass("out");
 
 
+utils.getCategory = (category) ->
+  if(_.isUndefined(categorySettings[category]))
+    return categorySettings["default"];
+  return categorySettings[category];
+
+
+
 utils.formatTime = (seconds) ->
   options = options or {}
   formattedTime = ""

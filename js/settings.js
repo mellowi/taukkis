@@ -18,7 +18,8 @@ var defaults = {
   "bingKey": "AjiRFAOxAb5Z01PMW3EwdUrCjDhN88QKPA3OfFmUuheW4ByTUZ9XPySvAv50RUpR"
 }
 
-var categories = {
+var categorySettings = {
+  "default": {"id": null, "name": "Taukopaikka" },
   "gas_station": {"id": "1D0050", "name": "Huoltoasemat" },
   "cafe": {"id": "1D1480", "name": "Kahvilat" },
   "kiosk": {"id": "1D1490", "name": "Kioskit" },

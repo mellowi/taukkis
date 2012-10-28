@@ -8,7 +8,12 @@
 		<div class="title"><%= location.title %></div>
 		<div class="categories">
 			<ul>
-				<li><i class="t-icon-<%= location.category %> t-medium-icon"></i> <%= location.category %></li>
+<% if(!$.isArray(location.category)) { %>
+					<li><i class="t-icon-<%= location.category %> t-medium-icon"></i> <%= utils.getCategory(location.category).name %></li>
+<% } else {
+$.each(location.category, function(j, category) { %>
+					<li><i class="t-icon-<%= category %> t-medium-icon"></i> <%= utils.getCategory(location.category).name %></li>
+<% });} %>
 			</ul>
 		</div>
 	</div>

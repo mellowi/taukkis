@@ -81,6 +81,5 @@ define [
           true
         else # if all of the model's categories are filteredOut return false
           for category in model.get("category")
-            console.log(category)
             return true  if $.inArray(category, utils.filter.get("categoriesOut")) == -1
           false
