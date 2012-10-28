@@ -16,10 +16,10 @@ $.each(locations, function(i, location) {
 	<a href="#detail?id=<%= location.id %>" data-id="<%= location.id %>" class="list-item <%= (location.time > 0) ? "" : "passed"%>">
 		<div class="information left">
 			<div class="categories right">
-<% if(!$.isArray(location.category)) { %>
+<% if(!_.isUndefined(location.category)  && !$.isArray(location.category)) { %>
 				<i class="t-icon-<%= location.category %> t-medium-icon"></i>
 <% } else {
-$.each(location.category, function(j, category) { %>
+$.each(location.categories, function(j, category) { %>
 				<i class="t-icon-<%= category %> t-medium-icon"></i>
 <% });} %>
 			</div>
