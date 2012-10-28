@@ -42,6 +42,19 @@ a.ui-btn:hover {
   filter:alpha(opacity=50);
 }
 
+.taukkis-logo {
+  float: left;
+  margin: 5px 0 0 10px;
+  display: inline-block;
+  width: 67px;
+  height: 30px;
+  background-size: 67px 30px;
+  line-height: 30px;
+  vertical-align: center;
+  background-repeat: no-repeat;
+  background-image: url('images/taukkis-logo.png');
+}
+
 #destination-content, #error-content {
   margin: 10px;
 }
