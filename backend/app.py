@@ -184,6 +184,45 @@ def read_leisure_places(file):
     print(u"# Loaded {0} spots de leisure!".format(len(result)), file=e8)
     return result
 
+def read_st1_stations(file):
+    # 65.742354,24.576449,St1 Kemi Karjalahti Karjalahdenkatu 34 94600 Kemi
+    result = []
+
+    with codecs.open(file, 'r', encoding='iso-8859-1') as f:
+        for linenum, line in enumerate(f):
+            parts = [item.strip() for item in line.replace("\n", "").split(",") if len(item) > 0]
+            # print(u', '.join(parts), file=o8)
+            if len(parts) != 3:
+                try:
+                    print(u"! Unknown format, line {0}: {1}".format(linenum, line.replace("\n", ""), file=e8))
+                except UnicodeEncodeError, uee:
+                    traceback.print_exc()
+                    print(uee, file=e8)
+            else:
+                categories = ["gas_station"]
+                name = unicode(parts[2].strip('"').strip(" "))
+                if name.lower().find("st1") == 0:
+                    if name.lower().find("automa") == -1: # not automat or automaatti
+                        categories += ["cafe"]
+                elif name.lower().find("shell") == 0:
+                    if name.lower().find("express") == -1 and name.lower().find("automa") == -1:
+                        categories += ["cafe"]
+                        categories += ["restaurant"]
+
+                if name.lower().find("express") == -1 and name.lower().find("automa") == -1:
+                    name = " ".join(name.split(" ")[:4]) # trolol
+                else:
+                    name = " ".join(name.split(" ")[:3]) # trolol
+
+                # def __init__(self, id, lon, lat, title, location, category):
+                result.append(POIWithCategories(make_id(parts[0].strip('"') + parts[1].strip('"')),
+                                  float(parts[0].strip('"').strip(" ")),
+                                  float(parts[1].strip('"').strip(" ")),
+                                  name, "", categories))
+
+    print(u"# Loaded {0} St1 stations!".format(len(result)), file=e8)
+    return result
+
 def get_categories(query_dict):
     """
     Returns a list of categories as strings.
@@ -344,6 +383,8 @@ if __name__ == '__main__':
                       help="read swimming places from FILE", metavar="FILE", default="../data/rannat.csv")
     parser.add_option("--leisure-place-file", dest="leisure_place_file",
                       help="read leisure places from FILE", metavar="FILE", default="../data/kyrsae.csv")
+    parser.add_option("--st1-stations-file", dest="st1_stations_file",
+                      help="read ST1 stations from FILE", metavar="FILE", default="../data/gps-csv-st1.csv")
 
     parser.add_option("-d", "--debug",
                       action="store_true", dest="debug", default=False,
@@ -368,7 +409,12 @@ if __name__ == '__main__':
     except:
         traceback.print_exc()
 
-    print(u"# {0} spots total!".format(len(_pois)), file=e8)
+    try:
+        _pois += read_st1_stations(opts.st1_stations_file)
+    except:
+        traceback.print_exc()
+
+    print(u"# {0} spots total!".format(len(_pois)), file=o8)
 
     if 'FONECTA_USER_ID' not in env:
         print("# FONECTA_USER_ID not in environment!", file=e8)
