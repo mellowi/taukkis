@@ -13,7 +13,7 @@ class Router extends Backbone.Router
     "category?id=:id": "category"
 
   index: ->
-    if($.mobile.activePage.attr("id") == "destination")
+    if(_.isUndefined($.mobile) || $.mobile.activePage.attr("id") == "destination")
       @destination()
 
 

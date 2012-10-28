@@ -47,6 +47,10 @@ define [
 
       @instance.setCenter(new OpenLayers.LonLat(mapPosition.longitude, mapPosition.latitude), mapPosition.zoom)
       @instance.setBaseLayer(mapQuest)
+      if(@divname == "map" || @divname == "destination-map")
+        control = @instance.getControlsBy("id", "locate-control")[0]
+        control.activate()
+
       return @instance
 
 

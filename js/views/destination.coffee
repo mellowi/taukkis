@@ -25,8 +25,6 @@ define [
     getLocation: ->
       if(@map == null)
         @map = new Map(@mapElement)
-      control = @map.instance.getControlsBy("id", "locate-control")[0]
-      control.activate()
 
 
     route: (e) ->
