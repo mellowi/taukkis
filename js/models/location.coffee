@@ -1,4 +1,4 @@
-define [], () ->
+define ["cs!models/route"], (Route) ->
 
   class Location extends Backbone.Model
     id: "location"
@@ -6,7 +6,7 @@ define [], () ->
     initialize: ->
       if utils.currentLocation
         @setDistance(@calculateDistance()) # TODO: algorithm to get distance/time to the POI - update the information with interval (5min?)
-      @setTime(60*60+60) # seconds or what?
+      @setTime(@calculateTime()) # seconds or what?
 
 
     calculateDistance: ->
@@ -23,6 +23,11 @@ define [], () ->
       a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2)
       c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
       return R * c
+
+
+    calculateTime: ->
+      currentRoute = new Route().fetch()
+      this.attributes.distance * currentRoute.averageSpeed()
 
 
     setDistance: (distance) ->
