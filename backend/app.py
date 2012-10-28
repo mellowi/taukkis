@@ -55,7 +55,7 @@ class POIBase(object):
     def __str__(self):
         return unicode(self).encode('ASCII', 'backslashreplace')
     def __unicode__(self):
-        return u"{0}, {1}, {2}".format(self.id, self.title, self.location)
+        return u"{0}, {1}, {2} ({3}, {4})".format(self.id, self.title, self.location, self.lat, self.lon)
 
 
 class POI(POIBase):
@@ -124,7 +124,7 @@ def read_pois(file):
                 try:
                     print(u"! Unknown format, line {0}: {1}".format(linenum, line.replace("\n", ""), file=e8))
                 except UnicodeEncodeError, uee:
-                    traceback.print_exc()
+                    # traceback.print_exc()
                     print(uee, file=e8)
             else:
                 result.append(POI.from_list(linenum, parts))
@@ -146,7 +146,7 @@ def read_swimming_places(file):
                 try:
                     print(u"! Unknown format, line {0}: {1}".format(linenum, line.replace("\n", ""), file=e8))
                 except UnicodeEncodeError, uee:
-                    traceback.print_exc()
+                    # traceback.print_exc()
                     print(uee, file=e8)
             else:
                 p = POIWithCategories(make_id(parts[0].strip('"') + parts[1].strip('"')),
@@ -171,7 +171,7 @@ def read_leisure_places(file):
                 try:
                     print(u"! Unknown format, line {0}: {1}".format(linenum, line.replace("\n", ""), file=e8))
                 except UnicodeEncodeError, uee:
-                    traceback.print_exc()
+                    # traceback.print_exc()
                     print(uee, file=e8)
             else:
                 # def __init__(self, id, lon, lat, title, location, category):
@@ -182,6 +182,45 @@ def read_leisure_places(file):
                                   'leisure'))
 
     print(u"# Loaded {0} spots de leisure!".format(len(result)), file=e8)
+    return result
+
+def read_st1_stations(file):
+    # 65.742354,24.576449,St1 Kemi Karjalahti Karjalahdenkatu 34 94600 Kemi
+    result = []
+
+    with codecs.open(file, 'r', encoding='iso-8859-1') as f:
+        for linenum, line in enumerate(f):
+            parts = [item.strip() for item in line.replace("\n", "").split(",") if len(item) > 0]
+            # print(u', '.join(parts), file=o8)
+            if len(parts) != 3:
+                try:
+                    print(u"! Unknown format, line {0}: {1}".format(linenum, line.replace("\n", ""), file=e8))
+                except UnicodeEncodeError, uee:
+                    traceback.print_exc()
+                    print(uee, file=e8)
+            else:
+                categories = ["gas_station"]
+                name = unicode(parts[2].strip('"').strip(" "))
+                if name.lower().find("st1") == 0:
+                    if name.lower().find("automa") == -1: # not automat or automaatti
+                        categories += ["cafe"]
+                elif name.lower().find("shell") == 0:
+                    if name.lower().find("express") == -1 and name.lower().find("automa") == -1:
+                        categories += ["cafe"]
+                        categories += ["restaurant"]
+
+                if name.lower().find("express") == -1 and name.lower().find("automa") == -1:
+                    name = " ".join(name.split(" ")[:3]) # trolol
+                else:
+                    name = " ".join(name.split(" ")[:4]) # trolol
+
+                # def __init__(self, id, lon, lat, title, location, category):
+                result.append(POIWithCategories(make_id(parts[0].strip('"') + parts[1].strip('"')),
+                                  float(parts[1].strip('"').strip(" ")),
+                                  float(parts[0].strip('"').strip(" ")),
+                                  name, "", categories))
+
+    print(u"# Loaded {0} St1 stations!".format(len(result)), file=e8)
     return result
 
 def get_categories(query_dict):
@@ -344,6 +383,8 @@ if __name__ == '__main__':
                       help="read swimming places from FILE", metavar="FILE", default="../data/rannat.csv")
     parser.add_option("--leisure-place-file", dest="leisure_place_file",
                       help="read leisure places from FILE", metavar="FILE", default="../data/kyrsae.csv")
+    parser.add_option("--st1-stations-file", dest="st1_stations_file",
+                      help="read ST1 stations from FILE", metavar="FILE", default="../data/gps-csv-st1.csv")
 
     parser.add_option("-d", "--debug",
                       action="store_true", dest="debug", default=False,
@@ -351,6 +392,7 @@ if __name__ == '__main__':
 
     opts, args = parser.parse_args()
 
+    _pois = []
     try:
         pass
         # _pois = read_pois(opts.poi_file)
@@ -358,13 +400,17 @@ if __name__ == '__main__':
         traceback.print_exc()
 
     try:
-        _pois = []
-        _pois += read_swimming_places(opts.swimming_place_file)
+        _pois = _pois + read_swimming_places(opts.swimming_place_file)
     except:
         traceback.print_exc()
 
     try:
-        _pois += read_leisure_places(opts.leisure_place_file)
+        _pois = _pois + read_leisure_places(opts.leisure_place_file)
+    except:
+        traceback.print_exc()
+
+    try:
+        _pois += read_st1_stations(opts.st1_stations_file)
     except:
         traceback.print_exc()
 
