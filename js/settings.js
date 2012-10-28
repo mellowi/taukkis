@@ -19,7 +19,6 @@ var defaults = {
 }
 
 var categorySettings = {
-  "default": {"id": null, "name": "Taukopaikka" },
   "gas_station": {"id": "1D0050", "name": "Huoltoasemat" },
   "cafe": {"id": "1D1480", "name": "Kahvilat" },
   "kiosk": {"id": "1D1490", "name": "Kioskit" },
@@ -27,4 +26,6 @@ var categorySettings = {
   "fast_food": {"id": "1D1520", "name": "Pikaruokalat" },
   "restaurant": {"id": "1D1530", "name": "Ravintolat" },
   "swimming_place": {"id": null, "name": "Uimapaikat" },
+  "leisure": {"id": null, "name": "Tulipaikat" },
 }
+var categoryDefault = {"id": null, "name": "Taukopaikka" }
