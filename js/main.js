@@ -55,6 +55,10 @@ require(['modernizr','jquery','backbone', 'routeboxer','openlayer', 'settings'],
     $.mobile.defaultPageTransition = 'none';
     $.support.cors = true;
   });
-  require(['bootstrap', 'jquerymobile', 'json', 'jsoncookie', 'cs!utils', 'cs!routers/router'], function() {
+  require(['bootstrap', 'jquerymobile', 'json', 'jsoncookie', 'cs!utils'], function() {
+    $(document).ready(function() {
+      require(['cs!routers/router'], function() {
+      });
+    });
   });
 });
