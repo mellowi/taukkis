@@ -11,10 +11,14 @@ from os import environ as env
 
 from bottle import route, run, get, request, response
 
-import requests
-
 o8 = codecs.getwriter('utf-8')(sys.stdout)
 e8 = codecs.getwriter('utf-8')(sys.stderr)
+
+try:
+    import requests
+except ImportError, e:
+    print(u"! Cannot import requests! Osuma API will not work!", file=e8)
+
 
 class BoundingBox(object):
     def __init__(self, box):
