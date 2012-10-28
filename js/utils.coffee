@@ -55,7 +55,7 @@ utils.setCategory = (e) ->
 
 utils.getCategory = (category) ->
   if(_.isUndefined(categorySettings[category]))
-    return categorySettings["default"];
+    return categoryDefault;
   return categorySettings[category];
 
 
