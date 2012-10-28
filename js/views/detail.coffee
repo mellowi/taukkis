@@ -33,7 +33,7 @@ define [
         return;
 
       @poi = @pois[0].toJSON()
-      # TODO: update location time here (everytime when rendered)
+      console.log(@poi)
       $("#" + @el.id + " div[data-role='content']").html @template(
         location: @poi
       )

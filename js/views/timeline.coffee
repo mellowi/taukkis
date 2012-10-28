@@ -23,6 +23,7 @@ define [
       # TODO: update locations times here (everytime when rendered)
       # TODO: filter too old locations here
       locations = new Locations(utils.locations.filterOutCategories())
+      console.log locations
       locations = new Locations(locations.sortByDistance())
       $("#" + @el.id + " div[data-role='content']").html @template(
         locations: locations.toJSON()

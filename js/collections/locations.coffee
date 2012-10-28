@@ -55,17 +55,32 @@ define [
 
     filterCategory: (category) ->
       @models.filter (model) ->
-        return true  if category is model.get("category")
-        false
+        if(!$.isArray(model.get("category")))
+          return true  if category is model.get("category")
+          false
+        else
+          return true  if $.inArray(category, model.get("category")) > -1
+          false
 
 
     filterCategories: (categories) ->
       @models.filter (model) ->
-        return true  if $.inArray(model.get("category"), categories) > -1
-        false
+        if(!$.isArray(model.get("category")))
+          return true  if $.inArray(model.get("category"), categories) > -1
+          false
+        else
+          for category in model.get("category")
+            return true  if $.inArray(category, categories) > -1
+          false
 
 
     filterOutCategories: () ->
       @models.filter (model) ->
-        return false  if $.inArray(model.get("category"), utils.filter.get("categoriesOut")) > -1
-        true
+        if(!$.isArray(model.get("category")))
+          return false  if $.inArray(model.get("category"), utils.filter.get("categoriesOut")) > -1
+          true
+        else # if all of the model's categories are filteredOut return false
+          for category in model.get("category")
+            console.log(category)
+            return true  if $.inArray(category, utils.filter.get("categoriesOut")) == -1
+          false
