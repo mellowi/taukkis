@@ -19,7 +19,7 @@ var defaults = {
 }
 
 var categories = {
-  "gas_station": {"fonectaId": "1D0050", "name": "Huoltoasemat" },
+  "gas_station": {"id": "1D0050", "name": "Huoltoasemat" },
   "cafe": {"id": "1D1480", "name": "Kahvilat" },
   "kiosk": {"id": "1D1490", "name": "Kioskit" },
   "sights": {"id": "1D1220", "name": "Nähtävyydet" },

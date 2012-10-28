@@ -97,12 +97,16 @@ utils.init = () ->
   # ajax error handling
   $.ajaxSetup statusCode:
     500: ->
+      $.mobile.changePage($("#error"))
       utils.app.navigate "#error?reason=500", true, true
     501: ->
+      $.mobile.changePage($("#error"))
       utils.app.navigate "#error?reason=500", true, true
     502: ->
+      $.mobile.changePage($("#error"))
       utils.app.navigate "#error?reason=500", true, true
     503: ->
+      $.mobile.changePage($("#error"))
       utils.app.navigate "#error?reason=500", true, true
   # ajax loader
   $(document).ajaxStart(->

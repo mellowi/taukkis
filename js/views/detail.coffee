@@ -26,7 +26,13 @@ define [
 
       views.header.render(@el)
 
-      @poi = new Locations(utils.locations.getById(id)).models[0].toJSON()
+      @pois = new Locations(utils.locations.getById(id)).models
+      if(@pois.length != 1)
+        $.mobile.changePage($("#error"))
+        utils.app.navigate "#error?reason=poi", true, true
+        return;
+
+      @poi = @pois[0].toJSON()
       # TODO: update location time here (everytime when rendered)
       $("#" + @el.id + " div[data-role='content']").html @template(
         location: @poi
