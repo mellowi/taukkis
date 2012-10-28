@@ -320,7 +320,31 @@ a.ui-btn:hover {
   background-image: url('images/swimming_place.png');
 }
 
+.ui-loader {
+  position: fixed;
+  left: 50%;
+  z-index: 99999;
+  margin-left: -50px;
+  margin-top: -35px;
+  padding: 0;
+  width: 100px;
+  height: 100px;
+  background: none;
+  border: 0;
+}
 
+.ui-loader .ui-icon {
+  margin: 16px auto;
+  width: 66px;
+  height: 66px;
+}
+
+.ui-icon-loading {
+  background-image: url(images/ajax-loader.gif);
+  width: 66px;
+  height: 66px;
+  background-size: 66px 66px;
+}
 @media (min-width: 640) and (max-width: 1023px) {
 
   .timeline .list-item .information {

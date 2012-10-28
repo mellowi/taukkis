@@ -57,6 +57,7 @@ require(['modernizr','jquery','backbone', 'routeboxer','openlayer', 'settings'],
   });
   require(['bootstrap', 'jquerymobile', 'json', 'jsoncookie', 'cs!utils'], function() {
     $(document).ready(function() {
+      $.mobile.initializePage();
       require(['cs!routers/router'], function() {
       });
     });
