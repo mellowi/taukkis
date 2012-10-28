@@ -101,7 +101,7 @@ define ["cs!models/map"], (Map) ->
       content = $("#"+@mapElement)
       if(@mapElement == "map")
         if(!width || !height)
-          height = $(window).height()
+          height = $(window).height() - 53
           width = $(window).width()
       else
         if(!width || !height)
