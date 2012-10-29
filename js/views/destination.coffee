@@ -44,6 +44,10 @@ define [
       @directionService = new google.maps.DirectionsService()
       destination = $("#destination-input").val()
 
+      if(utils.currentLocation == null)
+        utils.app.navigate "#error?reason=location", true, true
+        return
+
       request =
         origin: new google.maps.LatLng(utils.currentLocation.lat, utils.currentLocation.lon)
         destination: destination
