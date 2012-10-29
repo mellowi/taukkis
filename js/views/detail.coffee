@@ -18,6 +18,7 @@ define [
       "tap .category-filter": "categories"
       "tap .star-rate": "starRate"
     mapElement: "detail-map"
+    rendered: false
 
     initialize: ->
       FB.init(
@@ -56,12 +57,16 @@ define [
         posts: 2
         href: "http://taukkis.fi/#detail?id="+@poi.id
       )
-      FB.XFBML.parse();
+      if(@rendered)
+        FB.XFBML.parse();
 
       @clearRoute()
       @clearPOILayer()
       @renderRoute()
       @renderPoi()
+
+      if(!@rendered)
+        @rendered = true
 
 
     categories: (e) ->
