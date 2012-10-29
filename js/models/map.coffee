@@ -18,7 +18,7 @@ define [
       @geolocate = new GeoLocateControl().instance;
 
       @controls = []
-      if(@divname == "map")
+      if(@divname == "map" || @divname == "detail-map")
         @controls = [
           new OpenLayers.Control.Attribution()
           new OpenLayers.Control.TouchNavigation({
