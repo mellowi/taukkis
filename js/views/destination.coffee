@@ -35,9 +35,7 @@ define [
 
 
     handleEnter: (e) ->
-      console.log e
       if(e.keyCode == 13)
-        console.log "enter"
         @route(e)
 
 
