@@ -486,6 +486,13 @@ if __name__ == '__main__':
 
     print(u"# {0} spots total!".format(len(_pois)), file=o8)
 
+    ids = set()
+    for poi in _pois:
+        if poi.id in ids:
+            print(u"! Duplicate poi id: {0}".format(poi.id, file=o8))
+        ids.add(poi.id)
+    print(u"# {0} unique poi ids!".format(len(ids), file=o8))
+
     if 'FONECTA_USER_ID' not in env:
         print("# FONECTA_USER_ID not in environment!", file=e8)
     run(host=opts.host, port=opts.port)
