@@ -55,7 +55,6 @@ define [
 
 
     storeMapPosition: (event) ->
-      console.log "position"
       lonlat = event.object.getCenter();
       zoomLevel = event.object.getZoom();
       mapPosition = {

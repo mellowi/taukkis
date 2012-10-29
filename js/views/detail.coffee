@@ -2,20 +2,31 @@ define [
   "cs!models/map",
   "cs!views/map",
   "text!templates/detail.html",
+  "text!templates/fb-comments.html",
   "cs!models/route",
   "cs!models/location",
   "cs!collections/locations",
   "cs!views/header"
-], (Map, MapView, Template, Route, Location, Locations) ->
+], (Map, MapView, Template, CommentsTemplate, Route, Location, Locations) ->
 
   views.detail = new (MapView.extend(
 
     el: "#detail"
     template: _.template(Template)
+    commentsTemplate: _.template(CommentsTemplate)
     events:
       "tap .category-filter": "categories"
       "tap .star-rate": "starRate"
     mapElement: "detail-map"
+
+    initialize: ->
+      FB.init(
+        appId: '441459789223765'
+        status: true
+        cookie: true
+        xfbml: true
+      )
+
 
     render: (id) ->
       if(id == "undefined")
@@ -39,11 +50,18 @@ define [
       )
 
       @updateMap()
+
+      $("#" + @el.id + " .comments").html @commentsTemplate(
+        width: $("#"+@mapElement).width()
+        posts: 2
+        href: "http://taukkis.fi/#detail?id="+@poi.id
+      )
+      FB.XFBML.parse();
+
       @clearRoute()
       @clearPOILayer()
       @renderRoute()
       @renderPoi()
-
 
 
     categories: (e) ->

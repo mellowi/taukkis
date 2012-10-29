@@ -6,6 +6,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="description" content="">
   <meta name="author" content="">
+  <meta property="fb:app_id" content="441459789223765"/>
 
   <title>Taukkis</title>
   <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
@@ -18,6 +19,16 @@
   <script type="text/javascript" data-main="js/main.js" src="js/libs/require-2.0.5.js"></script>
 </head>
 <body>
+<div id="fb-root"></div>
+<script>
+(function(d){
+  var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement('script'); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/fi_FI/all.js";
+  ref.parentNode.insertBefore(js, ref);
+}(document));
+</script>
 
   <div data-role="page" data-theme="t" id="empty-page" >
   </div>

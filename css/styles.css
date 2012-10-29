@@ -346,6 +346,10 @@ a.ui-btn:hover {
   background-size: 66px 66px;
 }
 
+.fb-comments {
+  margin: 14px 0;
+}
+
 .star-rating {
   list-style:none;
   margin-left:5px !important;
