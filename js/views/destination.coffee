@@ -40,7 +40,6 @@ define [
 
 
     route: (e) ->
-      console.log "route"
       $.mobile.showPageLoadingMsg();
       @directionService = new google.maps.DirectionsService()
       destination = $("#destination-input").val()
