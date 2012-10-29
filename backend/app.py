@@ -7,6 +7,7 @@ import json
 import traceback
 import time
 import md5
+import csv
 
 from os import environ as env
 
@@ -20,8 +21,27 @@ try:
 except ImportError, e:
     print(u"! Cannot import requests! Osuma API will not work!", file=e8)
 
+def unicode_csv_reader(unicode_csv_data, dialect=csv.excel, **kwargs):
+    # csv.py doesn't do Unicode; encode temporarily as UTF-8:
+    csv_reader = csv.reader(utf_8_encoder(unicode_csv_data),
+                            dialect=dialect, **kwargs)
+    for row in csv_reader:
+        # decode UTF-8 back to Unicode, cell by cell:
+        yield [unicode(cell, 'utf-8') for cell in row]
+
+def utf_8_encoder(unicode_csv_data):
+    for line in unicode_csv_data:
+        yield line.encode('utf-8')
+
+def report_unknown_format(linenum, line):
+    try:
+        print(u"! Unknown format, line {0}: {1}".format(linenum, line.replace("\n", ""), file=e8))
+    except UnicodeEncodeError, uee:
+        print(uee, file=e8)
+
 def make_id(s):
     return md5.new(s.encode('ascii', 'ignore')).hexdigest()[0:6]
+
 
 class BoundingBox(object):
     def __init__(self, box):
@@ -151,53 +171,43 @@ def read_pois(file):
     return result
 
 def read_swimming_places(file):
-    """
-    Reads rannat.csv
-    """
     result = []
 
     with codecs.open(file, 'r', encoding='iso-8859-1') as f:
-        for linenum, line in enumerate(f):
-            parts = [item.strip() for item in line.replace("\n", "").split(",") if len(item) > 0]
-            # print(u', '.join(parts), file=o8)
-            if len(parts) != 6:
-                try:
-                    print(u"! Unknown format, line {0}: {1}".format(linenum, line.replace("\n", ""), file=e8))
-                except UnicodeEncodeError, uee:
-                    # traceback.print_exc()
-                    print(uee, file=e8)
-            else:
-                p = POIWithCategories(make_id(parts[0].strip('"') + parts[1].strip('"')),
-                                      float(parts[5].strip('"')),
-                                      float(parts[4].strip('"')),
-                                      unicode(parts[1].strip('"')), unicode(parts[0].strip('"')),
+        reader = unicode_csv_reader(f)
+        try:
+            for row in reader:
+                if len(row) != 6:
+                    report_unknown_format(reader.csv_reader.line_num, row)
+
+                p = POIWithCategories(make_id(row[0] + row[1]),
+                                      float(row[5]), float(row[4]),
+                                      row[1], row[0],
                                       ['swimming_place'])
                 result.append(p)
+        except csv.Error, e:
+            print(e, file=e8)
 
     print(u"# Loaded {0} swimming places!".format(len(result)), file=e8)
     return result
 
 def read_leisure_places(file):
-    # "Metsähallitus","Kolmoislammen varaustulipaikka",6689702,3362710,"60.295348334","24.513997556"
     result = []
 
     with codecs.open(file, 'r', encoding='iso-8859-1') as f:
-        for linenum, line in enumerate(f):
-            parts = [item.strip() for item in line.replace("\n", "").split(",") if len(item) > 0]
-            # print(u', '.join(parts), file=o8)
-            if len(parts) != 6:
-                try:
-                    print(u"! Unknown format, line {0}: {1}".format(linenum, line.replace("\n", ""), file=e8))
-                except UnicodeEncodeError, uee:
-                    # traceback.print_exc()
-                    print(uee, file=e8)
-            else:
-                # def __init__(self, id, lon, lat, title, location, category):
-                result.append(POIWithCategories(make_id(parts[0].strip('"') + parts[1].strip('"')),
-                                                float(parts[5].strip('"')),
-                                                float(parts[4].strip('"')),
-                                                unicode(parts[1].strip('"')) + u", " + unicode(parts[0].strip('"')), "",
-                                                ['leisure']))
+        reader = unicode_csv_reader(f)
+        try:
+            for row in reader:
+                if len(row) != 6:
+                    report_unknown_format(reader.csv_reader.line_num, row)
+
+                p = POIWithCategories(make_id(row[0] + row[1]),
+                                      float(row[5]), float(row[4]),
+                                      row[1] + u", " + row[0], u"",
+                                      ['leisure'])
+                result.append(p)
+        except csv.Error, e:
+            print(e, file=e8)
 
     print(u"# Loaded {0} spots de leisure!".format(len(result)), file=e8)
     return result
