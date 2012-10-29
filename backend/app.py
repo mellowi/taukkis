@@ -8,9 +8,9 @@ import traceback
 import time
 import md5
 import csv
-
+import re
+import unicodedata
 from os import environ as env
-
 from bottle import route, run, get, request, response
 
 o8 = codecs.getwriter('utf-8')(sys.stdout)
@@ -41,6 +41,10 @@ def report_unknown_format(linenum, line):
 
 def make_id(s):
     return md5.new(s.encode('ascii', 'ignore')).hexdigest()[0:6]
+
+def slugify(string):
+    return re.sub(r'[-\s]+', '-',
+                  unicode(re.sub(r'[^\w\s-]', '', unicodedata.normalize('NFKD', string).encode('ascii', 'ignore')).strip().lower()))
 
 
 class BoundingBox(object):
@@ -180,7 +184,7 @@ def read_swimming_places(file):
                 if len(row) != 6:
                     report_unknown_format(reader.csv_reader.line_num, row)
 
-                p = POIWithCategories(make_id(row[0] + row[1]),
+                p = POIWithCategories(slugify(u"{0}, {1}".format(row[1], row[0])),
                                       float(row[5]), float(row[4]),
                                       row[1], row[0],
                                       ['swimming_place'])
@@ -201,7 +205,7 @@ def read_leisure_places(file):
                 if len(row) != 6:
                     report_unknown_format(reader.csv_reader.line_num, row)
 
-                p = POIWithCategories(make_id(row[0] + row[1]),
+                p = POIWithCategories(slugify(row[1]),
                                       float(row[5]), float(row[4]),
                                       row[1] + u", " + row[0], u"",
                                       ['leisure'])
@@ -228,7 +232,7 @@ def read_rolls(file):
                     print(uee, file=e8)
             else:
                 # def __init__(self, id, lon, lat, title, location, category):
-                result.append(POIWithCategories(make_id(parts[0].strip('"') + parts[1].strip('"')),
+                result.append(POIWithCategories(slugify(u"{0}, {1}".format(parts[3], parts[2])),
                                   float(parts[1].strip('"')),
                                   float(parts[0].strip('"')),
                                   unicode(parts[3].strip('"')) + u", " + unicode(parts[2].strip('"')), "",
@@ -268,7 +272,7 @@ def read_st1_stations(file):
                     name = " ".join(name.split(" ")[:4]) # trolol
 
                 # def __init__(self, id, lon, lat, title, location, category):
-                result.append(POIWithCategories(make_id(parts[0].strip('"') + parts[1].strip('"')),
+                result.append(POIWithCategories(slugify(name),
                                                 float(parts[1].strip('"').strip(" ")),
                                                 float(parts[0].strip('"').strip(" ")),
                                                 name, "", categories))
