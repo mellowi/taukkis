@@ -357,6 +357,14 @@ a.ui-btn:hover {
   background-image: url('images/swimming_place.png');
 }
 
+.t-icon-leisure {
+  background-image: url('images/leisure.png');
+}
+
+.t-icon-default {
+  background-image: url('images/default.png');
+}
+
 .ui-loader {
   position: fixed;
   left: 50%;
