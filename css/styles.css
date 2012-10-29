@@ -46,6 +46,11 @@ a.ui-btn:hover {
   filter:alpha(opacity=30);
 }
 
+.ui-br {
+  border-bottom-width: 0;
+  border-bottom-style: none;
+}
+
 .taukkis .navbar-inverse .btn-navbar {
   color: #ffffff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
@@ -92,7 +97,7 @@ a.ui-btn:hover {
 }
 
 #destination-content, #error-content {
-  margin: 10px;
+  padding: 10px;
 }
 
 #map {
@@ -107,10 +112,9 @@ a.ui-btn:hover {
 #detail-map {
   display: block;
   margin: 10px 0;
-  width: 500px;
-  height: 300px;
+  width: 1004px;
+  height: 602px;
 }
-
 
 .ui-page .ui-header {
   z-index:1024;
@@ -130,7 +134,6 @@ a.ui-btn:hover {
 
 #detail-content {
   min-width: 260px;
-  margin: 20px;
   padding: 10px;
   display: block;
   overflow: visible;
@@ -149,11 +152,11 @@ a.ui-btn:hover {
 }
 
 #detail-content .details {
-  width: 500px;
+  width: 1004px;
 }
 
 #detail-content .title {
-  width: 400px;
+  width: 904px;
   font-size: 18px;
   font-weight: bold;
 }
@@ -262,7 +265,11 @@ a.ui-btn:hover {
   float: left;
   overflow: hidden;
   padding: 12px 0 8px 10px;
-  width: 495px;
+  width: 879px;
+}
+
+.timeline .list-item .information .categories{
+  padding-left: 2px;
 }
 
 .timeline .list-item .time {
@@ -500,7 +507,21 @@ a.ui-btn:hover {
   z-index: 1;
 }
 
-@media (min-width: 640) and (max-width: 1023px) {
+@media (min-width: 640px) and (max-width: 1023px) {
+
+  #detail-map {
+    margin: 10px 0;
+    width: 620px;
+    height: 280px;
+  }
+
+  #detail-content .details {
+    width: 620px;
+  }
+
+  #detail-content .title {
+    width: 520px;
+  }
 
   .timeline .list-item .information {
     width: 495px;
@@ -512,16 +533,16 @@ a.ui-btn:hover {
 
   #detail-map {
     margin: 10px 0;
-    width: 440px;
+    width: 460px;
     height: 280px;
   }
 
   #detail-content .details {
-    width: 440px;
+    width: 460px;
   }
 
   #detail-content .title {
-    width: 340px;
+    width: 360px;
   }
 
   .timeline .list-item .information {
@@ -535,16 +556,16 @@ a.ui-btn:hover {
 
   #detail-map {
     margin: 10px 0;
-    width: 320px;
+    width: 340px;
     height: 200px;
   }
 
   #detail-content .details {
-    width: 320px;
+    width: 340px;
   }
 
   #detail-content .title {
-    width: 220px;
+    width: 240px;
     font-size: 14px;
   }
 
@@ -568,8 +589,8 @@ a.ui-btn:hover {
   }
 
   .timeline .list-item .information {
-    padding: 10px 5px 8px 10px;
-    width: 50%;
+    padding: 6px 0 6px 10px;
+    width: 215px;
   }
 
 }
@@ -606,6 +627,11 @@ a.ui-btn:hover {
     background-size: 16px 16px;
     line-height: 16px;
   }
+
+#detail-content li .t-medium-icon {
+  margin-top: -2px;
+}
+
   .timeline .list-item {
     font-size: 12px;
   }
