@@ -76,12 +76,30 @@ class POI(POIBase):
 
     @classmethod
     def from_OSUMA_dict(cls, d, category):
+        def get_location(osuma_dict):
+            if 'address' in d:
+                a = d['address']
+                if 'cityName' in d:
+                    return "%s %s, %s" % (a['street'], a['streetNumber'], d['cityName'])
+                else:
+                    return "%s %s, %s" % (a['street'], a['streetNumber'], a['postOffice'])
+            elif 'cityName' in d and 'cityDistricts' in d:
+                return "%s, %s" % (d['cityDistricts'][0], d['cityName'])
+            elif 'cityName' in d:
+                return d['cityName']
+
+            raise CannotParseLocation
+
+        try:
+            location = get_location(d)
+        except:
+            print("! Cannot parse location from %s!" % json.dumps(d, indent=2), file=e8)
+            location = ""
+
         return POI(d['companyId'],
                    d['coordinate']['longitude'], d['coordinate']['latitude'],
                    d['name'],
-                   "%s %s, %s" % (d['address']['street'],
-                                  d['address']['streetNumber'],
-                               d['address']['street']),
+                   location,
                    category)
 
     def to_dict(self):
@@ -339,17 +357,21 @@ def pois_v2():
 
     results = []
 
-    for lobCode in [category_map[cat] for cat in categories]:
-        url = make_osuma_url(bbox.bottom, bbox.left, bbox.top, bbox.right, lobCode=lobCode)
-        started = time.clock()
+    lob_codes = [category_map[cat] for cat in categories
+                 if cat in category_map] # Not all categories are in Osuma (e.g. swimming_place, leisure)
+    for lob_code in lob_codes:
+        started = time.time()
+        url = make_osuma_url(bbox.bottom, bbox.left, bbox.top, bbox.right, lobCode=lob_code)
         r = make_osuma_request(url)
         if r.status_code == 200:
             results.append((url, r.text))
         else:
             print(r.status_code + " " + r.text, file=e8)
-        ended = time.clock()
-        print("# Request {0} took {1}".format(url, ended-started))
 
+        ended = time.time()
+        print("# Request {0} took {1}s".format(url, ended-started), file=e8)
+
+    started = time.time()
     result = []
     for url, res_text in results:
         res_dict = json.loads(res_text)
@@ -358,6 +380,8 @@ def pois_v2():
         for item in res:
             # print(json.dumps(item, indent=2, ensure_ascii=False), file=o8)
             result.append(POI.from_OSUMA_dict(item, lob_map[item['mainLineOfBusinessCode']]))
+    ended = time.time()
+    print("# Parsing and transformation took {1}s".format(url, ended-started), file=e8)
 
     response.content_type = 'application/json'
     return json.dumps([poi.to_dict() for poi in result], ensure_ascii=False)
