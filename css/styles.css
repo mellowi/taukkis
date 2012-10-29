@@ -46,6 +46,38 @@ a.ui-btn:hover {
   filter:alpha(opacity=30);
 }
 
+.taukkis .navbar-inverse .btn-navbar {
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #3f3f2b;
+  *background-color: #353524;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#3f3f2b), to(#353524));
+  background-image: -webkit-linear-gradient(top, #3f3f2b, #353524);
+  background-image: -o-linear-gradient(top, #3f3f2b, #353524);
+  background-image: linear-gradient(to bottom, #3f3f2b, #353524);
+  background-image: -moz-linear-gradient(top, #3f3f2b, #353524);
+  background-repeat: repeat-x;
+  border-color: #353524 #353524 #000000;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ff3f3f2b', endColorstr='#ff353524', GradientType=0);
+  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+}
+
+.taukkis .navbar-inverse .btn-navbar:hover,
+.taukkis .navbar-inverse .btn-navbar:active,
+.taukkis .navbar-inverse .btn-navbar.active,
+.taukkis .navbar-inverse .btn-navbar.disabled,
+.taukkis .navbar-inverse .btn-navbar[disabled] {
+  color: #ffffff;
+  background-color: #353524;
+  *background-color: #000000;
+}
+
+.taukkis .navbar-inverse .btn-navbar:active,
+.taukkis .navbar-inverse .btn-navbar.active {
+  background-color: #3f3f2b \9;
+}
+
 .taukkis-logo {
   float: left;
   margin: 5px 0 0 10px;
@@ -132,6 +164,7 @@ a.ui-btn:hover {
 }
 
 #detail-content .categories li {
+  margin: 3px 0;
   line-height: 24px;
 }
 
@@ -290,6 +323,10 @@ a.ui-btn:hover {
   height: 24px;
   background-size: 24px 24px;
   line-height: 24px;
+}
+
+#detail-content li .t-medium-icon {
+  margin-top: -4px;
 }
 
 .t-icon-gas_station {
