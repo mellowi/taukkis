@@ -15,7 +15,8 @@ define [
     errorTemplate: _.template(ErrorTemplate)
     events:
       "tap .category-filter": "categories"
-      'click #destinationSubmit': "route"
+      "tap #destinationSubmit": "route"
+      "keyup input": "handleEnter"
     mapElement: "destination-map"
 
     render: ->
@@ -33,13 +34,21 @@ define [
         utils.destinationMap = new Map(@mapElement)
 
 
+    handleEnter: (e) ->
+      console.log e
+      if(e.keyCode == 13)
+        console.log "enter"
+        @route(e)
+
+
     route: (e) ->
+      console.log "route"
       $.mobile.showPageLoadingMsg();
       @directionService = new google.maps.DirectionsService()
       destination = $("#destination-input").val()
 
       request =
-        origin: new google.maps.LatLng(utils.currentLocation.lat, utils.currentLocation.lon) # TODO: Make this LatLng work with request ..?!?!
+        origin: new google.maps.LatLng(utils.currentLocation.lat, utils.currentLocation.lon)
         destination: destination
         travelMode: google.maps.DirectionsTravelMode.DRIVING
 
