@@ -31,8 +31,3 @@ in its default port (8022) and run lighttpd as follows:
 
   lighttpd -f lighty.conf -D
 
-
-FRONT FIXES
-===========
-qtip lib
-adjust:{x:0,y:0,screen:false}  ->  adjust:{x:0,y:0,screen:true}

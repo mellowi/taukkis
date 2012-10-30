@@ -78,35 +78,31 @@ define [
 
       # qtip
       $(".qtip").remove()
+      position = $("#" + feature.geometry.id).position()
+      if($.browser.chrome)
+        position.top = position.top+53
+
       $("#" + feature.geometry.id).qtip(
-        position: 'bottomMiddle'
+        position:
+          my: 'bottom center'
+          at: 'top center'
+          target: [position.left, position.top]
+          viewport: $(window)
         content: @tooltipTemplate(location: poi)
         show:
           when: false
           ready: true
         hide: false # Don't specify a hide event
         style:
-          padding: 0
-          name: 'light'
+          classes: 'ui-tooltip-green ui-tooltip-rounded ui-tooltip-shadow'
           tip: true
       )
+      #if()
 
       # OLD
       #if(!_.isUndefined(poi.id))
       #  utils.app.navigate("#detail?id="+poi.id, true)
       #return
-
-
-    showTooltip: (e) ->
-      console.log e
-      el = document.getElementById(e.feature.geometry.id)
-      $(".qtip").remove()
-      $(el).qtip(
-        overwrite: false
-        content: "haha"
-        show:
-          ready: true
-      ).qtip "show"
 
 
     showRoute: (routeFeature) ->
