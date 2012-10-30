@@ -7,6 +7,7 @@ require.config({
     modernizr: "libs/modernizr-2.5.3",
     jquery: "libs/jquery-1.8.0",
     jquerymobile: "libs/jquery.mobile-1.1.0.min",
+    jqueryqtip: "libs/jquery.qtip-1.0.0-rc3.min",
     underscore: "libs/lodash-0.4.2",
     backbone: "libs/backbone-0.9.2",
     bootstrap: "libs/bootstrap",
@@ -55,7 +56,7 @@ require(['modernizr','jquery','backbone', 'routeboxer','openlayer', 'settings'],
     $.mobile.defaultPageTransition = 'none';
     $.support.cors = true;
   });
-  require(['bootstrap', 'jquerymobile', 'json', 'jsoncookie', 'cs!utils'], function() {
+  require(['bootstrap', 'jquerymobile', 'jqueryqtip', 'json', 'jsoncookie', 'cs!utils'], function() {
     $(document).ready(function() {
       $.mobile.initializePage();
       require(['cs!routers/router'], function() {

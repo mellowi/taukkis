@@ -120,7 +120,6 @@ a.ui-btn:hover {
   z-index:1024;
 }
 
-
 .olControlAttribution {
   position      : absolute;
   font-size     : 10px;
@@ -130,6 +129,39 @@ a.ui-btn:hover {
   font-family   : Arial;
   padding       : 2px 4px;
   border-radius : 5px 0 0 0;
+}
+
+.poi-info {
+  padding: 5px;
+}
+
+.poi-info .title {
+  padding: 0 3px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.poi-info .categories ul {
+  padding-left: 3px;
+  margin: 0;
+  list-style: none
+}
+
+.poi-info .categories li {
+  margin: 3px 0;
+  line-height: 24px;
+}
+
+.poi-info .close {
+  float: right;
+}
+
+.poi-info .detail {
+  margin-top: 6px;
+}
+
+.poi-info .detail a {
+  color: #3f3f2b;
 }
 
 #detail-content {
@@ -348,7 +380,8 @@ a.ui-btn:hover {
   line-height: 24px;
 }
 
-#detail-content li .t-medium-icon {
+#detail-content li .t-medium-icon,
+.poi-info .categories li .t-medium-icon {
   margin-top: -4px;
 }
 
@@ -569,12 +602,18 @@ a.ui-btn:hover {
     font-size: 14px;
   }
 
-  #detail-content .categories ul {
+  #detail-content .categories ul,
+  .poi-info .categories ul {
     font-size: 12px;
   }
 
-  #detail-content .categories li {
+  #detail-content .categories li,
+  .poi-info .categories li  {
     line-height: 18px;
+  }
+
+  .poi-info {
+    font-size: 14px;
   }
 
   .t-medium-icon {
@@ -582,6 +621,11 @@ a.ui-btn:hover {
     height: 18px;
     background-size: 18px 18px;
     line-height: 18px;
+  }
+
+  #detail-content li .t-medium-icon,
+  .poi-info .categories li .t-medium-icon {
+    margin-top: -2px;
   }
 
   .timeline .list-item {
@@ -613,12 +657,18 @@ a.ui-btn:hover {
     font-size: 12px;
   }
 
-  #detail-content .categories ul {
+  #detail-content .categories ul,
+  .poi-info .categories ul {
     font-size: 10px;
   }
 
-  #detail-content .categories li {
+  #detail-content .categories li,
+  .poi-info .categories li  {
     line-height: 16px;
+  }
+
+  .poi-info {
+    font-size: 12px;
   }
 
   .t-medium-icon {
@@ -628,9 +678,10 @@ a.ui-btn:hover {
     line-height: 16px;
   }
 
-#detail-content li .t-medium-icon {
-  margin-top: -2px;
-}
+  #detail-content li .t-medium-icon,
+  .poi-info .categories li .t-medium-icon {
+    margin-top: -2px;
+  }
 
   .timeline .list-item {
     font-size: 12px;

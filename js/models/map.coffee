@@ -43,7 +43,8 @@ define [
         layers: [
           mmlTaustakartta
         ]
-        eventListeners: { "moveend": @storeMapPosition }
+        eventListeners:
+          "moveend": @storeMapPosition
 
       @instance.setCenter(new OpenLayers.LonLat(mapPosition.longitude, mapPosition.latitude), mapPosition.zoom)
       @instance.setBaseLayer(mapQuest)
@@ -51,7 +52,17 @@ define [
         control = @instance.getControlsBy("id", "locate-control")[0]
         control.activate()
 
+      if(@divname == "map")
+        @instance.events.register "movestart", map, (e) =>
+          @removeTooltips()
+        @instance.events.register "updatesize", map, (e) =>
+          @removeTooltips()
+
       return @instance
+
+
+    removeTooltips: ->
+      $(".qtip").remove()
 
 
     storeMapPosition: (event) ->

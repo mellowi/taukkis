@@ -1,0 +1,17 @@
+<div class="poi-info">
+	<!-- <a class="close" href="#">X</a> -->
+	<div class="title"><%= location.title %></div>
+	<div class="categories">
+		<ul>
+	<% if(!_.isUndefined(location.category)  && !$.isArray(location.category)) { %>
+			<li><i class="t-icon-<%= location.category %> t-medium-icon"></i> <%= utils.getCategory(location.category).name %></li>
+	<% } else {
+	$.each(location.categories, function(j, category) { %>
+			<li><i class="t-icon-<%= category %> t-medium-icon"></i> <%= utils.getCategory(category).name %></li>
+	<% });} %>
+		</ul>
+	</div>
+	<div class="detail">
+		<a href="#detail?id=<%= location.id %>">Lisätietoja</a>
+	</div>
+</div>
