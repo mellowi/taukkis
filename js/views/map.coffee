@@ -86,7 +86,7 @@ define [
         position:
           my: 'bottom center'
           at: 'top center'
-          target: [position.left, position.top]
+          target: [position.left+12, position.top] #left addition because of the poi:s are misplaced
           viewport: $(window)
         content: @tooltipTemplate(location: poi)
         show:

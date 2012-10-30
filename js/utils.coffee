@@ -27,8 +27,10 @@ context = {
 defaultStyle = new OpenLayers.Style(
                 {
                 externalGraphic:"img/${getIconName}.png"
+                graphicHeight: 24
+                graphicWidth: 24
                 graphicOpacity:1
-                pointRadius: 14
+                pointRadius: 24
                 label: "${getLabel}"
                 labelSelect: "true"
                 # TBCSS'd:
