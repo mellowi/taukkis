@@ -17,6 +17,7 @@ define [
       "tap .category-filter": "categories"
       "pagehide": "removeTooltips"
       "tap a": "removeTooltips"
+      "tap #map": "removeTooltips"
 
     mapElement: "map"
     routeLayer: null
