@@ -16,7 +16,7 @@ define [
       "orientationchange resize pageshow": "updateMap"
       "tap .category-filter": "categories"
       "pagehide": "removeTooltips"
-      "tap": "removeTooltips"
+      "tap a": "removeTooltips"
 
     mapElement: "map"
     routeLayer: null
