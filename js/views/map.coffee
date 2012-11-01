@@ -84,7 +84,6 @@ define [
         selectControl.activate()
 
     showPOIDetails: (feature) ->
-      console.log "tool"
       poi = feature.attributes
 
       # qtip
