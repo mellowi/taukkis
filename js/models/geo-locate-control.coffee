@@ -9,6 +9,7 @@ define [], ->
       @instance = new OpenLayers.Control.Geolocate(
         {
         id: 'locate-control'
+        bind: false
         geolocationOptions:
           {
           enableHighAccuracy: false
@@ -18,11 +19,12 @@ define [], ->
         }
       )
 
-      @instance.events.register "locationupdated", @instance, (e) ->
+      @instance.events.register "locationupdated", @, (e) ->
         utils.currentLocation = {
           lat: e.position.coords.latitude
           lon: e.position.coords.longitude
         }
+
         utils.geoLocateLayer.removeAllFeatures()
         utils.geoLocateLayer.addFeatures([
           new OpenLayers.Feature.Vector(e.point
