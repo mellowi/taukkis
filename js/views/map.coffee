@@ -7,13 +7,7 @@ define [
 
     tooltipTemplate: _.template(TooltipTemplate)
     events:
-      "click #plus": "zoomIn"
-      "click #minus": "zoomOut"
-      "click #up": "moveUp"
-      "click #down": "moveDown"
-      "click #left": "moveLeft"
-      "click #right": "moveRight"
-      "orientationchange resize pageshow": "updateMap"
+      "resize pageshow": "updateSize"
       "tap .category-filter": "categories"
       "pagehide": "removeTooltips"
       "tap a": "removeTooltips"
@@ -22,8 +16,24 @@ define [
     routeLayer: null
     poiLayer: null
 
-    updateMap: (width, height) ->
-      @setSize(width, height)
+    initialize: ->
+      $(window).bind("resize.app", _.bind(@updateSize, @))
+
+
+    remove: ->
+      $(window).unbind("resize.app");
+
+
+    updateSize: ->
+      @setSize()
+      if(@mapElement == "map")
+        utils.map.instance.updateSize()
+      else
+        utils.detailMap.instance.updateSize()
+
+
+    updateMap: () ->
+      @setSize()
       @setMap()
       @initLayers()
 
@@ -74,14 +84,12 @@ define [
         selectControl.activate()
 
     showPOIDetails: (feature) ->
+      console.log "tool"
       poi = feature.attributes
 
       # qtip
       $(".qtip").remove()
-      position = $("#" + feature.geometry.id).position()
-      if($.browser.chrome)
-        position.top = position.top+53
-
+      position = $("#" + feature.geometry.id).offset() # position()
       $("#" + feature.geometry.id).qtip(
         position:
           my: 'bottom center'
@@ -94,7 +102,7 @@ define [
           ready: true
         hide: false # Don't specify a hide event
         style:
-          classes: 'ui-tooltip-green ui-tooltip-rounded ui-tooltip-shadow'
+          classes: 'ui-tooltip ui-tooltip-green ui-tooltip-rounded ui-tooltip-shadow'
           tip: true
       )
       #if()
@@ -134,16 +142,23 @@ define [
       @poiLayer.removeAllFeatures()
 
 
-    setSize: (width, height) ->
+    setSize: () ->
       content = $("#"+@mapElement)
       if(@mapElement == "map")
-        if(!width || !height)
-          height = $(window).height() - 53
-          width = $(window).width()
-      else
-        if(!width || !height)
-          height = $("#"+@mapElement).height()
-          width = $("#"+@mapElement).width()
+        width = $(window).width()
+        #height = $(window).height() - 53
+        height = (if window.innerHeight then window.innerHeight else $(window).height())
+        height = height - 53 #banner height
+        if(utils.map)
+          utils.map.instance.div.style.width = width
+
+          utils.map.instance.div.style.height = height
+      else if(@mapElement == "detail-map")
+        width = $(window).width() - 20
+        height = width / 3
+        if(utils.detailMap)
+          utils.detailMap.instance.div.style.width = width
+          utils.detailMap.instance.div.style.height = height
       content.height height
       content.width width
 
@@ -157,27 +172,3 @@ define [
 
     zoomToExtent: (bounds) ->
       utils.map.instance.zoomToExtent(bounds)
-
-
-    zoomIn: ->
-      utils.map.zoomIn()
-
-
-    zoomOut: ->
-      utils.map.zoomOut()
-
-
-    moveUp: ->
-      utils.map.pan(0, -256)
-
-
-    moveDown: ->
-      utils.map.pan(0, 256)
-
-
-    moveLeft: ->
-      utils.map.pan(-256, 0)
-
-
-    moveRight: ->
-      utils.map.pan(256, 0)

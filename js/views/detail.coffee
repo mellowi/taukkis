@@ -15,12 +15,14 @@ define [
     template: _.template(Template)
     commentsTemplate: _.template(CommentsTemplate)
     events:
+      "resize pageshow": "updateSize"
       "tap .category-filter": "categories"
       "tap .star-rate": "starRate"
     mapElement: "detail-map"
     rendered: false
 
     initialize: ->
+      $(window).bind("resize.app", _.bind(@updateSize, @))
       FB.init(
         appId: '441459789223765'
         status: true
