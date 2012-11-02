@@ -65,7 +65,7 @@ define [
       $(".qtip").remove()
 
 
-    storeMapPosition: (event) ->
+    storeMapPosition: (event) =>
       lonlat = event.object.getCenter();
       zoomLevel = event.object.getZoom();
       mapPosition = {
@@ -73,12 +73,15 @@ define [
         latitude: lonlat.lat,
         zoom: zoomLevel
       }
-      $.JSONCookie(@divname+'-position', mapPosition, {expires: 30})
+      localStorage.setItem(@divname+'-position', JSON.stringify(mapPosition));
+      #$.JSONCookie(@divname+'-position', mapPosition, {expires: 30})
 
 
-    loadMapPosition: ->
-      position = $.JSONCookie(@divname+'-position')
-      position = {longitude: 2777381.0927341, latitude: 8439319.5947809, zoom: 11} unless position.longitude
+    loadMapPosition: =>
+      json = localStorage.getItem(@divname+'-position')
+      position = JSON.parse(json)  if(json)
+      # position = $.JSONCookie(@divname+'-position')
+      position = {longitude: 2777381.0927341, latitude: 8439319.5947809, zoom: 11} unless position
       return position
 
 
