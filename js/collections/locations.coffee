@@ -75,6 +75,16 @@ define [
           false
 
 
+    filterOutCategory: (category) ->
+      @models.filter (model) ->
+        if(!_.isUndefined(model.get("category"))  && !$.isArray(model.get("category")))
+          return false  if category is model.get("category")
+          true
+        else
+          return true  if $.inArray(category, model.get("categories")) == -1
+          false
+
+
     filterOutCategories: () ->
       @models.filter (model) ->
         if(!_.isUndefined(model.get("category"))  && !$.isArray(model.get("category")))

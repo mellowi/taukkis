@@ -33,7 +33,8 @@ define [
 
 
     renderPois: ->
-      pois = new Locations(utils.locations.filterOutCategories())
+      pois = new Locations(utils.locations.filterOutCategory("weather_station"))
+      pois = new Locations(pois.filterOutCategories())
       pois.each (poi) =>
         position = utils.transformLonLat(poi.attributes.lon, poi.attributes.lat)
         poiFeature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(position.lon, position.lat))
