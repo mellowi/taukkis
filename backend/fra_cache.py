@@ -20,10 +20,14 @@ import sys
 import sqlite3
 from datetime import datetime
 from os import environ as env
-from suds.client import Client
 from coordinates import Str_to_CoordinateValue
 from docopt import docopt
 from utils import *
+
+try:
+    from suds.client import Client
+except ImportError, ie:
+    print("! Cannot import suds, unable to build database!", file=e8)
 
 o8 = codecs.getwriter('utf-8')(sys.stdout)
 e8 = codecs.getwriter('utf-8')(sys.stderr)
