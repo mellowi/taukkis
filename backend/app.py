@@ -6,12 +6,10 @@ import codecs
 import json
 import traceback
 import time
-import md5
-import csv
-import re
-import unicodedata
 from os import environ as env
 from bottle import route, run, get, request, response
+from utils import *
+from fra_cache import bbox_search
 
 o8 = codecs.getwriter('utf-8')(sys.stdout)
 e8 = codecs.getwriter('utf-8')(sys.stderr)
@@ -20,31 +18,6 @@ try:
     import requests
 except ImportError, e:
     print(u"! Cannot import requests! Osuma API will not work!", file=e8)
-
-def unicode_csv_reader(unicode_csv_data, dialect=csv.excel, **kwargs):
-    # csv.py doesn't do Unicode; encode temporarily as UTF-8:
-    csv_reader = csv.reader(utf_8_encoder(unicode_csv_data),
-                            dialect=dialect, **kwargs)
-    for row in csv_reader:
-        # decode UTF-8 back to Unicode, cell by cell:
-        yield [unicode(cell, 'utf-8') for cell in row]
-
-def utf_8_encoder(unicode_csv_data):
-    for line in unicode_csv_data:
-        yield line.encode('utf-8')
-
-def report_unknown_format(linenum, line):
-    try:
-        print(u"! Unknown format, line {0}: {1}".format(linenum, line.replace("\n", ""), file=e8))
-    except UnicodeEncodeError, uee:
-        print(uee, file=e8)
-
-def make_id(s):
-    return md5.new(s.encode('ascii', 'ignore')).hexdigest()[0:6]
-
-def slugify(string):
-    return re.sub(r'[-\s]+', '-',
-                  unicode(re.sub(r'[^\w\s-]', '', unicodedata.normalize('NFKD', string).encode('ascii', 'ignore')).strip().lower()))
 
 
 class BoundingBox(object):
@@ -430,6 +403,50 @@ def pois_v3():
     response.content_type = 'application/json'
     return json.dumps([poi.to_dict() for poi in result], ensure_ascii=False)
 
+@route('/api/v4/pois.json')
+def pois_v3():
+    global _pois, _FRA_CACHE
+    categories = get_categories(request.query)
+    if categories:
+        cats_set = set(categories)
+    else:
+        cats_set = set(POIWithCategories.allowed_categories)
+    bounding_box = get_bounding_box(request.query)
+
+    result = []
+    for poi in _pois:
+        poi_cats_set = set(poi.categories)
+
+        if categories is not None and len(poi_cats_set & cats_set) == 0:
+            continue
+        elif categories is not None and len(poi_cats_set & cats_set) > 0:
+            if bounding_box and bounding_box.contains(poi.lat, poi.lon):
+                result.append(poi)
+            elif bounding_box is None:
+                result.append(poi)
+        elif categories is None:
+            if bounding_box and bounding_box.contains(poi.lat, poi.lon):
+                result.append(poi)
+            elif bounding_box is None:
+                result.append(poi)
+
+
+    result = [poi.to_dict() for poi in result]
+        # r attr in ['id', 'lon', 'lat', 'title', 'location', 'categories']:
+        #     # result[attr] = getattr(self, attr)
+    for station in bbox_search(_FRA_CACHE, bounding_box.bottom, bounding_box.left,
+                               bounding_box.top, bounding_box.right):
+        station['id'] = slugify(u"{0}-{1}".format(station['name'], station['stationid']))
+        station['title'] = u"Tiehallinnon sääasema {0}".format(station['name'])
+        del station['name']
+        station['location'] = u"{0}, {0}".format(station['municipality'],
+                                                 station['fra_region'])
+        station['categories'] = ['weather_station']
+        result.append(station)
+
+    response.content_type = 'application/json'
+    return json.dumps(result, ensure_ascii=False)
+
 
 if __name__ == '__main__':
     from optparse import OptionParser
@@ -450,12 +467,15 @@ if __name__ == '__main__':
                       help="read ST1 stations from FILE", metavar="FILE", default="../data/gps-csv-st1.csv")
     parser.add_option("--rolls-file", dest="rolls_file",
                       help="read Rolls from FILE", metavar="FILE", default="../data/rollsit.csv")
+    parser.add_option("--fra-cache", dest="fra_cache_file",
+                      help="read FRA cache from FILE", metavar="FILE", default="fra.db")
 
     parser.add_option("-d", "--debug",
                       action="store_true", dest="debug", default=False,
                       help="print extra debug output")
 
     opts, args = parser.parse_args()
+    _FRA_CACHE = opts.fra_cache_file
 
     _pois = []
     try:

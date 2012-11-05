@@ -79,7 +79,7 @@ define [
 
       for box in boxes
         $.ajax
-          url: "/api/v3/pois.json?bbox=#{box}"
+          url: "/api/v4/pois.json?bbox=#{box}"
           dataType: "json"
           async: false
           global: false
