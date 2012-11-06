@@ -230,9 +230,9 @@ a.ui-btn:hover {
   top: 0;
   width: 100%;
   z-index: 666;
-  -moz-box-shadow: 0px 7px 10px rgba(0,0,0,0.5);
-  -webkit-box-shadow: 0px 7px 10px rgba(0,0,0,0.5);
-  box-shadow: 0px 7px 10px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0px 10px 20px rgba(0,0,0,0.6);
+  -webkit-box-shadow: 0px 10px 20px rgba(0,0,0,0.6);
+  box-shadow: 0px 10px 20px rgba(0,0,0,0.6);
 }
 
 .timeline .list-header,
@@ -306,6 +306,16 @@ a.ui-btn:hover {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5a5a5a', endColorstr='#505050',GradientType=0 );
 }
 
+.timeline .list-item.weather {
+  background: #737849;
+  background: -moz-linear-gradient(top, #737849 1%, #626a3e 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#737849), color-stop(100%,#626a3e));
+  background: -webkit-linear-gradient(top, #737849 1%,#626a3e 100%);
+  background: -o-linear-gradient(top, #737849 1%,#626a3e 100%);
+  background: -ms-linear-gradient(top, #737849 1%,#626a3e 100%);
+  background: linear-gradient(to bottom, #737849 1%,#626a3e 100%);
+}
+
 .timeline .list-item.passed {
 }
 
@@ -348,6 +358,15 @@ a.ui-btn:hover {
   font-size: 14px;
 }
 
+.timeline .forecast {
+  padding-top: 6px;
+}
+.timeline .forecast span {
+  padding-right: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
 #destinationSelection {
   position: absolute;
   top: 25%;
@@ -385,6 +404,47 @@ a.ui-btn:hover {
   background-repeat: no-repeat;
   vertical-align: text-top;
   line-height: 54px;
+}
+
+[class^="taukkis-weather-"],
+[class*=" taukkis-weather-"] {
+  display: inline-block;
+  width: 26px;
+  height: 22px;
+  background-size: 26px 22px;
+  margin-top: -2px;
+  margin-right: 3px;
+  line-height: 20px;
+  vertical-align: text-top;
+  background-repeat: no-repeat;
+}
+
+.taukkis-weather-0 {
+  background-image: url('images/taukkis-weather-0.png');
+}
+
+.taukkis-weather-1 {
+  background-image: url('images/taukkis-weather-1.png');
+}
+
+.taukkis-weather-2 {
+  background-image: url('images/taukkis-weather-2.png');
+}
+
+.taukkis-weather-3 {
+  background-image: url('images/taukkis-weather-3.png');
+}
+
+.taukkis-weather-4 {
+  background-image: url('images/taukkis-weather-4.png');
+}
+
+.taukkis-weather-5 {
+  background-image: url('images/taukkis-weather-5.png');
+}
+
+.taukkis-weather-6 {
+  background-image: url('images/taukkis-weather-6.png');
 }
 
 [class^="t-icon-"],

@@ -29,7 +29,10 @@ define [
       )
       # TODO: automaticly scroll the passed locations over..
       # count how many * height => scroll (if some scroll command works)
-      # $(window).scrollTop(300);
+      # $("#timeline-content").scrollTop(300);
+
+      $elem = $("#timeline-content")
+      $('html, body').scrollTop($elem.height())
 
 
     categories: (e) ->

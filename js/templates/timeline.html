@@ -21,9 +21,20 @@ if(locations.length == 0) {
 $.each(locations, function(i, location) {
 	location.title = location.title.split("Puh.")[0];
 	location.title = location.title.replace('"', "");
+
+	if(location.categories[0] == "weather_station") {
+		location.title = "Tiesää";
+		if(location.airtemperature1 > 0)
+			location.airtemperature1 = "+" + location.airtemperature1 + " &deg;C";
+		else
+			location.airtemperature1 = location.airtemperature1 + " &deg;C";
+		location.precipitation = "taukkis-weather-"+location.precipitation;
+	}
+
 %>
-	<a href="#detail?id=<%= location.id %>" data-id="<%= location.id %>" class="list-item <%= (location.time > 0) ? "" : "passed"%>">
+	<a href="#detail?id=<%= location.id %>" data-id="<%= location.id %>" class="list-item <%= (location.categories[0] == "weather_station") ? "weather " : "" %> <%= (location.time > 0) ? "" : "passed"%>">
 		<div class="information left">
+			<% if(location.categories[0] != "weather_station") { %>
 			<div class="categories right">
 <% if(!_.isUndefined(location.category)  && !$.isArray(location.category)) { %>
 				<i class="t-icon-<%= location.category %> t-medium-icon"></i>
@@ -32,7 +43,15 @@ $.each(location.categories, function(j, category) { %>
 				<i class="t-icon-<%= category %> t-medium-icon"></i>
 <% });} %>
 			</div>
+			<% } %>
 			<div class="title"><%= location.title %></div>
+
+			<% if(location.categories[0] == "weather_station") { %>
+			<div class="forecast">
+				<span><%= location.airtemperature1 %></span><i class="<%= location.precipitation %>"></i>
+			</div>
+			<% } %>
+
 		</div>
 		<div class="time-info right">
 			<div class="road"></div>
