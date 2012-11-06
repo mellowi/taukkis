@@ -8,7 +8,7 @@ define ["text!templates/header.html"], (Template) ->
       "tap #locate": "locate"
 
     render: (e) ->
-      $("#" + e.id + " div[data-role='header']").html @template()
+      $("#" + e.id + " div[data-role='header']").html(@template()).trigger("create")
       @initCategories()
 
 

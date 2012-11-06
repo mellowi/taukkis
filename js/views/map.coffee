@@ -148,7 +148,7 @@ define [
 
           utils.map.instance.div.style.height = height
       else if(@mapElement == "detail-map")
-        width = $(window).width() - 20
+        width = $(window).width() - 40
         height = width / 3
         if(utils.detailMap)
           utils.detailMap.instance.div.style.width = width

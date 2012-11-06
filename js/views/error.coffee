@@ -12,7 +12,7 @@ define [
 
     render: (reason) ->
       views.header.render(@el)
-      $("#" + @el.id + " div[data-role='content']").html @template(reason: reason)
+      $("#" + @el.id + " div[data-role='content']").html(@template(reason: reason)).trigger("create")
 
 
     categories: (e) ->

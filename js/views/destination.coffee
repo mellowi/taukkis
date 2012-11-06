@@ -22,7 +22,7 @@ define [
     render: ->
       @getLocation()
       views.header.render(@el)
-      $("#" + @el.id + " div[data-role='content']").html @template()
+      $("#" + @el.id + " div[data-role='content']").html(@template()).trigger("create")
 
 
     categories: (e) ->
@@ -67,7 +67,7 @@ define [
           $.mobile.changePage($("#route"))
         else
           $.mobile.hidePageLoadingMsg();
-          $("#message").html @errorTemplate(reason: "destination")
+          $("#message").html(@errorTemplate(reason: "destination")).trigger("create")
       )
 
 

@@ -48,17 +48,18 @@ define [
 
       @poi = @pois[0].toJSON()
       @poi.rating = 3*25 # DEBUG: calculate the stars (3 = @poi.rating)
-      $("#" + @el.id + " div[data-role='content']").html @template(
+      $("#" + @el.id + " div[data-role='content']").html(@template(
         location: @poi
-      )
+      )).trigger("create")
 
       @updateMap()
 
-      $("#" + @el.id + " .comments").html @commentsTemplate(
+      $("#" + @el.id + " .comments").html(@commentsTemplate(
         width: $("#"+@mapElement).width()
         posts: 2
         href: "http://taukkis.fi/#detail?id="+@poi.id
-      )
+      )).trigger("create")
+
       if(@rendered)
         FB.XFBML.parse();
 

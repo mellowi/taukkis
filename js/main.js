@@ -46,11 +46,12 @@ require.config({
 require(['modernizr','jquery','backbone', 'routeboxer','openlayer', 'settings'], function(Modernizr, $, Backbone, RouteBoxer) {
   $(document).bind("mobileinit", function() {
     // no JQM routing
+
     $.mobile.ajaxEnabled = false;
+    $.mobile.ajaxLinksEnabled = false;
     $.mobile.linkBindingEnabled = false;
     $.mobile.hashListeningEnabled = false;
     $.mobile.pushStateEnabled = false;
-
     $.mobile.autoInitializePage = true;
     $.mobile.loadingMessage = " ";
     $.mobile.defaultPageTransition = 'none';

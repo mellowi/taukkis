@@ -32,7 +32,13 @@ $.each(locations, function(i, location) {
 	}
 
 %>
-	<a href="#detail?id=<%= location.id %>" data-id="<%= location.id %>" class="list-item <%= (location.categories[0] == "weather_station") ? "weather " : "" %> <%= (location.time > 0) ? "" : "passed"%>">
+
+	<% if(location.categories[0] == "weather_station") { %>
+	<div class="list-item weather<%= (location.time > 0) ? "" : " passed"%>">
+	<% }else { %>
+	<a href="#detail?id=<%= location.id %>" data-id="<%= location.id %>" class="list-item<%= (location.time > 0) ? "" : " passed"%>">
+	<% } %>
+
 		<div class="information left">
 			<% if(location.categories[0] != "weather_station") { %>
 			<div class="categories right">
@@ -57,7 +63,12 @@ $.each(location.categories, function(j, category) { %>
 			<div class="road"></div>
 			<div class="time"><%= utils.formatTime(location.time) %></div>
 		</div>
+
+	<% if(location.categories[0] == "weather_station") { %>
+	</div>
+	<% }else { %>
 	</a>
+	<% } %>
 <% }); %>
 
 </div>
