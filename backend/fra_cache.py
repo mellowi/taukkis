@@ -265,9 +265,12 @@ def bbox_search(database, minlat, minlon, maxlat, maxlon):
     for attr in RoadWeatherStation.ATTRS + RoadWeatherStation.STATIC_ATTRS:
         attrs.append(attr)
 
-    c.execute(u"""SELECT {0} FROM stations WHERE
-                  lat > ? AND lat < ? AND lon > ? AND lon < ?""".format(', '.join(attrs)),
-        (minlat, maxlat, minlon, maxlon))
+    if None in [minlat, minlon, maxlat, maxlon]:
+        c.execute(u"SELECT {0} FROM stations".format(', '.join(attrs)))
+    else:
+        c.execute(u"""SELECT {0} FROM stations WHERE
+                   lat > ? AND lat < ? AND lon > ? AND lon < ?""".format(', '.join(attrs)),
+            (minlat, maxlat, minlon, maxlon))
 
     result = []
     for row in c.fetchall():
@@ -276,7 +279,7 @@ def bbox_search(database, minlat, minlon, maxlat, maxlon):
             d[attr] = row[idx]
         result.append(d)
     return result
-            
+
 
 if __name__ == '__main__':
     args = docopt(__doc__)
