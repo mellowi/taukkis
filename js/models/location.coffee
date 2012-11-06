@@ -5,11 +5,26 @@ define ["cs!models/route"], (Route) ->
 
     initialize: ->
       @update()
+      @initWeather() if $.inArray("weather_station", @get("categories")) > -1
+
+
+    # http://www.infotripla.fi/digitraffic/docs/Meta_RWS_sensors.pdf
+    initWeather: ->
+      console.log @
+      console.log weatherCodes[@get("precipitation")]
+      console.log weatherCodes[@get("precipitationtype")]
+      console.log weatherRoadCodes[@get("roadsurfaceconditions1")]
+      console.log weatherRoadCodes[@get("roadsurfaceconditions2")]
+      console.log weatherWarningCodes[@get("warning1")]
+      console.log weatherWarningCodes[@get("warning2")]
+      console.log("---")
+
 
     update: ->
       if(utils.currentLocation != null)
         @setDistance(@calculateDistance())
         @setTime(@calculateTime())
+
 
     calculateDistance: ->
       R = 6371; # km

@@ -57,6 +57,7 @@ define [
       else
         utils.detailMap = new Map(@mapElement)
 
+
     initLayers: ->
       if(@routeLayer and @mapElement == "map")
         utils.map.instance.removeLayer(@routeLayer)
@@ -83,10 +84,10 @@ define [
         utils.map.instance.addControl(selectControl)
         selectControl.activate()
 
+
     showPOIDetails: (feature) ->
       poi = feature.attributes
 
-      # qtip
       $(".qtip").remove()
       position = $("#" + feature.geometry.id).offset() # position()
       $("#" + feature.geometry.id).qtip(
@@ -104,12 +105,6 @@ define [
           classes: 'ui-tooltip ui-tooltip-green ui-tooltip-rounded ui-tooltip-shadow'
           tip: true
       )
-      #if()
-
-      # OLD
-      #if(!_.isUndefined(poi.id))
-      #  utils.app.navigate("#detail?id="+poi.id, true)
-      #return
 
 
     showRoute: (routeFeature) ->

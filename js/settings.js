@@ -28,4 +28,56 @@ var categorySettings = {
   "swimming_place": {"id": null, "name": "Uimapaikat" },
   "leisure": {"id": null, "name": "Tulipaikat" },
 }
+
 var categoryDefault = {"id": null, "name": "Taukopaikka" }
+
+// precipitation & precipitationtype
+// weather 22 & 25
+var weatherCodes = [
+  // weather 22
+  "pouta",
+  "heikko",
+  "kohtalainen",
+  "runsas",
+  "heikko",
+  "kohtalainen",
+  "runsas",
+  // types 25
+  "pouta", // 7
+  "hyvin heikko sade, olomuotoa ei voida päätellä",
+  "tihku",
+  "vesisade",
+  "lumisade",
+  "märkä räntä",
+  "räntä",
+  "rakeita",
+  "jääkiteitä",
+  "lumijyväsiä",
+  "lumirakeita",
+  "jäätävä tihku",
+  "jäätävä sade"
+]
+
+// roadsurfaceconditions1 & roadsurfaceconditions2
+// weather 27, 28
+var weatherRoadCodes = [
+  "anturissa on vikaa",
+  "kuiva",
+  "kostea",
+  "märkä",
+  "märkä ja suolattu",
+  "kuura",
+  "lumi",
+  "jää",
+  "todennäköisesti kostea ja suolainen"
+]
+
+// warning1 & warning2
+// weather 29, 30
+var weatherWarningCodes = [
+  "", // OK
+  "Varo",
+  "Häly",
+  "Kuura",
+  "Sade"
+]

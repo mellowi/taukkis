@@ -31,8 +31,10 @@ define [
       # count how many * height => scroll (if some scroll command works)
       # $(window).scrollTop(300);
 
+
     categories: (e) ->
       utils.setCategory(e)
       @render("poi")
+
 
   views.timeline = new Timeline
