@@ -444,7 +444,7 @@ def pois_v4():
 
         for station in stations:
             station['id'] = slugify(u"{0}-{1}".format(station['name'], station['stationid']))
-            station['title'] = u"Tiehallinnon sääasema {0}".format(station['name'])
+            station['title'] = station['name'].replace('_', ' ').title()
             del station['name']
             station['location'] = u"{0}, {0}".format(station['municipality'],
                                                      station['fra_region'])
