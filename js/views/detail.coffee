@@ -57,6 +57,7 @@ define [
       $("#" + @el.id + " .comments").html(@commentsTemplate(
         width: $("#"+@mapElement).width()
         posts: 2
+        colorscheme: "dark"
         href: "http://taukkis.fi/#detail?id="+@poi.id
       )).trigger("create")
 
