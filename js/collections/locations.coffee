@@ -39,12 +39,12 @@ define [
 
     sortByDistance: ->
       @sortBy (model) ->
-        model.get "distance"
+        -model.get "distance"
 
 
     sortByTime: ->
       @sortBy (model) ->
-        model.get "time"
+        -model.get "time"
 
 
     getById: (id) ->
