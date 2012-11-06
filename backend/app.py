@@ -268,7 +268,7 @@ def read_osuma_kiosks(file):
                 location_string = u"{0} {1}, {2}".format(row[5], row[6], row[4])
                 p = POIWithCategories(slugify(u"{0}, {1}".format(row[2],
                                                                  location_string)),
-                                      float(row[0]), float(row[1]),
+                                      float(row[1]), float(row[0]),
                                       row[2], row[4], ['kiosk'])
                 result.append(p)
         except csv.Error, e:
