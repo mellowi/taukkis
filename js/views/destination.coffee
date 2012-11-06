@@ -87,7 +87,9 @@ define [
             if data.length > 0
               for poi in data
                 location = new Location(poi)
-                utils.locations.add location
+                if location.get("time") > 15*60
+                  # only add locations after 15mins from start
+                  utils.locations.add location
             return
       utils.locations.save()
       $.ajaxSetup({global: true});
