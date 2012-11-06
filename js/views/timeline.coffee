@@ -24,15 +24,11 @@ define [
       # TODO: filter too old locations here
       locations = new Locations(utils.locations.filterOutCategories())
       locations = new Locations(locations.sortByDistance())
-      $("#" + @el.id + " div[data-role='content']").html @template(
+      $("#" + @el.id + " div[data-role='content']").html(@template(
         locations: locations.toJSON()
-      )
-      # TODO: automaticly scroll the passed locations over..
-      # count how many * height => scroll (if some scroll command works)
-      # $("#timeline-content").scrollTop(300);
+      )).trigger("create")
 
-      $elem = $("#timeline-content")
-      $('html, body').scrollTop(300)
+      $("html, body").animate {scrollTop: 80*locations.length }, 1
 
 
     categories: (e) ->

@@ -286,6 +286,7 @@ a.ui-btn:hover {
 .timeline .list-items {
   overflow: hidden;
   padding-top: 49px; /* padding-top: 104px; */
+  padding-bottom: 54px;
 }
 
 .timeline .list-item {

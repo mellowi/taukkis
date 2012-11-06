@@ -6,7 +6,7 @@ require.config({
     // Core Libraries
     modernizr: "libs/modernizr-2.5.3",
     jquery: "libs/jquery-1.8.0",
-    jquerymobile: "libs/jquery.mobile-1.1.0.min",
+    jquerymobile: "libs/jquery.mobile-1.2.0.min",
     jqueryqtip: "libs/jquery.qtip2.min",
     underscore: "libs/lodash-0.4.2",
     backbone: "libs/backbone-0.9.2",
