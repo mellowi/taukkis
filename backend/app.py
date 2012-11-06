@@ -255,6 +255,28 @@ def read_st1_stations(file):
     print(u"# Loaded {0} St1 stations!".format(len(result)), file=e8)
     return result
 
+def read_osuma_kiosks(file):
+    result = []
+
+    with codecs.open(file, 'r', encoding='utf-8') as f:
+        reader = unicode_csv_reader(f)
+        try:
+            for row in reader:
+                if len(row) != 8:
+                    report_unknown_format(reader.csv_reader.line_num, row)
+
+                location_string = u"{0} {1}, {2}".format(row[5], row[6], row[4])
+                p = POIWithCategories(slugify(u"{0}, {1}".format(row[2],
+                                                                 location_string)),
+                                      float(row[0]), float(row[1]),
+                                      row[2], row[4], ['kiosk'])
+                result.append(p)
+        except csv.Error, e:
+            print(e, file=e8)
+
+    print(u"# Loaded {0} Osuma kiosks!".format(len(result)), file=e8)
+    return result
+
 def get_categories(query_dict):
     """
     Returns a list of categories as strings.
@@ -477,6 +499,8 @@ if __name__ == '__main__':
                       help="read leisure places from FILE", metavar="FILE", default="../data/kyrsae.csv")
     parser.add_option("--st1-stations-file", dest="st1_stations_file",
                       help="read ST1 stations from FILE", metavar="FILE", default="../data/gps-csv-st1.csv")
+    parser.add_option("--osuma-kiosks-file", dest="osuma_kiosks_file",
+                      help="read Osuma kiosks from FILE", metavar="FILE", default="../data/osuma_kiosks.csv")
     parser.add_option("--rolls-file", dest="rolls_file",
                       help="read Rolls from FILE", metavar="FILE", default="../data/rollsit.csv")
     parser.add_option("--fra-cache", dest="fra_cache_file",
@@ -508,6 +532,11 @@ if __name__ == '__main__':
 
     try:
         _pois += read_st1_stations(opts.st1_stations_file)
+    except:
+        traceback.print_exc()
+
+    try:
+        _pois += read_osuma_kiosks(opts.osuma_kiosks_file)
     except:
         traceback.print_exc()
 

@@ -40,5 +40,10 @@ while has_next_page
 end
 
 companies.each do |company|
-  puts "#{company["coordinate"]["latitude"]},#{company["coordinate"]["longitude"]},\"#{company["name"]}\""
+  # puts company
+  begin
+    puts "#{company["coordinate"]["latitude"]},#{company["coordinate"]["longitude"]},\"#{company["name"]}\",#{company["businessId"]},\"#{company["cityName"]}\",\"#{company["address"]["street"]}\",\"#{company["address"]["streetNumber"]}\",\"#{company["address"]["postalCode"]}\""
+  rescue
+    $stderr.puts "Cannot parse CSV details from #{company}"
+  end
 end
