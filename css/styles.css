@@ -406,6 +406,18 @@ a.ui-btn:hover {
   line-height: 54px;
 }
 
+.t-car {
+  display: inline-block;
+  width: 20px;
+  height: 40px;
+  margin-top: -8px;
+  background-size: 20px 40px;
+  background-image: url('images/taukkis-car.png');
+  background-repeat: no-repeat;
+  vertical-align: text-top;
+  line-height: 54px;
+}
+
 [class^="taukkis-weather-"],
 [class*=" taukkis-weather-"] {
   display: inline-block;

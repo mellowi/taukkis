@@ -32,7 +32,7 @@ define [
       # $("#timeline-content").scrollTop(300);
 
       $elem = $("#timeline-content")
-      $('html, body').scrollTop($elem.height())
+      $('html, body').scrollTop(300)
 
 
     categories: (e) ->
