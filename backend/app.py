@@ -10,6 +10,8 @@ from os import environ as env
 from bottle import route, run, get, request, response
 from utils import *
 from fra_cache import bbox_search
+from fra_cache import info as fra_info
+
 
 o8 = codecs.getwriter('utf-8')(sys.stdout)
 e8 = codecs.getwriter('utf-8')(sys.stderr)
@@ -404,7 +406,7 @@ def pois_v3():
     return json.dumps([poi.to_dict() for poi in result], ensure_ascii=False)
 
 @route('/api/v4/pois.json')
-def pois_v3():
+def pois_v4():
     global _pois, _FRA_CACHE
     categories = get_categories(request.query)
     if categories:
@@ -447,6 +449,11 @@ def pois_v3():
     response.content_type = 'application/json'
     return json.dumps(result, ensure_ascii=False)
 
+@route('/api/v4/fra_status.json')
+def fra_status():
+    global _pois, _FRA_CACHE
+    response.content_type = 'application/json'
+    return json.dumps(fra_info(_FRA_CACHE), ensure_ascii=False)
 
 if __name__ == '__main__':
     from optparse import OptionParser
