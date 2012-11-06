@@ -14,7 +14,7 @@ if ARGV.size == 0
   puts "1D0050 - gas_station (Huoltoasema)"
   puts "1D1480 - cafe (Kahvila)"
   puts "1D1490 - kiosk (Kioski)"
-  puts "1D1220 - sights (Nähtävyydet)"
+  puts "1D1220 - sight (Nähtävyys)"
   puts "1D1520 - fast_food (Pikaruoka)"
   puts "1D1530 - restaurant (Ravintola)"
   exit

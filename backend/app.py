@@ -108,7 +108,7 @@ class POI(POIBase):
         return result
 
 class POIWithCategories(POIBase):
-    allowed_categories = set(["gas_station", "cafe", "kiosk", "sights", "fast_food",
+    allowed_categories = set(["gas_station", "cafe", "kiosk", "sight", "fast_food",
                               "restaurant", "swimming_place", "leisure", "weather_station"])
 
     def __init__(self, id, lon, lat, title, location, categories):
@@ -255,7 +255,7 @@ def read_st1_stations(file):
     print(u"# Loaded {0} St1 stations!".format(len(result)), file=e8)
     return result
 
-def read_osuma_kiosks(file):
+def read_osuma_stuff(file, category):
     result = []
 
     with codecs.open(file, 'r', encoding='utf-8') as f:
@@ -269,12 +269,12 @@ def read_osuma_kiosks(file):
                 p = POIWithCategories(slugify(u"{0}, {1}".format(row[2],
                                                                  location_string)),
                                       float(row[1]), float(row[0]),
-                                      row[2], row[4], ['kiosk'])
+                                      row[2], row[4], [category])
                 result.append(p)
         except csv.Error, e:
             print(e, file=e8)
 
-    print(u"# Loaded {0} Osuma kiosks!".format(len(result)), file=e8)
+    print(u"# Loaded {0} Osuma {1}s!".format(len(result), category), file=e8)
     return result
 
 def get_categories(query_dict):
@@ -350,7 +350,7 @@ def pois_v2():
         'gas_station': '1D0050', # (Huoltoasema)
         'cafe': '1D1480', # (Kahvila)
         'kiosk': '1D1490', # (Kioski)
-        'sights': '1D1220', # (Nähtävyydet)
+        'sight': '1D1220', # (Nähtävyydet)
         'fast_food': '1D1520', # (Pikaruoka)
         'restaurant': '1D1530' # (Ravintola)
         }
@@ -501,6 +501,8 @@ if __name__ == '__main__':
                       help="read ST1 stations from FILE", metavar="FILE", default="../data/gps-csv-st1.csv")
     parser.add_option("--osuma-kiosks-file", dest="osuma_kiosks_file",
                       help="read Osuma kiosks from FILE", metavar="FILE", default="../data/osuma_kiosks.csv")
+    parser.add_option("--osuma-sights-file", dest="osuma_sights_file",
+                      help="read Osuma sights from FILE", metavar="FILE", default="../data/osuma_sights.csv")
     parser.add_option("--rolls-file", dest="rolls_file",
                       help="read Rolls from FILE", metavar="FILE", default="../data/rollsit.csv")
     parser.add_option("--fra-cache", dest="fra_cache_file",
@@ -536,7 +538,12 @@ if __name__ == '__main__':
         traceback.print_exc()
 
     try:
-        _pois += read_osuma_kiosks(opts.osuma_kiosks_file)
+        _pois += read_osuma_stuff(opts.osuma_kiosks_file, "kiosk")
+    except:
+        traceback.print_exc()
+
+    try:
+        _pois += read_osuma_stuff(opts.osuma_sights_file, "sight")
     except:
         traceback.print_exc()
 
