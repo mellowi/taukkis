@@ -55,6 +55,7 @@ CREATE_TABLE = '''CREATE TABLE stations
 # "CREATE INDEX name_idx ON places (name)",
 CREATE_INDEX = "CREATE INDEX stationid_idx ON stations (stationid)"
 
+class TooManyErrors(Exception): pass
 
 class RoadWeatherStation(object):
     """
@@ -91,6 +92,7 @@ class RoadWeatherStation(object):
         )
 
     ALLOW_MISSING = (
+        'humidity',
         'precipitation',
         'precipitationtype',
         'warning1',
@@ -116,19 +118,21 @@ class RoadWeatherStation(object):
         """
         d = static[obj.stationid]
 
+        errors = []
+
         for attr in cls.ATTRS:
             try:
                 if 'time' in attr:
-                    d[attr] = getattr(obj, datetime.strptime(attr.utc))
+                    d[attr] = getattr(obj, attr).localtime
                 else:
                     d[attr] = getattr(obj, attr)
             except Exception, e:
                 if attr in cls.ALLOW_MISSING:
                     pass
                 else:
-                    traceback.print_exc()
+                    errors.append(traceback.format_exc())
 
-        return RoadWeatherStation(**d)
+        return (RoadWeatherStation(**d), errors)
 
     def insert_stmt(self):
         attrs = []
@@ -191,22 +195,33 @@ def read_static_data(file):
         except csv.Error, e:
             print(e, file=e8)
 
-    print(u"# Loaded {0} stations from static!".format(len(result)), file=e8)
+    if len(result) < 400:
+        print(u"# Loaded only {0} (<400) stations from static!".format(len(result)), file=e8)
     return result
-
 
 def stations(user, password, static):
     client = Client(URL, username=user, password=password)
     road_weather = client.service.RoadWeather()
     data = road_weather.roadweatherdata.roadweather
 
+    errors = []
     result = []
     for d in data:
         try:
-            station = RoadWeatherStation.from_suds_object(d, static)
-            result.append(RoadWeatherStation.from_suds_object(d, static))
-        except KeyError, ke:
-            traceback.print_exc()
+            station, errs = RoadWeatherStation.from_suds_object(d, static)
+            for err in errs:
+                errors.append(err)
+
+            result.append(station)
+        except Exception, e:
+            errors.append(traceback.format_exc())
+
+    max_errors = 10
+    if len(errors) > max_errors:
+        for err in errors:
+            print(err, file=e8)
+        raise TooManyErrors("Encountered too many errors (> %i) while fetching stations" % max_errors)
+
     return result
 
 def build(input_file, database, user, password):
@@ -227,6 +242,10 @@ def build(input_file, database, user, password):
 def info(database):
     conn = sqlite3.connect(database)
     c = conn.cursor()
+
+    c.execute("SELECT MAX(measurementtime) FROM stations")
+    last_measurement = c.fetchone()[0]
+    
     c.execute('''SELECT COUNT(stationid), AVG(airtemperature1),
                  MIN(airtemperature1), MAX(airtemperature1) FROM stations''')
     row = c.fetchone()
@@ -234,7 +253,8 @@ def info(database):
     return { 'station_count': station_count,
              'average_temperature': avg_temp,
              'maximum_temperature': max_temp,
-             'minimum_temperature': min_temp }
+             'minimum_temperature': min_temp,
+             'last_measurement': last_measurement }
 
 def bbox_search(database, minlat, minlon, maxlat, maxlon):
     conn = sqlite3.connect(database)
@@ -245,9 +265,12 @@ def bbox_search(database, minlat, minlon, maxlat, maxlon):
     for attr in RoadWeatherStation.ATTRS + RoadWeatherStation.STATIC_ATTRS:
         attrs.append(attr)
 
-    c.execute(u"""SELECT {0} FROM stations WHERE
-                  lat > ? AND lat < ? AND lon > ? AND lon < ?""".format(', '.join(attrs)),
-        (minlat, maxlat, minlon, maxlon))
+    if None in [minlat, minlon, maxlat, maxlon]:
+        c.execute(u"SELECT {0} FROM stations".format(', '.join(attrs)))
+    else:
+        c.execute(u"""SELECT {0} FROM stations WHERE
+                   lat > ? AND lat < ? AND lon > ? AND lon < ?""".format(', '.join(attrs)),
+            (minlat, maxlat, minlon, maxlon))
 
     result = []
     for row in c.fetchall():
@@ -256,7 +279,7 @@ def bbox_search(database, minlat, minlon, maxlat, maxlon):
             d[attr] = row[idx]
         result.append(d)
     return result
-            
+
 
 if __name__ == '__main__':
     args = docopt(__doc__)

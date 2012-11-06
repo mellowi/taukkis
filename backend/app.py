@@ -10,6 +10,8 @@ from os import environ as env
 from bottle import route, run, get, request, response
 from utils import *
 from fra_cache import bbox_search
+from fra_cache import info as fra_info
+
 
 o8 = codecs.getwriter('utf-8')(sys.stdout)
 e8 = codecs.getwriter('utf-8')(sys.stderr)
@@ -107,7 +109,7 @@ class POI(POIBase):
 
 class POIWithCategories(POIBase):
     allowed_categories = set(["gas_station", "cafe", "kiosk", "sights", "fast_food",
-                              "restaurant", "swimming_place", "leisure"])
+                              "restaurant", "swimming_place", "leisure", "weather_station"])
 
     def __init__(self, id, lon, lat, title, location, categories):
         super(POIWithCategories, self).__init__(id, lon, lat, title, location)
@@ -404,7 +406,7 @@ def pois_v3():
     return json.dumps([poi.to_dict() for poi in result], ensure_ascii=False)
 
 @route('/api/v4/pois.json')
-def pois_v3():
+def pois_v4():
     global _pois, _FRA_CACHE
     categories = get_categories(request.query)
     if categories:
@@ -432,21 +434,31 @@ def pois_v3():
 
 
     result = [poi.to_dict() for poi in result]
-        # r attr in ['id', 'lon', 'lat', 'title', 'location', 'categories']:
-        #     # result[attr] = getattr(self, attr)
-    for station in bbox_search(_FRA_CACHE, bounding_box.bottom, bounding_box.left,
-                               bounding_box.top, bounding_box.right):
-        station['id'] = slugify(u"{0}-{1}".format(station['name'], station['stationid']))
-        station['title'] = u"Tiehallinnon sääasema {0}".format(station['name'])
-        del station['name']
-        station['location'] = u"{0}, {0}".format(station['municipality'],
-                                                 station['fra_region'])
-        station['categories'] = ['weather_station']
-        result.append(station)
+
+    if 'weather_station' in cats_set:
+        if bounding_box:
+            stations = bbox_search(_FRA_CACHE, bounding_box.bottom, bounding_box.left,
+                                   bounding_box.top, bounding_box.right)
+        else:
+            stations = bbox_search(_FRA_CACHE, None, None, None, None)
+
+        for station in stations:
+            station['id'] = slugify(u"{0}-{1}".format(station['name'], station['stationid']))
+            station['title'] = u"Tiehallinnon sääasema {0}".format(station['name'])
+            del station['name']
+            station['location'] = u"{0}, {0}".format(station['municipality'],
+                                                     station['fra_region'])
+            station['categories'] = ['weather_station']
+            result.append(station)
 
     response.content_type = 'application/json'
     return json.dumps(result, ensure_ascii=False)
 
+@route('/api/v4/fra_status.json')
+def fra_status():
+    global _pois, _FRA_CACHE
+    response.content_type = 'application/json'
+    return json.dumps(fra_info(_FRA_CACHE), ensure_ascii=False)
 
 if __name__ == '__main__':
     from optparse import OptionParser
