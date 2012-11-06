@@ -28,6 +28,7 @@ $.each(locations, function(i, location) {
 			location.airtemperature1 = "+" + location.airtemperature1 + " &deg;C";
 		else
 			location.airtemperature1 = location.airtemperature1 + " &deg;C";
+		location.airtemperature1 = location.airtemperature1.replace(".", ",")
 		location.precipitation = "taukkis-weather-"+location.precipitation;
 	}
 
