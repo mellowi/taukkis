@@ -51,7 +51,7 @@ a.ui-btn:hover {
   border-bottom-style: none;
 }
 
-.taukkis .navbar-inverse .btn-navbar {
+.taukkis .navbar-inverse .btn-navbar, .taukkis .btn {
   color: #ffffff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   background-color: #3f3f2b;
@@ -94,6 +94,12 @@ a.ui-btn:hover {
   vertical-align: center;
   background-repeat: no-repeat;
   background-image: url('images/taukkis-logo.png');
+}
+
+/* FIXME: terqi mellowille ^__^ */
+.taukkis-buttons {
+  position: absolute;
+  right: 90px;
 }
 
 #destination-content, #error-content {

@@ -14,20 +14,16 @@
           <!-- <a href="#" data-icon="arrow-l" data-role="button" data-theme="a" class="left" data-rel="back">Back</a> -->
           <span class="taukkis-logo"></span>
 <% if(utils.route != null && utils.locations != null) { %>
+          <div class="taukkis-buttons">
+            <a class="btn" href="#route">
+              <i class="icon-map-marker icon-white"></i>
+            </a>
+            <a class="btn" href="#timeline">
+              <i class="icon-road icon-white"></i>
+            </a>
+          </div>
           <div class="nav-collapse">
             <ul class="nav nav-list">
-              <li class="nav-header">Näkymät</li>
-              <li>
-                <a href="#route">
-                  <i class="icon-road icon-white"></i> Reitti
-                </a>
-              </li>
-              <li>
-                <a href="#timeline">
-                  <i class="icon-time icon-white"></i> Aikajana
-                </a>
-              </li>
-              <li class="divider"></li>
               <li class="nav-header">Kategoriat</li>
   <% $.each(categorySettings, function(i, category) { %>
               <li>
@@ -37,6 +33,19 @@
               </li>
   <% }); %>
               <li class="divider"></li>
+              <li class="nav-header">Näkymät</li>
+              <li>
+                <a href="#route">
+                  <i class="icon-map-marker icon-white"></i> Reitti
+                </a>
+              </li>
+              <li>
+                <a href="#timeline">
+                  <i class="icon-road icon-white"></i> Aikajana
+                </a>
+              </li>
+              <li class="divider"></li>
+
               <li class="nav-header">Muut</li>
               <li>
                 <a href="#destination">
