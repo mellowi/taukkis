@@ -4,13 +4,8 @@ build @ ../apps4finlands-build
 
 LIBRARIES
 =========
-jquery
-backbone
-underscore (req. backbone)
-lodash (req. backbone <=> require.js)
-require.js
-modernizer
-twitter bootstrap
+front: modernizr, jquery, jquerymobile, jqueryqtip, underscore, backbone, bootstrap, text, CoffeeScript, openlayers, Google Maps, routeboxer, require, facebook
+back: sqlite3, suds, requests, coordinates.py, docopt, Osuma API
 
 BUILD TOOL
 ==========
