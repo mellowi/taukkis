@@ -23,7 +23,7 @@ $.each(locations, function(i, location) {
 	location.title = location.title.replace('"', "");
 
 	if(location.categories[0] == "weather_station") {
-		location.title = "Tiesää " + location.title;
+		location.title = "Tiesää " + location.municipality; // + " (tie " + location.road + ")";
 		if(location.airtemperature1 > 0)
 			location.airtemperature1 = "+" + location.airtemperature1 + " &deg;C";
 		else
