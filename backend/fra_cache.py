@@ -93,6 +93,7 @@ class RoadWeatherStation(object):
 
     ALLOW_MISSING = (
         'humidity',
+        'airtemperature1',
         'precipitation',
         'precipitationtype',
         'warning1',
