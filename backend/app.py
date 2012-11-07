@@ -255,7 +255,7 @@ def read_st1_stations(file):
     print(u"# Loaded {0} St1 stations!".format(len(result)), file=e8)
     return result
 
-def read_osuma_stuff(file, category):
+def read_osuma_csv(file, category):
     result = []
 
     with codecs.open(file, 'r', encoding='utf-8') as f:
@@ -502,7 +502,7 @@ if __name__ == '__main__':
     parser.add_option("--osuma-kiosks-file", dest="osuma_kiosks_file",
                       help="read Osuma kiosks from FILE", metavar="FILE", default="../data/osuma_kiosks.csv")
     parser.add_option("--osuma-sights-file", dest="osuma_sights_file",
-                      help="read Osuma sights from FILE", metavar="FILE", default="../data/osuma_sights.csv")
+                      help="read Osuma sights from FILE", metavar="FILE", default="../data/osuma_sights_curated.csv")
     parser.add_option("--rolls-file", dest="rolls_file",
                       help="read Rolls from FILE", metavar="FILE", default="../data/rollsit.csv")
     parser.add_option("--fra-cache", dest="fra_cache_file",
@@ -538,12 +538,12 @@ if __name__ == '__main__':
         traceback.print_exc()
 
     try:
-        _pois += read_osuma_stuff(opts.osuma_kiosks_file, "kiosk")
+        _pois += read_osuma_csv(opts.osuma_kiosks_file, "kiosk")
     except:
         traceback.print_exc()
 
     try:
-        _pois += read_osuma_stuff(opts.osuma_sights_file, "sight")
+        _pois += read_osuma_csv(opts.osuma_sights_file, "sight")
     except:
         traceback.print_exc()
 
