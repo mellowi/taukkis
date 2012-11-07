@@ -20,6 +20,7 @@ define [
 
       if type != "poi"
         views.header.render(@el)
+      utils.menuSelect("timeline")
       # TODO: update locations times here (everytime when rendered)
       # TODO: filter too old locations here
       locations = new Locations(utils.locations.filterOutCategories())

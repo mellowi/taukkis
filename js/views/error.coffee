@@ -12,6 +12,7 @@ define [
 
     render: (reason) ->
       views.header.render(@el)
+      utils.menuSelect("error")
       $("#" + @el.id + " div[data-role='content']").html(@template(reason: reason)).trigger("create")
 
 

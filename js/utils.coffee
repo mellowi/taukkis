@@ -71,8 +71,14 @@ utils.formatTime = (seconds) ->
   formattedTime += minutes + "min" if minutes >= 1
   return formattedTime
 
+
 utils.formatDistance = (distance) ->
   return "#{Math.round(distance)} km"
+
+
+utils.menuSelect = (page) ->
+  $(".taukkis-buttons a").removeClass("selected")
+  $(".taukkis-buttons .link-"+page).addClass("selected")
 
 # <span timer="<time in seconds>"></span>
 utils.updateTimer = () ->
@@ -95,9 +101,11 @@ utils.updateTimer = () ->
     if(prevTimeStr != curTimeStr)
       $(el).html(curTimeStr)
 
+
 utils.initFail = () ->
   utils.app.navigate("#destination", true, true)
   return
+
 
 utils.init = () ->
   return  if utils.initialized

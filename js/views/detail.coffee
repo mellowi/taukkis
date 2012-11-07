@@ -40,6 +40,7 @@ define [
         return
 
       views.header.render(@el)
+      utils.menuSelect("detail")
 
       @pois = new Locations(utils.locations.getById(id)).models
       if(@pois.length != 1)

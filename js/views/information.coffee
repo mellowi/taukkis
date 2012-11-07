@@ -12,6 +12,7 @@ define [
 
     render: ->
       views.header.render(@el)
+      utils.menuSelect("information")
       $("#" + @el.id + " div[data-role='content']").html(@template()).trigger("create")
 
 

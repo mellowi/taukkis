@@ -22,6 +22,7 @@ define [
     render: ->
       @getLocation()
       views.header.render(@el)
+      utils.menuSelect("destination")
       $("#" + @el.id + " div[data-role='content']").html(@template()).trigger("create")
 
 

@@ -19,6 +19,7 @@ define [
 
       if type != "poi"
         views.header.render(@el)
+      utils.menuSelect("route")
 
       @updateMap()
       @clearRoute()
@@ -30,6 +31,7 @@ define [
         @rendered = true;
         @renderRoute(true)
       @renderPois()
+
 
 
     renderPois: ->
