@@ -57,12 +57,21 @@ define [
       # get the first of the municipality
       @models.filter (model) =>
         return true if model.get("categories")[0] != "weather_station"
-        console.log model
         matches = @where(
           municipality: model.get("municipality")
         )
         return true if (matches.length == 1)
-        return true if (matches.length > 1 && model.cid == matches[0]["cid"])
+
+        if (matches.length > 1)
+          select = null
+          warning = 0
+          $.each matches, (i, match) -> # get highest warning num
+            if(warning < match.get("warning1"))
+              warning = match.get("warning1")
+              select = i
+          return true if (!select && model.cid == matches[0]["cid"])
+          return true if (select && model.cid == matches[select]["cid"])
+
         return false
 
     filterCategory: (category) ->
