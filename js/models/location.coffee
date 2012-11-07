@@ -10,7 +10,7 @@ define ["cs!models/route"], (Route) ->
 
     # http://www.infotripla.fi/digitraffic/docs/Meta_RWS_sensors.pdf
     initWeather: ->
-      console.log @get("municipality")
+      #console.log @get("municipality")
       #console.log weatherCodes[@get("precipitation")]
       #console.log weatherCodes[@get("precipitationtype")]
       #console.log weatherRoadCodes[@get("roadsurfaceconditions1")]

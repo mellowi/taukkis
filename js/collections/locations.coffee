@@ -56,8 +56,12 @@ define [
     filterWeatherStations: () ->
       # get the first of the municipality
       @models.filter (model) =>
-        matches = @where({municipality: model.get("municipality")});
-        return true if (matches.length == 1 )
+        return true if model.get("categories")[0] != "weather_station"
+        console.log model
+        matches = @where(
+          municipality: model.get("municipality")
+        )
+        return true if (matches.length == 1)
         return true if (matches.length > 1 && model.cid == matches[0]["cid"])
         return false
 
