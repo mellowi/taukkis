@@ -44,7 +44,7 @@ define [
 
 
     removeTooltips: ->
-      if(@mapElement == "map")
+      if(@mapElement == "map" && utils.map != null)
         utils.map.removeTooltips()
 
 
