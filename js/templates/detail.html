@@ -15,6 +15,20 @@ $.each(location.categories, function(j, category) { %>
 <% });} %>
 			</ul>
 		</div>
+<% if(!_.isUndefined(location.data_provider)) { %>
+		<div class="data_provider">
+			Datalähde:
+			<% if(location.data_provider == "fonecta_osuma") { %>
+				Fonecta Osuma
+			<% } else if (location.data_provider == "oiva") { %>
+				OIVA - Ympäristö- ja paikkatietopalvelu
+			<% } else if (location.data_provider == "st1") { %>
+				ST1
+			<% } else if (location.data_provider == "rolls") { %>
+				Rolls
+			<% } %>
+		</div>
+<% } %>
 	</div>
 
 <!--

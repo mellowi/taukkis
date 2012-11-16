@@ -111,7 +111,7 @@ class POIWithCategories(POIBase):
     allowed_categories = set(["gas_station", "cafe", "kiosk", "sight", "fast_food",
                               "restaurant", "swimming_place", "leisure", "weather_station"])
 
-    def __init__(self, id, lon, lat, title, location, categories):
+    def __init__(self, id, lon, lat, title, location, categories, data_provider=None):
         super(POIWithCategories, self).__init__(id, lon, lat, title, location)
         assert(not isinstance(categories, basestring))
 
@@ -119,10 +119,11 @@ class POIWithCategories(POIBase):
             assert(cat in self.__class__.allowed_categories)
 
         self.categories = categories
+        self.data_provider = data_provider
 
     def to_dict(self):
         result = {}
-        for attr in ['id', 'lon', 'lat', 'title', 'location', 'categories']:
+        for attr in ['id', 'lon', 'lat', 'title', 'location', 'categories', 'data_provider']:
             result[attr] = getattr(self, attr)
         return result
 
@@ -162,7 +163,7 @@ def read_swimming_places(file):
                 p = POIWithCategories(slugify(u"{0}, {1}".format(row[1], row[0])),
                                       float(row[5]), float(row[4]),
                                       row[1], row[0],
-                                      ['swimming_place'])
+                                      ['swimming_place'], "oiva")
                 result.append(p)
         except csv.Error, e:
             print(e, file=e8)
@@ -183,7 +184,7 @@ def read_leisure_places(file):
                 p = POIWithCategories(slugify(row[1]),
                                       float(row[5]), float(row[4]),
                                       row[1] + u", " + row[0], u"",
-                                      ['leisure'])
+                                      ['leisure'], "oiva")
                 result.append(p)
         except csv.Error, e:
             print(e, file=e8)
@@ -211,7 +212,7 @@ def read_rolls(file):
                                   float(parts[1].strip('"')),
                                   float(parts[0].strip('"')),
                                   unicode(parts[3].strip('"')) + u", " + unicode(parts[2].strip('"')), "",
-                                  ['fast_food']))
+                                  ['fast_food'], "rolls"))
 
     print(u"# Loaded {0} spots de Rolls!".format(len(result)), file=e8)
     return result
@@ -250,7 +251,7 @@ def read_st1_stations(file):
                 result.append(POIWithCategories(slugify(name),
                                                 float(parts[1].strip('"').strip(" ")),
                                                 float(parts[0].strip('"').strip(" ")),
-                                                name, "", categories))
+                                                name, "", categories, "st1"))
 
     print(u"# Loaded {0} St1 stations!".format(len(result)), file=e8)
     return result
@@ -269,7 +270,7 @@ def read_osuma_csv(file, category):
                 p = POIWithCategories(slugify(u"{0}, {1}".format(row[2],
                                                                  location_string)),
                                       float(row[1]), float(row[0]),
-                                      row[2], row[4], [category])
+                                      row[2], row[4], [category], "fonecta_osuma")
                 result.append(p)
         except csv.Error, e:
             print(e, file=e8)
