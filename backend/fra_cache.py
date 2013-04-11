@@ -18,19 +18,26 @@ import codecs
 import json
 import sys
 import sqlite3
+import logging
 from datetime import datetime
 from os import environ as env
 from coordinates import Str_to_CoordinateValue
 from docopt import docopt
 from utils import *
 
+o8 = codecs.getwriter('utf-8')(sys.stdout)
+e8 = codecs.getwriter('utf-8')(sys.stderr)
+
 try:
     from suds.client import Client
+    suds_logger = logging.getLogger('suds')
+    suds_logger.setLevel(logging.INFO)
+    suds_handler = logging.StreamHandler(stream=e8)
+    suds_handler.setLevel(logging.INFO)
+    suds_logger.addHandler(suds_handler)
 except ImportError, ie:
     print("! Cannot import suds, unable to build database!", file=e8)
 
-o8 = codecs.getwriter('utf-8')(sys.stdout)
-e8 = codecs.getwriter('utf-8')(sys.stderr)
 
 URL = "http://stp.gofore.com/sujuvuus/ws/roadWeather?wsdl"
 
