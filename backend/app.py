@@ -459,11 +459,14 @@ def pois_v4():
     result = [poi.to_dict() for poi in result]
 
     if 'weather_station' in cats_set:
+        stations = []
         if bounding_box:
-            stations = bbox_search(_FRA_CACHE, bounding_box.bottom, bounding_box.left,
-                                   bounding_box.top, bounding_box.right)
+            pass
+            # stations = bbox_search(_FRA_CACHE, bounding_box.bottom, bounding_box.left,
+            #                        bounding_box.top, bounding_box.right)
         else:
-            stations = bbox_search(_FRA_CACHE, None, None, None, None)
+            pass
+            # stations = bbox_search(_FRA_CACHE, None, None, None, None)
 
         for station in stations:
             station['id'] = slugify(u"{0}-{1}".format(station['name'], station['stationid']))
